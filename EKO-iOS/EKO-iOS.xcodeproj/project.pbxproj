@@ -48,7 +48,7 @@
 		3D2C9E332DE5E388009DAE77 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		3D2C9E372DE5F460009DAE77 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		3D2C9EC32DE5F4FB009DAE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3D2C9EC32DE5F4FB009DAE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D2C9EC42DE5F539009DAE77 /* ExampleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleService.swift; sourceTree = "<group>"; };
 		3D2C9ECB2DE5F665009DAE77 /* LearningNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningNoteView.swift; sourceTree = "<group>"; };
 		3D2C9ECD2DE5F68A009DAE77 /* RecordingRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRequestView.swift; sourceTree = "<group>"; };
@@ -111,7 +111,6 @@
 		3D2C9E282DE5E0A0009DAE77 /* EKO-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				3D2C9EC32DE5F4FB009DAE77 /* Info.plist */,
 				3D2C9E262DE5E0A0009DAE77 /* EKO_iOS.entitlements */,
 				3D2C9E2D2DE5E155009DAE77 /* Application */,
 				3D2C9E302DE5E20A009DAE77 /* Core */,
@@ -155,6 +154,7 @@
 		3D2C9E302DE5E20A009DAE77 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3D2C9F072DE60C29009DAE77 /* Supporting Files */,
 				3D2C9E322DE5E256009DAE77 /* Resources */,
 				3D2C9E312DE5E24D009DAE77 /* Extensions */,
 			);
@@ -360,6 +360,14 @@
 				3D2C9F032DE5FA85009DAE77 /* AddFriendModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3D2C9F072DE60C29009DAE77 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3D2C9EC32DE5F4FB009DAE77 /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -621,7 +629,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "EKO-iOS/Info.plist";
+				INFOPLIST_FILE = "EKO-iOS/Core/Supporting Files/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -661,7 +669,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "EKO-iOS/Info.plist";
+				INFOPLIST_FILE = "EKO-iOS/Core/Supporting Files/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
