@@ -1,0 +1,12 @@
+{
+  "sourceLanguage" : "ko",
+  "strings" : {
+    "Hello, world!" : {
+
+    },
+    "Hello, World!" : {
+
+    }
+  },
+  "version" : "1.0"
+}
