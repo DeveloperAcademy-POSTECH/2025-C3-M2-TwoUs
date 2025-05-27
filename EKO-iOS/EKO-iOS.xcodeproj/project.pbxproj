@@ -36,6 +36,9 @@
 		3D2C9EFD2DE5FA53009DAE77 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9EFC2DE5FA53009DAE77 /* ProfileModel.swift */; };
 		3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F012DE5FA7F009DAE77 /* AddFriendSubViews.swift */; };
 		3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F032DE5FA85009DAE77 /* AddFriendModel.swift */; };
+		3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F092DE60F75009DAE77 /* AppRoute.swift */; };
+		3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */; };
+		3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +74,9 @@
 		3D2C9EFC2DE5FA53009DAE77 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		3D2C9F012DE5FA7F009DAE77 /* AddFriendSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendSubViews.swift; sourceTree = "<group>"; };
 		3D2C9F032DE5FA85009DAE77 /* AddFriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendModel.swift; sourceTree = "<group>"; };
+		3D2C9F092DE60F75009DAE77 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
+		3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */,
+				3D2C9F082DE60F58009DAE77 /* Coordinator */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -370,6 +377,16 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3D2C9F082DE60F58009DAE77 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3D2C9F092DE60F75009DAE77 /* AppRoute.swift */,
+				3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */,
+				3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -475,11 +492,13 @@
 				3D2C9ED62DE5F6E7009DAE77 /* RecordingRequestViewModel.swift in Sources */,
 				3D2C9ED42DE5F6A6009DAE77 /* AddFriendView.swift in Sources */,
 				3D2C9EFB2DE5FA4B009DAE77 /* ProfileSubViews.swift in Sources */,
+				3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */,
 				3D2C9EF42DE5FA08009DAE77 /* LearningNoteModel.swift in Sources */,
 				3D2C9EF22DE5F9D8009DAE77 /* MainView.swift in Sources */,
 				3D2C9ED22DE5F69E009DAE77 /* ProfileView.swift in Sources */,
 				3D2C9E382DE5F460009DAE77 /* Date+.swift in Sources */,
 				3D2C9EF62DE5FA13009DAE77 /* LearningNoteSubViews.swift in Sources */,
+				3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */,
 				3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */,
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
 				3D2C9EE52DE5F926009DAE77 /* RecordingRequestSubView.swift in Sources */,
@@ -493,6 +512,7 @@
 				3D2C9EFD2DE5FA53009DAE77 /* ProfileModel.swift in Sources */,
 				3D2C9EDC2DE5F743009DAE77 /* ProfileViewModel.swift in Sources */,
 				3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */,
+				3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */,
 				3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

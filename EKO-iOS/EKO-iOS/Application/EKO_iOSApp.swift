@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct EKO_iOSApp: App {
+    @StateObject private var coordinator = AppCoordinator()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootNavigationView()
+                .environmentObject(coordinator)
         }
     }
 }
