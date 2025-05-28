@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject private var coordinator: AppCoordinator
+
     var body: some View {
         Text("Main!")
     }
