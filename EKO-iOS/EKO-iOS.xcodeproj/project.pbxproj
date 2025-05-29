@@ -39,6 +39,11 @@
 		3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F092DE60F75009DAE77 /* AppRoute.swift */; };
 		3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */; };
 		3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */; };
+		3DF3254E2DE74BA100F9F3F9 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */; };
+		3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */; };
+		3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */; };
+		3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */; };
+		3DF325532DE74CB300F9F3F9 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325522DE74CB300F9F3F9 /* Font+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +83,11 @@
 		3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 		3D2C9F0F2DE61521009DAE77 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		3DF325522DE74CB300F9F3F9 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2C9E372DE5F460009DAE77 /* Date+.swift */,
+				3DF325522DE74CB300F9F3F9 /* Font+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -181,9 +192,8 @@
 		3D2C9E322DE5E256009DAE77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */,
-				3D2C9E332DE5E388009DAE77 /* Colors.xcassets */,
-				3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */,
+				3D2C9F112DE74AEC009DAE77 /* Fonts */,
+				3D2C9F102DE74AD5009DAE77 /* Assets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -389,6 +399,27 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		3D2C9F102DE74AD5009DAE77 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */,
+				3D2C9E332DE5E388009DAE77 /* Colors.xcassets */,
+				3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		3D2C9F112DE74AEC009DAE77 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */,
+				3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */,
+				3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */,
+				3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -452,6 +483,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF3254E2DE74BA100F9F3F9 /* Pretendard-Regular.otf in Resources */,
+				3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */,
+				3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */,
+				3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */,
 				3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */,
 				3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */,
 				3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */,
@@ -509,6 +544,7 @@
 				3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */,
 				3D2C9ECE2DE5F68A009DAE77 /* RecordingRequestView.swift in Sources */,
 				3D2C9EDA2DE5F739009DAE77 /* LearningNoteViewModel.swift in Sources */,
+				3DF325532DE74CB300F9F3F9 /* Font+.swift in Sources */,
 				3D2C9EC52DE5F539009DAE77 /* ExampleService.swift in Sources */,
 				3D2C9EFD2DE5FA53009DAE77 /* ProfileModel.swift in Sources */,
 				3D2C9EDC2DE5F743009DAE77 /* ProfileViewModel.swift in Sources */,
@@ -647,7 +683,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EKO-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = R9WPZ5669L;
+				DEVELOPMENT_TEAM = JF6B89ULG6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -689,7 +725,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EKO-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = R9WPZ5669L;
+				DEVELOPMENT_TEAM = JF6B89ULG6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
