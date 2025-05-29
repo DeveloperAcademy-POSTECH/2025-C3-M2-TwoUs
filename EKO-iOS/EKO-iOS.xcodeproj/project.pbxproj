@@ -80,6 +80,14 @@
 		3D2C9F0F2DE61521009DAE77 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6D38FE992DE7FE6F008F5361 /* Dummy Voice */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Dummy Voice";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		3D2C9E0D2DE5E031009DAE77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -181,6 +189,7 @@
 		3D2C9E322DE5E256009DAE77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6D38FE992DE7FE6F008F5361 /* Dummy Voice */,
 				3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */,
 				3D2C9E332DE5E388009DAE77 /* Colors.xcassets */,
 				3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */,
@@ -404,6 +413,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6D38FE992DE7FE6F008F5361 /* Dummy Voice */,
 			);
 			name = "EKO-iOS";
 			packageProductDependencies = (
