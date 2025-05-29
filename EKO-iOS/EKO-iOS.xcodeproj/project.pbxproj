@@ -43,6 +43,7 @@
 		3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */; };
 		3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */; };
 		3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */; };
+		3DF325532DE74CB300F9F3F9 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325522DE74CB300F9F3F9 /* Font+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		3DF325522DE74CB300F9F3F9 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2C9E372DE5F460009DAE77 /* Date+.swift */,
+				3DF325522DE74CB300F9F3F9 /* Font+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -410,9 +413,9 @@
 			isa = PBXGroup;
 			children = (
 				3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */,
+				3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */,
 				3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */,
 				3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */,
-				3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */,
 				3D2C9ECE2DE5F68A009DAE77 /* RecordingRequestView.swift in Sources */,
 				3D2C9EDA2DE5F739009DAE77 /* LearningNoteViewModel.swift in Sources */,
+				3DF325532DE74CB300F9F3F9 /* Font+.swift in Sources */,
 				3D2C9EC52DE5F539009DAE77 /* ExampleService.swift in Sources */,
 				3D2C9EFD2DE5FA53009DAE77 /* ProfileModel.swift in Sources */,
 				3D2C9EDC2DE5F743009DAE77 /* ProfileViewModel.swift in Sources */,
