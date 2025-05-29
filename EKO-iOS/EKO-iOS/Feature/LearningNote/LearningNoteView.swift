@@ -19,7 +19,7 @@ enum NoteFilter: String, CaseIterable, Identifiable {
 struct LearningNoteView: View {
     @State private var filter: NoteFilter = .all
     @State private var notes: [LearningNote] = LearningNote.dummyData
-    @State private var editingNoteId: UUID? = nil
+    @State private var editingNoteId: UUID?
     @State private var newTitle: String = ""
 
     var filteredNotes: [LearningNote] {

@@ -71,10 +71,10 @@ struct LearningNoteSubView: View {
                             .font(.headline)
                         Button(action: {
                             onStartEditing()
-                        }) {
+                        }, label: {
                             Image(systemName: "pencil")
                                 .foregroundStyle(.blue)
-                        }
+                        })
                         .buttonStyle(.plain)
                     }
 
@@ -84,20 +84,20 @@ struct LearningNoteSubView: View {
                     // voice1 버튼
                     Button(action: {
                         playVoice(fileName: note.voice1)
-                    }) {
+                    }, label: {
                         Image(systemName: "play.circle.fill")
                             .font(.title2)
-                    }
+                    })
                     .buttonStyle(.plain)
 
                     // voice2 버튼(없으면 placeholder)
                     if let voice2 = note.voice2, !voice2.isEmpty {
                         Button(action: {
                             playVoice(fileName: voice2)
-                        }) {
+                        }, label: {
                             Image(systemName: "play.circle")
                                 .font(.title2)
-                        }
+                        })
                         .buttonStyle(.plain)
                         .frame(width: 32, height: 32)
                         .padding(.leading, 4)
@@ -112,11 +112,11 @@ struct LearningNoteSubView: View {
             Spacer(minLength: 12)
             Button(action: {
                 onToggleFavorite()
-            }) {
+            }, label: {
                 Image(systemName: note.isFavorite ? "star.circle.fill" : "star.circle")
                     .foregroundStyle(note.isFavorite ? .yellow : .gray)
                     .font(.title2)
-            }
+            })
             .buttonStyle(.plain)
             .padding(.top, -40)
         }
