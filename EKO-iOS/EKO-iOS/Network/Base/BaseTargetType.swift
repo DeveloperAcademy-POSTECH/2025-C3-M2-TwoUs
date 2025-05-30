@@ -10,9 +10,10 @@ import Moya
 
 enum UtilPath: String {
     case feedback = "feedback"
-    case note = "note"
+    case note = "notes"
+    case notification = "notifications"
     case session = "sessions"
-    case user = "user"
+    case user = "users"
 }
 
 protocol BaseTargetType: TargetType {
@@ -32,16 +33,6 @@ extension BaseTargetType {
         
     var headers: [String: String]? {
         return ["Content-Type": "application/json"]
-    }
-    
-    var task: Task {
-        if let queryParameter {
-            return .requestParameters(parameters: queryParameter, encoding: URLEncoding.default)
-        }
-        if let requestBodyParameter {
-            return .requestJSONEncodable(requestBodyParameter)
-        }
-        return .requestPlain
     }
     
     var sampleData: Data {

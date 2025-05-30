@@ -64,6 +64,10 @@
 		3DF3260D2DE895B100F9F3F9 /* UserTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3260C2DE895B100F9F3F9 /* UserTargetType.swift */; };
 		3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3260E2DE8965600F9F3F9 /* UserAPIService.swift */; };
 		3DF326192DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF326182DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift */; };
+		3DF3272F2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3272E2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift */; };
+		3DF327352DE9A9E400F9F3F9 /* NotificationTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */; };
+		3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */; };
+		3DF327392DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +128,10 @@
 		3DF3260C2DE895B100F9F3F9 /* UserTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTargetType.swift; sourceTree = "<group>"; };
 		3DF3260E2DE8965600F9F3F9 /* UserAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIService.swift; sourceTree = "<group>"; };
 		3DF326182DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSendQuestionResponseDTO.swift; sourceTree = "<group>"; };
+		3DF3272E2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartQuestionResponseDTO.swift; sourceTree = "<group>"; };
+		3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTargetType.swift; sourceTree = "<group>"; };
+		3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPIService.swift; sourceTree = "<group>"; };
+		3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartQuestionRequestDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +216,7 @@
 				3DF325FB2DE8948800F9F3F9 /* Base */,
 				3DF325682DE7FE5700F9F3F9 /* Feedback */,
 				3DF325672DE7FE5300F9F3F9 /* Note */,
+				3DF327302DE9A98800F9F3F9 /* Notification */,
 				3DF325662DE7FE4A00F9F3F9 /* Session */,
 				3DF325652DE7FE3D00F9F3F9 /* User */,
 			);
@@ -587,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				3DF326182DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift */,
+				3DF3272E2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -594,6 +604,7 @@
 		3DF326152DE9867800F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -606,6 +617,39 @@
 			sourceTree = "<group>";
 		};
 		3DF326172DE9867F00F9F3F9 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		3DF327302DE9A98800F9F3F9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				3DF327312DE9A9CB00F9F3F9 /* DTO */,
+				3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */,
+				3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		3DF327312DE9A9CB00F9F3F9 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				3DF327332DE9A9D700F9F3F9 /* Request */,
+				3DF327322DE9A9D200F9F3F9 /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		3DF327322DE9A9D200F9F3F9 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		3DF327332DE9A9D700F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -730,12 +774,14 @@
 				3DF3255E2DE7FDD400F9F3F9 /* BaseTargetType.swift in Sources */,
 				3D2C9EFB2DE5FA4B009DAE77 /* ProfileSubViews.swift in Sources */,
 				3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */,
+				3DF3272F2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift in Sources */,
 				3D2C9EF42DE5FA08009DAE77 /* LearningNoteModel.swift in Sources */,
 				3DF326012DE8951F00F9F3F9 /* FeedbackTargetType.swift in Sources */,
 				3D2C9EF22DE5F9D8009DAE77 /* MainView.swift in Sources */,
 				3D2C9ED22DE5F69E009DAE77 /* ProfileView.swift in Sources */,
 				3D2C9E382DE5F460009DAE77 /* Date+.swift in Sources */,
 				3D2C9EF62DE5FA13009DAE77 /* LearningNoteSubViews.swift in Sources */,
+				3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */,
 				3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */,
 				3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */,
 				3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */,
@@ -744,6 +790,8 @@
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
 				3DF3260D2DE895B100F9F3F9 /* UserTargetType.swift in Sources */,
 				3D2C9ED02DE5F696009DAE77 /* RecordingResponseView.swift in Sources */,
+				3DF327392DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift in Sources */,
+				3DF327352DE9A9E400F9F3F9 /* NotificationTargetType.swift in Sources */,
 				3D2C9EEA2DE5F96C009DAE77 /* RecordingResponseModel.swift in Sources */,
 				3DF326192DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift in Sources */,
 				3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */,
