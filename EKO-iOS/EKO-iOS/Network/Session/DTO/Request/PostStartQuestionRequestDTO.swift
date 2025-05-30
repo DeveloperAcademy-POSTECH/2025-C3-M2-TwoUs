@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PostStartQuestionRequestDTO: Decodable {
+struct PostStartQuestionRequestDTO: Encodable {
     let senderUserId: String
     let receiverUserId: String
     let audioFileURL: URL
