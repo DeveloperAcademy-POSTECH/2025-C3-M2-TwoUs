@@ -134,6 +134,15 @@
 		3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartQuestionRequestDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+
+		0F49DC812DE741DC007C15C7 /* Utils */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		3D2C9E0D2DE5E031009DAE77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -226,6 +235,7 @@
 		3D2C9E302DE5E20A009DAE77 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0F49DC812DE741DC007C15C7 /* Utils */,
 				3D2C9F072DE60C29009DAE77 /* Supporting Files */,
 				3D2C9E322DE5E256009DAE77 /* Resources */,
 				3D2C9E312DE5E24D009DAE77 /* Extensions */,
@@ -672,6 +682,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				0F49DC812DE741DC007C15C7 /* Utils */,
+			);
 			name = "EKO-iOS";
 			packageProductDependencies = (
 				3DF325552DE7FC1000F9F3F9 /* CombineMoya */,
@@ -949,11 +962,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EKO-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = JF6B89ULG6;
+				DEVELOPMENT_TEAM = R9WPZ5669L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "EKO-iOS/Core/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "<key>NSMicrophoneUsageDescription</key>\n<string>이 앱은 음성 녹음을 위해 마이크 접근이 필요합니다.</string>";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -969,7 +983,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Team.TwoUs.EKO-iOS.EKO-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "TeamTwoUs.EKO-iOS.EKO-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -992,11 +1006,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EKO-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = JF6B89ULG6;
+				DEVELOPMENT_TEAM = R9WPZ5669L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "EKO-iOS/Core/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "<key>NSMicrophoneUsageDescription</key>\n<string>이 앱은 음성 녹음을 위해 마이크 접근이 필요합니다.</string>";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1012,7 +1027,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Team.TwoUs.EKO-iOS.EKO-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "TeamTwoUs.EKO-iOS.EKO-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
