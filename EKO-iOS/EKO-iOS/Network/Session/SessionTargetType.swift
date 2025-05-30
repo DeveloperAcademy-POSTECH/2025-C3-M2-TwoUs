@@ -15,8 +15,8 @@ enum SessionTargetType {
 
 extension SessionTargetType: BaseTargetType {
     var headerType: [String: String]? { return ["Content-Type": "application/json"] }
-    var utilPath: UtilPath { .user }
-    var pathParameter: String? { .none }
+    var utilPath: UtilPath { return .session }
+    var pathParameter: String? { return .none }
     
     var queryParameter: [String: Any]? {
         switch self {

@@ -11,7 +11,7 @@ import Moya
 enum UtilPath: String {
     case feedback = "feedback"
     case note = "note"
-    case session = "session"
+    case session = "sessions"
     case user = "user"
 }
 
