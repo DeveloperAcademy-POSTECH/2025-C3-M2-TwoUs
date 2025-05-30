@@ -7,11 +7,40 @@
 
 import SwiftUI
 
+enum MainTab {
+    case request
+    case response
+}
+
 struct MainView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
-
+    
+    @State private var selectedTab: MainTab = .request
+    
     var body: some View {
-        Text("Main!")
+        VStack {
+            Picker("선택", selection: $selectedTab) {
+                Text("요청").tag(MainTab.request)
+                Text("응답").tag(MainTab.response)
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal)
+            .padding(.top, 16)
+
+            Spacer().frame(height: 16)
+
+            Group {
+                switch selectedTab {
+                case .request:
+                    RecordingRequestView()
+                case .response:
+                    RecordingResponseView()
+                }
+            }
+
+            Spacer()
+        }
+        .padding()
     }
 }
 

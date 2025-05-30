@@ -29,4 +29,5 @@ struct RootNavigationView: View {
 
 #Preview {
     RootNavigationView()
+        .environmentObject(AppCoordinator())
 }
