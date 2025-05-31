@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-protocol S3APIServiceProtocol{
+protocol S3APIServiceProtocol {
     func fetchS3DownloadURL(s3Key: String) async throws -> [FetchS3DownloadURLResposeDTO]
 }
 

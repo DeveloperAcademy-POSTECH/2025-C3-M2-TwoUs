@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-enum S3TargetType{
+enum S3TargetType {
     case fetchS3DownloadURL(s3Key: String)
 }
 
@@ -16,14 +16,14 @@ extension S3TargetType: BaseTargetType {
     var utilPath: UtilPath { return .s3 }
     var pathParameter: String? { return .none }
     
-    var headerType: [String: String?]{
+    var headerType: [String: String?] {
         switch self {
         case .fetchS3DownloadURL:
             return ["Content-Type": "application/json"]
         }
     }
     
-    var queryParameter: [String : Any]? {
+    var queryParameter: [String: Any]? {
         switch self {
         case .fetchS3DownloadURL(let s3Key):
             return ["s3Key": s3Key]
@@ -38,7 +38,7 @@ extension S3TargetType: BaseTargetType {
     
     var path: String {
         switch self {
-        case .fetchS3DownloadURL: return utilPath.rawValue + "presign"
+        case .fetchS3DownloadURL: return utilPath.rawValue + "/presign"
         }
     }
     
@@ -52,7 +52,7 @@ extension S3TargetType: BaseTargetType {
         switch self {
         case let .fetchS3DownloadURL(s3Key):
             return .requestParameters(parameters: ["s3Key": s3Key],
-                                      encoding: JSONEncoding.default)
+                                      encoding: URLEncoding.default)
         }
     }
 }

@@ -60,7 +60,7 @@ extension FeedbackTargetType: BaseTargetType {
         switch self {
         case let .fetchSendFeedback(receiverUserId):
             return .requestParameters(parameters: ["receiverUserId": receiverUserId],
-                                      encoding: JSONEncoding.default)
+                                      encoding: URLEncoding.default)
         case let .postStartFeedback(model):
             var multipart: [MultipartFormData] = []
             
