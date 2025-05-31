@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct FetchS3DownloadURLResposeDTO: Decodable {
+    let url: String
+}
