@@ -14,6 +14,7 @@ enum UtilPath: String {
     case notification = "notifications"
     case session = "sessions"
     case user = "users"
+    case s3 = "s3"
 }
 
 protocol BaseTargetType: TargetType {
