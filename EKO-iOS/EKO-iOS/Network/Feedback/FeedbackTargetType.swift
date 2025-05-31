@@ -92,14 +92,14 @@ extension FeedbackTargetType: BaseTargetType {
                 )
             )
             
-            multipart.append(
-                MultipartFormData(
-                    provider: .file(model.feedbackFileURL),
+            if model.status == "Bad", let fileURL = model.feedbackFileURL {
+                multipart.append(MultipartFormData(
+                    provider: .file(fileURL),
                     name: "feedbackFile",
-                    fileName: model.feedbackFileURL.lastPathComponent,
+                    fileName: fileURL.lastPathComponent,
                     mimeType: "audio/m4a"
-                )
-            )
+                ))
+            }
             
             return .uploadMultipart(multipart)
         }

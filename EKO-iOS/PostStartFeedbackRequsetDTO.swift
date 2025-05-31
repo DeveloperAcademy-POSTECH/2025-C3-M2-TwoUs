@@ -12,5 +12,5 @@ struct PostStartFeedbackRequsetDTO: Encodable {
     let receiverUserId: String
     let sessionId: String
     let status: String
-    let feedbackFileURL: URL
+    let feedbackFileURL: URL?
 }
