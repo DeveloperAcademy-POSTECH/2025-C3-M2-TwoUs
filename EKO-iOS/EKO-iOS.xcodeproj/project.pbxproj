@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09F425162DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */; };
+		09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */; };
+		09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */; };
+		09F4251E2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4251D2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift */; };
+		09F4251F2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4251B2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift */; };
+		09F425202DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4251C2DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift */; };
+		09F425252DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425242DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift */; };
+		09F425262DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425222DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift */; };
+		09F425272DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425212DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift */; };
+		09F425282DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425232DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift */; };
+		09F4252A2DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425292DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift */; };
+		09F4252C2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4252B2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift */; };
+		09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425322DEBC34D00850CDB /* S3TargetType.swift */; };
+		09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */; };
+		09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425312DEBC34D00850CDB /* S3APIService.swift */; };
 		3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */; };
 		3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */; };
 		3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E252DE5E0A0009DAE77 /* ContentView.swift */; };
@@ -71,6 +86,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartFeedbackRequsetDTO.swift; sourceTree = "<group>"; };
+		09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSendFeedbackResponseDTO.swift; sourceTree = "<group>"; };
+		09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartFeedbackResponseDTO.swift; sourceTree = "<group>"; };
+		09F4251B2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFeedbackNoteRequestDTO.swift; sourceTree = "<group>"; };
+		09F4251C2DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchNoteFavoriteRequestDTO.swift; sourceTree = "<group>"; };
+		09F4251D2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchNoteTitleRequestDTO.swift; sourceTree = "<group>"; };
+		09F425212DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFeedbackNoteResponseDTO.swift; sourceTree = "<group>"; };
+		09F425222DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeedbackNotesResponseDTO.swift; sourceTree = "<group>"; };
+		09F425232DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchFeedbackNoteFavoriteResponseDTO.swift; sourceTree = "<group>"; };
+		09F425242DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchFeedbackNoteTitleResponseDTO.swift; sourceTree = "<group>"; };
+		09F425292DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDeviceTokenRequestDTO.swift; sourceTree = "<group>"; };
+		09F4252B2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDeviceTokenResponseDTO.swift; sourceTree = "<group>"; };
+		09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchS3DownloadURLResposeDTO.swift; sourceTree = "<group>"; };
+		09F425312DEBC34D00850CDB /* S3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3APIService.swift; sourceTree = "<group>"; };
+		09F425322DEBC34D00850CDB /* S3TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TargetType.swift; sourceTree = "<group>"; };
 		3D2C9E102DE5E031009DAE77 /* EKO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EKO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,6 +187,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09F4252D2DEBC34D00850CDB /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		09F4252F2DEBC34D00850CDB /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		09F425302DEBC34D00850CDB /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				09F4252D2DEBC34D00850CDB /* Request */,
+				09F4252F2DEBC34D00850CDB /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		09F425332DEBC34D00850CDB /* S3 */ = {
+			isa = PBXGroup;
+			children = (
+				09F425302DEBC34D00850CDB /* DTO */,
+				09F425312DEBC34D00850CDB /* S3APIService.swift */,
+				09F425322DEBC34D00850CDB /* S3TargetType.swift */,
+			);
+			path = S3;
+			sourceTree = "<group>";
+		};
 		3D2C9E072DE5E031009DAE77 = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +285,7 @@
 		3D2C9E2F2DE5E1F7009DAE77 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				09F425332DEBC34D00850CDB /* S3 */,
 				3DF325FB2DE8948800F9F3F9 /* Base */,
 				3DF325682DE7FE5700F9F3F9 /* Feedback */,
 				3DF325672DE7FE5300F9F3F9 /* Note */,
@@ -576,6 +641,7 @@
 		3DF326102DE9863E00F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -583,6 +649,8 @@
 		3DF326112DE9864500F9F3F9 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */,
+				09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -590,6 +658,10 @@
 		3DF326122DE9865F00F9F3F9 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				09F425212DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift */,
+				09F425222DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift */,
+				09F425232DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift */,
+				09F425242DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -597,6 +669,9 @@
 		3DF326132DE9866400F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				09F4251B2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift */,
+				09F4251C2DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift */,
+				09F4251D2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -654,6 +729,7 @@
 		3DF327322DE9A9D200F9F3F9 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				09F4252B2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -661,6 +737,7 @@
 		3DF327332DE9A9D700F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				09F425292DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -782,6 +859,15 @@
 				3D2C9EDE2DE5F74E009DAE77 /* AddFriendViewModel.swift in Sources */,
 				3D2C9ED82DE5F6F7009DAE77 /* RecordingResponseViewModel.swift in Sources */,
 				3D2C9ED62DE5F6E7009DAE77 /* RecordingRequestViewModel.swift in Sources */,
+				09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */,
+				09F425252DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift in Sources */,
+				09F425262DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift in Sources */,
+				09F425272DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift in Sources */,
+				09F425282DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift in Sources */,
+				09F4251E2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift in Sources */,
+				09F4251F2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift in Sources */,
+				09F425202DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift in Sources */,
+				09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */,
 				3D2C9ED42DE5F6A6009DAE77 /* AddFriendView.swift in Sources */,
 				3DF3255E2DE7FDD400F9F3F9 /* BaseTargetType.swift in Sources */,
 				3D2C9EFB2DE5FA4B009DAE77 /* ProfileSubViews.swift in Sources */,
@@ -812,7 +898,9 @@
 				3D2C9EDA2DE5F739009DAE77 /* LearningNoteViewModel.swift in Sources */,
 				3DF326032DE8953500F9F3F9 /* FeedbackAPIService.swift in Sources */,
 				3DF326052DE8956300F9F3F9 /* NoteTargetType.swift in Sources */,
+				09F4252C2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift in Sources */,
 				3DF325622DE7FDF400F9F3F9 /* NetworkResult.swift in Sources */,
+				09F425162DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift in Sources */,
 				3DF325532DE74CB300F9F3F9 /* Font+.swift in Sources */,
 				3DF326072DE8959800F9F3F9 /* NoteAPIService.swift in Sources */,
 				3DF325F82DE893C700F9F3F9 /* MoyaLoggerPlugin.swift in Sources */,
@@ -822,10 +910,14 @@
 				3D2C9EDC2DE5F743009DAE77 /* ProfileViewModel.swift in Sources */,
 				3DF325FA2DE8943B00F9F3F9 /* MoyaProvider.swift in Sources */,
 				3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */,
+				09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */,
+				09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */,
+				09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */,
 				3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */,
 				3DF325602DE7FDE300F9F3F9 /* BaseAPIService.swift in Sources */,
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,
 				3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */,
+				09F4252A2DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
