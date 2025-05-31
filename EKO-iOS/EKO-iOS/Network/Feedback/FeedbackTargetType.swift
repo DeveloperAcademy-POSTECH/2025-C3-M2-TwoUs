@@ -28,8 +28,8 @@ extension FeedbackTargetType: BaseTargetType {
     
     var queryParameter: [String: Any]? {
         switch self {
-        case .fetchSendFeedback(let senderUserId):
-            return ["receiverUserId": senderUserId]
+        case .fetchSendFeedback(let receiverUserId):
+            return ["receiverUserId": receiverUserId]
         default:
             return .none
         }
