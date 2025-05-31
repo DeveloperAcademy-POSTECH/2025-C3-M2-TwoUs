@@ -12,6 +12,7 @@ protocol NoteAPIServiceProtocol {
     func fetchFeedbackNotes(senderId: String) async throws -> [FetchFeedbackNotesResponseDTO]
     func patchFeedbackNoteFavorite(model: PatchNoteFavoriteRequestDTO) async throws -> [PatchFeedbackNoteFavoriteResponseDTO]
     func patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO) async throws -> [PatchFeedbackNoteTitleResponseDTO]
+    func deleteFeedbackNote(model: DeleteFeedbackNoteRequestDTO) async throws -> [DeleteFeedbackNoteResponseDTO]
 }
 
 final class NoteAPIService: BaseAPIService<NoteTargetType>, NoteAPIServiceProtocol {
@@ -54,6 +55,23 @@ final class NoteAPIService: BaseAPIService<NoteTargetType>, NoteAPIServiceProtoc
         let response = try await provider.request(.patchFeedbackNoteTitle(model: model))
             
         let result: NetworkResult<[PatchFeedbackNoteTitleResponseDTO]> = fetchNetworkResult(
+            statusCode: response.statusCode,
+            data: response.data
+        )
+        
+        switch result {
+        case .success(let data):
+            guard let data else { throw NetworkResult<Error>.decodeErr }
+            return data
+        default:
+            throw NetworkResult<Error>.networkFail
+        }
+    }
+    
+    func deleteFeedbackNote(model: DeleteFeedbackNoteRequestDTO) async throws -> [DeleteFeedbackNoteResponseDTO] {
+        let response = try await provider.request(.deleteFeedbackNote(model: model))
+            
+        let result: NetworkResult<[DeleteFeedbackNoteResponseDTO]> = fetchNetworkResult(
             statusCode: response.statusCode,
             data: response.data
         )

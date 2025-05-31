@@ -12,6 +12,7 @@ enum NoteTargetType {
     case fetchFeedbackNotes(senderId: String)
     case patchFeedbackNoteFavorite(model: PatchNoteFavoriteRequestDTO)
     case patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO)
+    case deleteFeedbackNote(model: DeleteFeedbackNoteRequestDTO)
 }
 
 extension NoteTargetType: BaseTargetType {
@@ -26,8 +27,9 @@ extension NoteTargetType: BaseTargetType {
             return ["Content-Type": "application/json"]
         case .patchFeedbackNoteTitle:
             return ["Content-Type": "application/json"]
+        case .deleteFeedbackNote:
+            return ["Content-Type": "application/json"]
         }
-  
     }
     
     var queryParameter: [String: Any]? {
@@ -50,6 +52,7 @@ extension NoteTargetType: BaseTargetType {
         case .fetchFeedbackNotes: return utilPath.rawValue
         case .patchFeedbackNoteFavorite: return utilPath.rawValue + "/favorite"
         case .patchFeedbackNoteTitle: return utilPath.rawValue + "/title"
+        case .deleteFeedbackNote: return utilPath.rawValue
         }
     }
     
@@ -58,6 +61,7 @@ extension NoteTargetType: BaseTargetType {
         case .fetchFeedbackNotes: return .get
         case .patchFeedbackNoteFavorite: return .patch
         case .patchFeedbackNoteTitle: return .patch
+        case .deleteFeedbackNote: return .delete
         }
     }
     
@@ -69,6 +73,8 @@ extension NoteTargetType: BaseTargetType {
         case let .patchFeedbackNoteFavorite(model):
             return .requestJSONEncodable(model)
         case let .patchFeedbackNoteTitle(model):
+            return .requestJSONEncodable(model)
+        case let .deleteFeedbackNote(model):
             return .requestJSONEncodable(model)
         }
     }
