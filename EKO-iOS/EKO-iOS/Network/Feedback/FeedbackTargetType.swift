@@ -59,8 +59,7 @@ extension FeedbackTargetType: BaseTargetType {
     var task: Task {
         switch self {
         case let .fetchSendFeedback(receiverUserId):
-            return .requestParameters(parameters: ["receiverUserId": receiverUserId],
-                                      encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["receiverUserId": receiverUserId], encoding: URLEncoding.default)
         case let .postStartFeedback(model):
             var multipart: [MultipartFormData] = []
             
