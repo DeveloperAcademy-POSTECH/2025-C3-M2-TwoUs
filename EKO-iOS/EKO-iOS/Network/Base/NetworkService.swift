@@ -13,9 +13,10 @@ final class NetworkService {
 
     private init() {}
     
-    //let feedbackService: FeedbackAPIServiceProtocol = FeedbackAPIService()
-    //let noteService: SessionAPIServiceProtocol = NoteAPIService()
-    //let notificationService: SessionAPIServiceProtocol = NotificationAPIService()
+    let feedbackService: FeedbackAPIServiceProtocol = FeedbackAPIService()
+    let noteService: NoteAPIServiceProtocol = NoteAPIService()
+    let notificationService: NotificationAPIServiceProtocol = NotificationAPIService()
     let sessionService: SessionAPIServiceProtocol = SessionAPIService()
     //let userService: SessionAPIServiceProtocol = UserAPIService()
+    let s3Service: S3APIServiceProtocol = S3APIService()
 }

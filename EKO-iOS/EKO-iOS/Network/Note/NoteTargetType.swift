@@ -6,3 +6,76 @@
 //
 
 import Foundation
+import Moya
+
+enum NoteTargetType {
+    case fetchFeedbackNotes(senderId: String)
+    case patchFeedbackNoteFavorite(model: PatchNoteFavoriteRequestDTO)
+    case patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO)
+    case deleteFeedbackNote(model: DeleteFeedbackNoteRequestDTO)
+}
+
+extension NoteTargetType: BaseTargetType {
+    var utilPath: UtilPath { return .note }
+    var pathParameter: String? { return .none }
+    
+    var headerType: [String: String?] {
+        switch self {
+        case .fetchFeedbackNotes:
+            return ["Content-Type": "application/json"]
+        case .patchFeedbackNoteFavorite:
+            return ["Content-Type": "application/json"]
+        case .patchFeedbackNoteTitle:
+            return ["Content-Type": "application/json"]
+        case .deleteFeedbackNote:
+            return ["Content-Type": "application/json"]
+        }
+    }
+    
+    var queryParameter: [String: Any]? {
+        switch self {
+        case .fetchFeedbackNotes(let senderId):
+            return ["senderId": senderId]
+        default: return .none
+        }
+    }
+    
+    var requestBodyParameter: (any Codable)? {
+        switch self {
+        case .fetchFeedbackNotes: return .none
+        default: return .none
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .fetchFeedbackNotes: return utilPath.rawValue
+        case .patchFeedbackNoteFavorite: return utilPath.rawValue + "/favorite"
+        case .patchFeedbackNoteTitle: return utilPath.rawValue + "/title"
+        case .deleteFeedbackNote: return utilPath.rawValue
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .fetchFeedbackNotes: return .get
+        case .patchFeedbackNoteFavorite: return .patch
+        case .patchFeedbackNoteTitle: return .patch
+        case .deleteFeedbackNote: return .delete
+        }
+    }
+    
+    var task: Task {
+        switch self {
+        case let .fetchFeedbackNotes(senderId):
+            return .requestParameters(parameters: ["senderId": senderId],
+                                      encoding: URLEncoding.default)
+        case let .patchFeedbackNoteFavorite(model):
+            return .requestJSONEncodable(model)
+        case let .patchFeedbackNoteTitle(model):
+            return .requestJSONEncodable(model)
+        case let .deleteFeedbackNote(model):
+            return .requestJSONEncodable(model)
+        }
+    }
+}
