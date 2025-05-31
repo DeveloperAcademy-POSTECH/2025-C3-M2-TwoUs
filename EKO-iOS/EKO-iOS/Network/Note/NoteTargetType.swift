@@ -11,6 +11,7 @@ import Moya
 enum NoteTargetType {
     case fetchFeedbackNotes(senderId: String)
     case patchFeedbackNoteFavorite(model: PatchNoteFavoriteRequestDTO)
+    case patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO)
 }
 
 extension NoteTargetType: BaseTargetType {
@@ -23,7 +24,10 @@ extension NoteTargetType: BaseTargetType {
             return ["Content-Type": "application/json"]
         case .patchFeedbackNoteFavorite:
             return ["Content-Type": "application/json"]
+        case .patchFeedbackNoteTitle:
+            return ["Content-Type": "application/json"]
         }
+  
     }
     
     var queryParameter: [String: Any]? {
@@ -45,6 +49,7 @@ extension NoteTargetType: BaseTargetType {
         switch self {
         case .fetchFeedbackNotes: return utilPath.rawValue
         case .patchFeedbackNoteFavorite: return utilPath.rawValue + "/favorite"
+        case .patchFeedbackNoteTitle: return utilPath.rawValue + "/title"
         }
     }
     
@@ -52,6 +57,7 @@ extension NoteTargetType: BaseTargetType {
         switch self {
         case .fetchFeedbackNotes: return .get
         case .patchFeedbackNoteFavorite: return .patch
+        case .patchFeedbackNoteTitle: return .patch
         }
     }
     
@@ -61,6 +67,8 @@ extension NoteTargetType: BaseTargetType {
             return .requestParameters(parameters: ["senderId": senderId],
                                       encoding: URLEncoding.default)
         case let .patchFeedbackNoteFavorite(model):
+            return .requestJSONEncodable(model)
+        case let .patchFeedbackNoteTitle(model):
             return .requestJSONEncodable(model)
         }
     }

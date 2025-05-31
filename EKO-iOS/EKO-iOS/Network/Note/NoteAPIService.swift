@@ -11,6 +11,7 @@ import Moya
 protocol NoteAPIServiceProtocol {
     func fetchFeedbackNotes(senderId: String) async throws -> [FetchFeedbackNotesResponseDTO]
     func patchFeedbackNoteFavorite(model: PatchNoteFavoriteRequestDTO) async throws -> [PatchFeedbackNoteFavoriteResponseDTO]
+    func patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO) async throws -> [PatchFeedbackNoteTitleResponseDTO]
 }
 
 final class NoteAPIService: BaseAPIService<NoteTargetType>, NoteAPIServiceProtocol {
@@ -36,6 +37,23 @@ final class NoteAPIService: BaseAPIService<NoteTargetType>, NoteAPIServiceProtoc
         let response = try await provider.request(.patchFeedbackNoteFavorite(model: model))
             
         let result: NetworkResult<[PatchFeedbackNoteFavoriteResponseDTO]> = fetchNetworkResult(
+            statusCode: response.statusCode,
+            data: response.data
+        )
+        
+        switch result {
+        case .success(let data):
+            guard let data else { throw NetworkResult<Error>.decodeErr }
+            return data
+        default:
+            throw NetworkResult<Error>.networkFail
+        }
+    }
+    
+    func patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO) async throws -> [PatchFeedbackNoteTitleResponseDTO] {
+        let response = try await provider.request(.patchFeedbackNoteTitle(model: model))
+            
+        let result: NetworkResult<[PatchFeedbackNoteTitleResponseDTO]> = fetchNetworkResult(
             statusCode: response.statusCode,
             data: response.data
         )
