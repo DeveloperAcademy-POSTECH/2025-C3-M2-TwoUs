@@ -12,7 +12,13 @@ struct RootNavigationView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            MainView()
+            Group {
+                if UserDefaults.standard.string(forKey: "userId") != nil {
+                        MainView()
+                    } else {
+                        RegisterView()
+                    }
+            }
             .navigationDestination(for: AppRoute.self) { route in
                 switch route {
                 case .main: MainView()
@@ -21,6 +27,7 @@ struct RootNavigationView: View {
                 case .learningNote: LearningNoteView()
                 case .profile: ProfileView()
                 case .addFriend: AddFriendView()
+                case .register: RegisterView()
                 }
             }
         }
