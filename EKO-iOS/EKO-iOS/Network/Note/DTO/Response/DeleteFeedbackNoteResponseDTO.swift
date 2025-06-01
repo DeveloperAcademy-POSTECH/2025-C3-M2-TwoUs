@@ -11,4 +11,3 @@ struct DeleteFeedbackNoteResponseDTO: Decodable {
     let message: String
     let sessionId: String
 }
-
