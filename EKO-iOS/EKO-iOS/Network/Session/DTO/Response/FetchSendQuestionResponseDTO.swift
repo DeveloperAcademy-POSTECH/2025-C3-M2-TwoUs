@@ -8,10 +8,10 @@
 import Foundation
 
 struct FetchSendQuestionResponseDTO: Decodable {
-    let sessions: [Session]
+    let sessions: [FetchQuestionSession]
 }
 
-struct Session: Decodable {
+struct FetchQuestionSession: Decodable {
     let receiverUserId: String
     let sessionId: String
     let status: String
