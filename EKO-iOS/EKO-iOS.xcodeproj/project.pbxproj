@@ -30,6 +30,7 @@
 		3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796152DED3283005D5A1B /* EKOToastMessage.swift */; };
 		3D2796192DED36CC005D5A1B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796182DED36CC005D5A1B /* View+.swift */; };
 		3D27961B2DED9B13005D5A1B /* EKOToggleIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */; };
+		3D27961D2DEDA71B005D5A1B /* EKOButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961C2DEDA71B005D5A1B /* EKOButton.swift */; };
 		3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */; };
 		3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */; };
 		3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E252DE5E0A0009DAE77 /* ContentView.swift */; };
@@ -117,6 +118,7 @@
 		3D2796152DED3283005D5A1B /* EKOToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToastMessage.swift; sourceTree = "<group>"; };
 		3D2796182DED36CC005D5A1B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToggleIndicator.swift; sourceTree = "<group>"; };
+		3D27961C2DEDA71B005D5A1B /* EKOButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOButton.swift; sourceTree = "<group>"; };
 		3D2C9E102DE5E031009DAE77 /* EKO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EKO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			children = (
 				3D2796152DED3283005D5A1B /* EKOToastMessage.swift */,
 				3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */,
+				3D27961C2DEDA71B005D5A1B /* EKOButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -954,6 +957,7 @@
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
 				3D2C9EE52DE5F926009DAE77 /* RecordingRequestSubView.swift in Sources */,
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
+				3D27961D2DEDA71B005D5A1B /* EKOButton.swift in Sources */,
 				3DF3260D2DE895B100F9F3F9 /* UserTargetType.swift in Sources */,
 				3D2C9ED02DE5F696009DAE77 /* RecordingResponseView.swift in Sources */,
 				3D2796192DED36CC005D5A1B /* View+.swift in Sources */,

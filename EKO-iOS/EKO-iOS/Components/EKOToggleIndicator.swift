@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ToggleType {
+enum EKOToggleType {
     case downDirection, upDirection
     
     var title: String {
@@ -25,10 +25,10 @@ enum ToggleType {
     }
 }
 
-struct ToggleItemView: View {
-    private let type: ToggleType
+struct EKOToggleIndicator: View {
+    private let type: EKOToggleType
     
-    init(type: ToggleType) {
+    init(type: EKOToggleType) {
         self.type = type
     }
     
