@@ -27,7 +27,7 @@ extension NotificationTargetType: BaseTargetType {
     
     var path: String {
         switch self {
-        case .postDeviceToken: return utilPath.rawValue
+        case .postDeviceToken: return utilPath.rawValue + "/register"
         }
     }
     

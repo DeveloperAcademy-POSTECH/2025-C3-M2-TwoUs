@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8652DEBD23E00CC9717 /* AppDelegate.swift */; };
+		099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */; };
+		099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8672DEBEEDC00CC9717 /* RegisterView.swift */; };
+		099AD8712DEBEEDC00CC9717 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */; };
+		099AD8722DEBEEDC00CC9717 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86C2DEBEEDC00CC9717 /* RegisterViewModel.swift */; };
 		09F425162DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */; };
 		09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */; };
 		09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */; };
@@ -86,6 +91,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		099AD8652DEBD23E00CC9717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		099AD8672DEBEEDC00CC9717 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSubViews.swift; sourceTree = "<group>"; };
+		099AD86C2DEBEEDC00CC9717 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartFeedbackRequsetDTO.swift; sourceTree = "<group>"; };
 		09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSendFeedbackResponseDTO.swift; sourceTree = "<group>"; };
 		09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartFeedbackResponseDTO.swift; sourceTree = "<group>"; };
@@ -187,6 +197,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		099AD8692DEBEEDC00CC9717 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		099AD86B2DEBEEDC00CC9717 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		099AD86D2DEBEEDC00CC9717 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				099AD86C2DEBEEDC00CC9717 /* RegisterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		099AD86E2DEBEEDC00CC9717 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				099AD8672DEBEEDC00CC9717 /* RegisterView.swift */,
+				099AD8692DEBEEDC00CC9717 /* Model */,
+				099AD86B2DEBEEDC00CC9717 /* SubViews */,
+				099AD86D2DEBEEDC00CC9717 /* ViewModel */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		09F4252D2DEBC34D00850CDB /* Request */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +307,7 @@
 		3D2C9E2D2DE5E155009DAE77 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				099AD8652DEBD23E00CC9717 /* AppDelegate.swift */,
 				3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */,
 				3D2C9F082DE60F58009DAE77 /* Coordinator */,
 			);
@@ -277,6 +323,7 @@
 				3D2C9EC72DE5F5A6009DAE77 /* RecordingResponse */,
 				3D2C9EC82DE5F5B7009DAE77 /* LearningNote */,
 				3D2C9EC92DE5F608009DAE77 /* Profile */,
+				099AD86E2DEBEEDC00CC9717 /* Register */,
 				3D2C9ECA2DE5F62F009DAE77 /* AddFriend */,
 			);
 			path = Feature;
@@ -867,6 +914,7 @@
 				09F4251E2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift in Sources */,
 				09F4251F2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift in Sources */,
 				09F425202DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift in Sources */,
+				099AD8712DEBEEDC00CC9717 /* RegisterModel.swift in Sources */,
 				09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */,
 				3D2C9ED42DE5F6A6009DAE77 /* AddFriendView.swift in Sources */,
 				3DF3255E2DE7FDD400F9F3F9 /* BaseTargetType.swift in Sources */,
@@ -881,6 +929,7 @@
 				3D2C9EF62DE5FA13009DAE77 /* LearningNoteSubViews.swift in Sources */,
 				3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */,
 				3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */,
+				099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */,
 				3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */,
 				3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */,
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
@@ -888,8 +937,10 @@
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
 				3DF3260D2DE895B100F9F3F9 /* UserTargetType.swift in Sources */,
 				3D2C9ED02DE5F696009DAE77 /* RecordingResponseView.swift in Sources */,
+				099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */,
 				3DF327392DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift in Sources */,
 				3DF327352DE9A9E400F9F3F9 /* NotificationTargetType.swift in Sources */,
+				099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */,
 				3D2C9EEA2DE5F96C009DAE77 /* RecordingResponseModel.swift in Sources */,
 				3DF326192DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift in Sources */,
 				3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */,
@@ -918,6 +969,7 @@
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,
 				3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */,
 				09F4252A2DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift in Sources */,
+				099AD8722DEBEEDC00CC9717 /* RegisterViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
