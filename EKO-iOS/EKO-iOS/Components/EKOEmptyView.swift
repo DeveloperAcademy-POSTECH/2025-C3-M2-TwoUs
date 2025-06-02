@@ -30,10 +30,3 @@ struct EKOEmptyView: View {
         }
     }
 }
-
-#Preview {
-    EKOEmptyView(
-        title: "아직 추가된 노트가 없어요.",
-        description: "상대방과 피드백을 주고받으면\n해당 화면에서 학습내역을 확인할 수 있어요."
-    )
-}

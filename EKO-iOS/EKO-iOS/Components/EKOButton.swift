@@ -50,7 +50,6 @@ struct EKOButton: View {
         self.action = action
     }
     
-    
     public var body: some View {
         Button(action: action) {
             Text(type.title)
