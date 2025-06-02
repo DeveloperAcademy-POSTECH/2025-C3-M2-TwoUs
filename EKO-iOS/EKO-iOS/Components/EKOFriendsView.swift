@@ -30,7 +30,7 @@ struct EKOFriendsView: View {
     public init(
         type: EKOFriendsViewType,
         name: String,
-        isSelected: Bool = true,
+        isSelected: Bool = false,
         isSended: Bool = false
     ) {
         self.type = type
