@@ -9,15 +9,17 @@ import SwiftUI
 
 struct RecordingRequestView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
+    @StateObject private var viewModel = RecordingRequestViewModel()
     
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
     @State private var isPlaying = false
     @State private var animatePulse = false
     @State private var lastRecordedURL: URL?
-
+    
     var body: some View {
         VStack(spacing: 30) {
+            
             ZStack {
                 Button(action: {
                     if recorder.isRecording {
@@ -38,7 +40,7 @@ struct RecordingRequestView: View {
                         )
                 }
             }
-
+            
             if let url = lastRecordedURL {
                 Button(action: {
                     isPlaying = true
@@ -58,6 +60,10 @@ struct RecordingRequestView: View {
             recorder.onRecordingFinished = { url in
                 print("녹음 완료 파일 URL:", url)
                 lastRecordedURL = url
+                
+                Task {
+                    await viewModel.sendQuestion(from: url)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+@MainActor
+final class RecordingRequestViewModel: ObservableObject {
+    func sendQuestion(from url: URL) async {
+        do {
+            let model = PostStartQuestionRequestDTO(
+                senderUserId: "shina",
+                receiverUserId: "kon",
+                audioFileURL: url
+            )
+
+            let result = try await NetworkService.shared.sessionService.postStartQuestion(model: model)
+            print("✅ postStartFeedback result: \(result)")
+        } catch {
+            print("❌ postStartFeedback error: \(error)")
+        }
+    }
+}
+
+

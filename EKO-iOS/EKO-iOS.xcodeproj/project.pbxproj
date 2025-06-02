@@ -22,6 +22,7 @@
 		09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425322DEBC34D00850CDB /* S3TargetType.swift */; };
 		09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */; };
 		09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425312DEBC34D00850CDB /* S3APIService.swift */; };
+		0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */; };
 		3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */; };
 		3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */; };
 		3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E252DE5E0A0009DAE77 /* ContentView.swift */; };
@@ -66,7 +67,6 @@
 		3DF325602DE7FDE300F9F3F9 /* BaseAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3255F2DE7FDE300F9F3F9 /* BaseAPIService.swift */; };
 		3DF325622DE7FDF400F9F3F9 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325612DE7FDF400F9F3F9 /* NetworkResult.swift */; };
 		3DF325642DE7FDFC00F9F3F9 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325632DE7FDFC00F9F3F9 /* NetworkService.swift */; };
-		3DF325F42DE891A300F9F3F9 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3DF325F32DE891A300F9F3F9 /* Config.xcconfig */; };
 		3DF325F62DE891A900F9F3F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325F52DE891A900F9F3F9 /* Config.swift */; };
 		3DF325F82DE893C700F9F3F9 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325F72DE893C700F9F3F9 /* MoyaLoggerPlugin.swift */; };
 		3DF325FA2DE8943B00F9F3F9 /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF325F92DE8943B00F9F3F9 /* MoyaProvider.swift */; };
@@ -101,6 +101,7 @@
 		09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchS3DownloadURLResposeDTO.swift; sourceTree = "<group>"; };
 		09F425312DEBC34D00850CDB /* S3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3APIService.swift; sourceTree = "<group>"; };
 		09F425322DEBC34D00850CDB /* S3TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TargetType.swift; sourceTree = "<group>"; };
+		0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3D2C9E102DE5E031009DAE77 /* EKO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EKO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,7 +146,6 @@
 		3DF3255F2DE7FDE300F9F3F9 /* BaseAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPIService.swift; sourceTree = "<group>"; };
 		3DF325612DE7FDF400F9F3F9 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3DF325632DE7FDFC00F9F3F9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		3DF325F32DE891A300F9F3F9 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3DF325F52DE891A900F9F3F9 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		3DF325F72DE893C700F9F3F9 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		3DF325F92DE8943B00F9F3F9 /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 			children = (
 				3D2C9F112DE74AEC009DAE77 /* Fonts */,
 				3D2C9F102DE74AD5009DAE77 /* Assets */,
-				3DF325F32DE891A300F9F3F9 /* Config.xcconfig */,
 				3DF325F52DE891A900F9F3F9 /* Config.swift */,
+				0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -819,7 +819,7 @@
 				3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */,
 				3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */,
 				3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */,
-				3DF325F42DE891A300F9F3F9 /* Config.xcconfig in Resources */,
+				0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */,
 				3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */,
 				3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */,
 				3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */,
@@ -926,7 +926,6 @@
 /* Begin XCBuildConfiguration section */
 		3D2C9E1D2DE5E032009DAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DF325F32DE891A300F9F3F9 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -989,7 +988,6 @@
 		};
 		3D2C9E1E2DE5E032009DAE77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DF325F32DE891A300F9F3F9 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1044,7 +1042,6 @@
 		};
 		3D2C9E202DE5E032009DAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DF325F32DE891A300F9F3F9 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1088,7 +1085,6 @@
 		};
 		3D2C9E212DE5E032009DAE77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DF325F32DE891A300F9F3F9 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
