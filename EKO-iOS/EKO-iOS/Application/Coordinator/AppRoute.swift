@@ -14,4 +14,5 @@ enum AppRoute: Hashable {
     case learningNote
     case profile
     case addFriend
+    case register
 }

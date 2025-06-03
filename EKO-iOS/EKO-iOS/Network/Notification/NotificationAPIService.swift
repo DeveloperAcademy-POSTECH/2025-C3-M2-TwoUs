@@ -18,14 +18,16 @@ final class NotificationAPIService: BaseAPIService<SessionTargetType>, Notificat
     
     func postDeviceToken(model: PostDeviceTokenRequestDTO) async throws -> [PostDeviceTokenResponseDTO] {
         let response = try await provider.request(.postDeviceToken(model: model))
-        let result: NetworkResult<[PostDeviceTokenResponseDTO]> = fetchNetworkResult(
+        
+        let result: NetworkResult<PostDeviceTokenResponseDTO> = fetchNetworkResult(
             statusCode: response.statusCode,
             data: response.data
         )
+        
         switch result {
         case .success(let data):
             guard let data else { throw NetworkResult<Error>.decodeErr }
-            return data
+            return [data]
         default:
             throw NetworkResult<Error>.networkFail
         }

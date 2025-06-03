@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8652DEBD23E00CC9717 /* AppDelegate.swift */; };
+		099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */; };
+		099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8672DEBEEDC00CC9717 /* RegisterView.swift */; };
+		099AD8712DEBEEDC00CC9717 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */; };
+		099AD8722DEBEEDC00CC9717 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86C2DEBEEDC00CC9717 /* RegisterViewModel.swift */; };
 		09F425162DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */; };
 		09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */; };
 		09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */; };
@@ -23,6 +28,14 @@
 		09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */; };
 		09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425312DEBC34D00850CDB /* S3APIService.swift */; };
 		0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */; };
+		3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796152DED3283005D5A1B /* EKOToastMessage.swift */; };
+		3D2796192DED36CC005D5A1B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796182DED36CC005D5A1B /* View+.swift */; };
+		3D27961B2DED9B13005D5A1B /* EKOToggleIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */; };
+		3D27961D2DEDA71B005D5A1B /* EKOButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961C2DEDA71B005D5A1B /* EKOButton.swift */; };
+		3D27961F2DEDDB86005D5A1B /* EKOEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961E2DEDDB86005D5A1B /* EKOEmptyView.swift */; };
+		3D2796212DEDDD1D005D5A1B /* EKOFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796202DEDDD1D005D5A1B /* EKOFriendsView.swift */; };
+		3D2796232DEDE28A005D5A1B /* EKOTabSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796222DEDE28A005D5A1B /* EKOTabSelector.swift */; };
+		3D2796252DEDE815005D5A1B /* Text+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796242DEDE815005D5A1B /* Text+.swift */; };
 		3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */; };
 		3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */; };
 		3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E252DE5E0A0009DAE77 /* ContentView.swift */; };
@@ -86,6 +99,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		099AD8652DEBD23E00CC9717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		099AD8672DEBEEDC00CC9717 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSubViews.swift; sourceTree = "<group>"; };
+		099AD86C2DEBEEDC00CC9717 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		09F425152DEBC2B500850CDB /* PostStartFeedbackRequsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartFeedbackRequsetDTO.swift; sourceTree = "<group>"; };
 		09F425172DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSendFeedbackResponseDTO.swift; sourceTree = "<group>"; };
 		09F425182DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartFeedbackResponseDTO.swift; sourceTree = "<group>"; };
@@ -102,6 +120,14 @@
 		09F425312DEBC34D00850CDB /* S3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3APIService.swift; sourceTree = "<group>"; };
 		09F425322DEBC34D00850CDB /* S3TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TargetType.swift; sourceTree = "<group>"; };
 		0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		3D2796152DED3283005D5A1B /* EKOToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToastMessage.swift; sourceTree = "<group>"; };
+		3D2796182DED36CC005D5A1B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToggleIndicator.swift; sourceTree = "<group>"; };
+		3D27961C2DEDA71B005D5A1B /* EKOButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOButton.swift; sourceTree = "<group>"; };
+		3D27961E2DEDDB86005D5A1B /* EKOEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOEmptyView.swift; sourceTree = "<group>"; };
+		3D2796202DEDDD1D005D5A1B /* EKOFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOFriendsView.swift; sourceTree = "<group>"; };
+		3D2796222DEDE28A005D5A1B /* EKOTabSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOTabSelector.swift; sourceTree = "<group>"; };
+		3D2796242DEDE815005D5A1B /* Text+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+.swift"; sourceTree = "<group>"; };
 		3D2C9E102DE5E031009DAE77 /* EKO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EKO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2C9E222DE5E0A0009DAE77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -187,6 +213,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		099AD8692DEBEEDC00CC9717 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		099AD86B2DEBEEDC00CC9717 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		099AD86D2DEBEEDC00CC9717 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				099AD86C2DEBEEDC00CC9717 /* RegisterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		099AD86E2DEBEEDC00CC9717 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				099AD8672DEBEEDC00CC9717 /* RegisterView.swift */,
+				099AD8692DEBEEDC00CC9717 /* Model */,
+				099AD86B2DEBEEDC00CC9717 /* SubViews */,
+				099AD86D2DEBEEDC00CC9717 /* ViewModel */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		09F4252D2DEBC34D00850CDB /* Request */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +280,19 @@
 				09F425322DEBC34D00850CDB /* S3TargetType.swift */,
 			);
 			path = S3;
+			sourceTree = "<group>";
+		};
+		3D2796142DED3263005D5A1B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3D2796152DED3283005D5A1B /* EKOToastMessage.swift */,
+				3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */,
+				3D27961C2DEDA71B005D5A1B /* EKOButton.swift */,
+				3D27961E2DEDDB86005D5A1B /* EKOEmptyView.swift */,
+				3D2796202DEDDD1D005D5A1B /* EKOFriendsView.swift */,
+				3D2796222DEDE28A005D5A1B /* EKOTabSelector.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		3D2C9E072DE5E031009DAE77 = {
@@ -254,6 +328,7 @@
 				3D2C9E302DE5E20A009DAE77 /* Core */,
 				3D2C9E2F2DE5E1F7009DAE77 /* Network */,
 				3D2C9E2E2DE5E175009DAE77 /* Feature */,
+				3D2796142DED3263005D5A1B /* Components */,
 				3D2C9E232DE5E0A0009DAE77 /* Preview Content */,
 			);
 			path = "EKO-iOS";
@@ -262,6 +337,7 @@
 		3D2C9E2D2DE5E155009DAE77 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				099AD8652DEBD23E00CC9717 /* AppDelegate.swift */,
 				3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */,
 				3D2C9F082DE60F58009DAE77 /* Coordinator */,
 			);
@@ -277,6 +353,7 @@
 				3D2C9EC72DE5F5A6009DAE77 /* RecordingResponse */,
 				3D2C9EC82DE5F5B7009DAE77 /* LearningNote */,
 				3D2C9EC92DE5F608009DAE77 /* Profile */,
+				099AD86E2DEBEEDC00CC9717 /* Register */,
 				3D2C9ECA2DE5F62F009DAE77 /* AddFriend */,
 			);
 			path = Feature;
@@ -312,6 +389,8 @@
 			children = (
 				3D2C9E372DE5F460009DAE77 /* Date+.swift */,
 				3DF325522DE74CB300F9F3F9 /* Font+.swift */,
+				3D2796182DED36CC005D5A1B /* View+.swift */,
+				3D2796242DEDE815005D5A1B /* Text+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -862,14 +941,18 @@
 				09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */,
 				09F425252DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift in Sources */,
 				09F425262DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift in Sources */,
+				3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */,
 				09F425272DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift in Sources */,
 				09F425282DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift in Sources */,
 				09F4251E2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift in Sources */,
 				09F4251F2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift in Sources */,
 				09F425202DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift in Sources */,
+				099AD8712DEBEEDC00CC9717 /* RegisterModel.swift in Sources */,
+				3D27961B2DED9B13005D5A1B /* EKOToggleIndicator.swift in Sources */,
 				09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */,
 				3D2C9ED42DE5F6A6009DAE77 /* AddFriendView.swift in Sources */,
 				3DF3255E2DE7FDD400F9F3F9 /* BaseTargetType.swift in Sources */,
+				3D27961F2DEDDB86005D5A1B /* EKOEmptyView.swift in Sources */,
 				3D2C9EFB2DE5FA4B009DAE77 /* ProfileSubViews.swift in Sources */,
 				3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */,
 				3DF3272F2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift in Sources */,
@@ -880,16 +963,24 @@
 				3D2C9E382DE5F460009DAE77 /* Date+.swift in Sources */,
 				3D2C9EF62DE5FA13009DAE77 /* LearningNoteSubViews.swift in Sources */,
 				3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */,
+				3D2796252DEDE815005D5A1B /* Text+.swift in Sources */,
 				3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */,
+				099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */,
 				3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */,
 				3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */,
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
 				3D2C9EE52DE5F926009DAE77 /* RecordingRequestSubView.swift in Sources */,
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
+				3D27961D2DEDA71B005D5A1B /* EKOButton.swift in Sources */,
 				3DF3260D2DE895B100F9F3F9 /* UserTargetType.swift in Sources */,
 				3D2C9ED02DE5F696009DAE77 /* RecordingResponseView.swift in Sources */,
+				3D2796192DED36CC005D5A1B /* View+.swift in Sources */,
+				099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */,
 				3DF327392DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift in Sources */,
+				3D2796212DEDDD1D005D5A1B /* EKOFriendsView.swift in Sources */,
+				3D2796232DEDE28A005D5A1B /* EKOTabSelector.swift in Sources */,
 				3DF327352DE9A9E400F9F3F9 /* NotificationTargetType.swift in Sources */,
+				099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */,
 				3D2C9EEA2DE5F96C009DAE77 /* RecordingResponseModel.swift in Sources */,
 				3DF326192DE9871000F9F3F9 /* FetchSendQuestionResponseDTO.swift in Sources */,
 				3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */,
@@ -918,6 +1009,7 @@
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,
 				3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */,
 				09F4252A2DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift in Sources */,
+				099AD8722DEBEEDC00CC9717 /* RegisterViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
