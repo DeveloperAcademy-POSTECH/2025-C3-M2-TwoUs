@@ -110,7 +110,8 @@ struct LearningNoteView: View {
                                         toggleFavorite(note)
                                     }
                                 )
-                                .padding()
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 4)
                                 .background(Color.white)
                                 .cornerRadius(22)
                                 .contextMenu {

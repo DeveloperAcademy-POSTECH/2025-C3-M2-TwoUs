@@ -41,13 +41,13 @@ struct LearningNoteSubView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Text(note.receiverId)
-                        .font(.subheadline)
+                        .font(.system(size: 16))
                         .foregroundStyle(.secondary)
                     Button(action: {
                     }) {
                         Image(systemName: note.isFavorite ? "star.fill" : "star")
                             .foregroundStyle(note.isFavorite ? .yellow : .gray)
-                            .font(.title2)
+                            .font(.system(size: 16))
                     }
                     .buttonStyle(.plain)
                 }
@@ -64,7 +64,7 @@ struct LearningNoteSubView: View {
                                 onCommitEditing(newTitle)
                             }
                         )
-                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 16))
                         Button("완료") {
                             onCommitEditing(newTitle)
                         }
@@ -88,20 +88,30 @@ struct LearningNoteSubView: View {
                 // playVoice(fileName: note.voice1)
             }) {
                 Image(systemName: "play.circle.fill")
-                    .font(.title2)
+                    .font(.system(size: 50))
                     .foregroundStyle(.mainOrange)
             }
             .buttonStyle(.plain)
             
-            // voice2 버튼
-            Button(action: {
-                // playVoice(fileName: note.voice2)
-            }) {
-                Image(systemName: "play.circle.fill")
-                    .font(.title2)
-                    .foregroundStyle(.mainBlue)
+            if note.status == "Good" {
+                Button(action: {
+                    // playVoice(fileName: note.voice2)
+                }) {
+                    Image(systemName: "hand.thumbsup.fill")
+                        .font(.system(size: 50))
+                        .foregroundStyle(.mainBlue)
+                }
+            } else {
+                // voice2 버튼
+                Button(action: {
+                    // playVoice(fileName: note.voice2)
+                }) {
+                    Image(systemName: "play.circle.fill")
+                        .font(.system(size: 50))
+                        .foregroundStyle(.mainBlue)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
         }
         .padding(.vertical, 8)
     }
