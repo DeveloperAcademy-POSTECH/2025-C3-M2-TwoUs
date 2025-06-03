@@ -10,49 +10,69 @@ import Foundation
 @MainActor
 final class RecordingResponseViewModel: ObservableObject {
     @Published var playbackURL: URL?
-    
-    // 피드백 전송
+    @Published var feedbackS3Key: String?
+    @Published var feedbackSessionId: String?
+
     func sendFeedback(status: String, fileURL: URL?) async {
+        guard let sessionId = feedbackSessionId else {
+            print("❌ sessionId가 설정되지 않음")
+            return
+        }
+
         let model = PostStartFeedbackRequsetDTO(
             senderUserId: "kon",
-            receiverUserId: "shina",
-            sessionId: "shina#kon",
+            receiverUserId: "usdl",
+            sessionId: sessionId,
             status: status,
             feedbackFileURL: status == "Bad" ? fileURL : nil
         )
-        
+
         do {
             let result = try await NetworkService.shared.feedbackService.postStartFeedback(model: model)
-            print("Feedback 전송 성공: \(result)")
+            print("✅ Feedback 전송 성공: \(result)")
         } catch {
-            print("Feedback 전송 실패: \(error)")
+            print("❌ Feedback 전송 실패: \(error)")
         }
     }
-    
-    // 들어온 피드백 조회 + 다운로드 URL 요청
-    func fetchAudioPlaybackURL() async {
+
+    func fetchFeedbackS3Key() async -> String? {
         do {
-            let feedbacks = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "kon")
-            
-            guard let firstDTO = feedbacks.first,
-                  let s3Key = firstDTO.sessions.first?.s3Key else {
-                print("❌ 피드백 세션에서 s3Key를 찾을 수 없음")
-                return
+            let result = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "kon")
+            if let session = result.sessions.first {
+                self.feedbackS3Key = session.s3Key
+                self.feedbackSessionId = session.sessionId
+                print("✅ s3Key 추출 완료: \(session.s3Key)")
+                print("✅ sessionId 추출 완료: \(session.sessionId)")
+                return session.s3Key
+            } else {
+                print("❌ sessions에 데이터 없음")
+                return nil
             }
-            
-            let s3Responses = try await NetworkService.shared.s3Service.fetchS3DownloadURL(s3Key: s3Key)
-            
-            guard let urlString = s3Responses.first?.url,
-                  let url = URL(string: urlString) else {
-                print("❌ S3 다운로드 URL 파싱 실패")
-                return
-            }
-            
-            self.playbackURL = url
-            print("✅ 다운로드 URL 준비 완료: \(url.absoluteString)")
-            
         } catch {
-            print("❌ 다운로드 URL 생성 실패: \(error)")
+            print("❌ Fetch Feedback error: \(error)")
+            return nil
+        }
+    }
+
+    func downloadAudio() async {
+        guard let s3Key = feedbackS3Key else {
+            print("❌ S3Key가 설정되지 않음")
+            return
+        }
+        
+        do {
+            let result = try await NetworkService.shared.s3Service.fetchS3DownloadURL(s3Key: s3Key)
+            
+            print(result)
+
+            if let url = URL(string: result.url) {
+                self.playbackURL = url
+                print("✅ 다운로드 URL 준비 완료: \(url.absoluteString)")
+            } else {
+                print("❌ URL 파싱 실패")
+            }
+        } catch {
+            print("❌ Fetch S3 URL error: \(error)")
         }
     }
 }

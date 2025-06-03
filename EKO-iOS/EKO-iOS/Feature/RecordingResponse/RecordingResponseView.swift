@@ -14,33 +14,39 @@ struct RecordingResponseView: View {
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
     @State private var lastRecordedURL: URL?
-    @State private var isPlaying = false
     @State private var animatePulse = false
     
     var body: some View {
         VStack(spacing: 30) {
             
-            // 다운로드 및 재생
-            Button("음성 듣기") {
+            Button("피드백 조회 (s3Key)") {
                 Task {
-                    await viewModel.fetchAudioPlaybackURL()
+                    await viewModel.fetchFeedbackS3Key()
                 }
             }
 
-            if let playbackURL = viewModel.playbackURL {
-                Button("재생") {
-                    audioPlayer.playAudioWithHaptic(from: playbackURL)
+            Button("음성 다운로드") {
+                Task {
+                    await viewModel.downloadAudio()
+                }
+            }
+            
+            Button("재생") {
+                if let playbackURL = viewModel.playbackURL {
+                    print(playbackURL)
+                    audioPlayer.downloadAndPlayWithHaptics(from: playbackURL)
+                } else {
+                    print("❌ 재생할 URL이 없습니다.")
+                    // 혹은 사용자에게 알림 띄우기 (Alert 등)
                 }
             }
 
-            // Good 피드백
             Button("피드백 전송_Good") {
                 Task {
                     await viewModel.sendFeedback(status: "Good", fileURL: nil)
                 }
             }
 
-            // Bad 피드백 녹음 버튼
             Button(action: {
                 if recorder.isRecording {
                     recorder.stopRecording()
@@ -60,7 +66,6 @@ struct RecordingResponseView: View {
                     )
             }
 
-            // Bad 피드백 전송 버튼
             if let url = lastRecordedURL {
                 Button("피드백 전송_Bad") {
                     Task {
@@ -71,7 +76,7 @@ struct RecordingResponseView: View {
         }
         .onAppear {
             recorder.onRecordingFinished = { url in
-                print("🎤 피드백 녹음 완료:", url)
+                print("피드백 녹음 완료:", url)
                 lastRecordedURL = url
             }
         }
