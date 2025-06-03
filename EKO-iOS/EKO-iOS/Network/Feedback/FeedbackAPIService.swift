@@ -10,7 +10,7 @@ import Moya
 
 protocol FeedbackAPIServiceProtocol {
     func fetchSendFeedback(receiverUserId: String) async throws ->
-        [FetchSendFeedbackResponseDTO]
+        FetchSendFeedbackResponseDTO
     func postStartFeedback(model: PostStartFeedbackRequsetDTO) async throws -> [PostStartFeedbackResponseDTO]
 }
 
@@ -18,9 +18,9 @@ final class FeedbackAPIService: BaseAPIService<FeedbackTargetType>, FeedbackAPIS
     
     private let provider = MoyaProvider<FeedbackTargetType>(plugins: [MoyaLoggerPlugin()])
     
-    func fetchSendFeedback(receiverUserId: String) async throws -> [FetchSendFeedbackResponseDTO] {
+    func fetchSendFeedback(receiverUserId: String) async throws -> FetchSendFeedbackResponseDTO {
         let response = try await provider.request(.fetchSendFeedback(receiverUserId: receiverUserId))
-        let result: NetworkResult<[FetchSendFeedbackResponseDTO]> = fetchNetworkResult(
+        let result: NetworkResult<FetchSendFeedbackResponseDTO> = fetchNetworkResult(
             statusCode: response.statusCode,
             data: response.data
         )

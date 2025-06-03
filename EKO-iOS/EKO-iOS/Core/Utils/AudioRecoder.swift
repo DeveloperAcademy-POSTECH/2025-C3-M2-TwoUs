@@ -21,7 +21,7 @@ class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
         try? session.setActive(true)
 
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("recording_\(Date().timeIntervalSince1970).m4a")
+            .appendingPathComponent("sample.m4a")
 
         let settings: [String: Any] = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),

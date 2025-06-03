@@ -41,6 +41,47 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
             print("오디오 재생 실패: \(error)")
         }
     }
+    
+    func downloadAndPlayWithHaptics(from remoteURL: URL) {
+        let tempURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("downloaded_feedback.m4a")
+        
+        URLSession.shared.downloadTask(with: remoteURL) { localURL, response, error in
+            if let error = error {
+                print("❌ 다운로드 실패: \(error)")
+                return
+            }
+            
+            guard let localURL = localURL else {
+                print("❌ 로컬 URL 없음")
+                return
+            }
+            
+            do {
+                if FileManager.default.fileExists(atPath: tempURL.path) {
+                    try FileManager.default.removeItem(at: tempURL)
+                }
+
+                try FileManager.default.copyItem(at: localURL, to: tempURL)
+                print("✅ 다운로드 및 저장 완료: \(tempURL.path)")
+                
+                let resourceValues = try tempURL.resourceValues(forKeys: [.typeIdentifierKey])
+                print("File type identifier: \(resourceValues.typeIdentifier ?? "unknown")")
+                
+                let exists = FileManager.default.fileExists(atPath: tempURL.path)
+                let size = (try? FileManager.default.attributesOfItem(atPath: tempURL.path))?[.size] as? NSNumber
+
+                print("파일 존재 여부:", exists)
+                print("파일 크기:", size ?? "Unknown")
+                
+                DispatchQueue.main.async {
+                    self.playAudioWithHaptic(from: tempURL)
+                }
+            } catch {
+                print("❌ 파일 저장 실패: \(error)")
+            }
+        }.resume()
+    }
 
     private func startMonitoring() {
         stopMonitoring()

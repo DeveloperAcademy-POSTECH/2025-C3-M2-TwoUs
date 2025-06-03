@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PostStartFeedbackResponseDTO: Decodable {
+struct PostStartFeedbackResponseDTO: Decodable{
     let success: Bool
     let sessionId: String
 }

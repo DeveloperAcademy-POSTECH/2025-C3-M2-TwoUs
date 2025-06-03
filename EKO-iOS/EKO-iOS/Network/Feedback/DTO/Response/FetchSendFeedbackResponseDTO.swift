@@ -8,5 +8,15 @@
 import Foundation
 
 struct FetchSendFeedbackResponseDTO: Decodable {
-    let sessions: [Session]
+    let sessions: [FetchSession]
+}
+
+struct FetchSession: Decodable {
+    let receiverUserId: String
+    let sessionId: String
+    let status: String
+    let createdAt: Int
+    let senderUserId: String
+    let s3Key: String
+    let title: String
 }
