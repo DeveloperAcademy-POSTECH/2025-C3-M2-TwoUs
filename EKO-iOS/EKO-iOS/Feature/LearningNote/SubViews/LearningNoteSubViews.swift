@@ -40,10 +40,6 @@ struct LearningNoteSubView: View {
             // 왼쪽: 프로필, 이름
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Image(systemName: note.profileIcon)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .clipShape(Circle())
                     Text(note.receiverId)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -83,7 +79,7 @@ struct LearningNoteSubView: View {
 
                     // voice1 버튼
                     Button(action: {
-                        playVoice(fileName: note.voice1)
+                        // playVoice(fileName: note.voice1)
                     }) {
                         Image(systemName: "play.circle.fill")
                             .font(.title2)

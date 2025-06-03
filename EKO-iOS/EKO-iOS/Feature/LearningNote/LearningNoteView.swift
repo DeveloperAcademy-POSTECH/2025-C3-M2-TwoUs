@@ -18,56 +18,52 @@ enum NoteFilter: String, CaseIterable, Identifiable {
 
 struct LearningNoteView: View {
     @State private var filter: NoteFilter = .all
-    @State private var notes: [LearningNote] = LearningNote.dummyData
-    @State private var editingNoteId: UUID? = nil
+    @State private var editingNoteId: String? = nil
     @State private var newTitle: String = ""
-    
-    // MARK: - 필터링된 노트 리스트 반환 (선택된 필터에 따라 변경)
+    @StateObject private var viewModel = LearningNoteViewModel()
+
+    // MARK: - 필터링된 노트 리스트 반환
     var filteredNotes: [LearningNote] {
         switch filter {
-        case .all: return notes
-        case .favorite: return notes.filter { $0.isFavorite }
-        case .feedback: return notes.filter { $0.status == "Bad" }
-        case .good: return notes.filter { $0.status == "Good" }
+        case .all: return viewModel.notes
+        case .favorite: return viewModel.notes.filter { $0.isFavorite }
+        case .feedback: return viewModel.notes.filter { $0.status == "Bad" }
+        case .good: return viewModel.notes.filter { $0.status == "Good" }
         }
     }
     
-    // MARK: - 노트 삭제 함수
+    // MARK: - 노트 삭제
     private func deleteNote(_ note: LearningNote) {
-        if let idx = notes.firstIndex(where: { $0.id == note.id }) {
-            notes.remove(at: idx)
-        }
+        viewModel.notes.removeAll { $0.id == note.id }
     }
-    
-    // MARK: - 노트 즐겨찾기 함수
+
+    // MARK: - 즐겨찾기 토글
     private func toggleFavorite(_ note: LearningNote) {
-        if let idx = notes.firstIndex(where: { $0.id == note.id }) {
-            notes[idx].isFavorite.toggle()
+        if let idx = viewModel.notes.firstIndex(where: { $0.id == note.id }) {
+            viewModel.notes[idx].isFavorite.toggle()
         }
     }
     
     var body: some View {
         NavigationView {
             ZStack {
-                // 🔵🔴 파랑~빨강 그라데이션 배경 (위→아래)
                 LinearGradient(
                     colors: [Color.supBlue3, Color.supOrange3],
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .ignoresSafeArea()
+                
                 VStack {
-                    // MARK: - 상단 필터 Menu (토글식 드롭다운 메뉴)
+                    // MARK: - 필터 메뉴 및 불러오기 버튼
                     HStack {
                         Menu {
-                            // 필터 메뉴 선택지 생성
                             ForEach(NoteFilter.allCases) { option in
                                 Button(option.rawValue) {
                                     filter = option
                                 }
                             }
                         } label: {
-                            // 현재 필터 상태를 보여주는 Label
                             Label(filter.rawValue, systemImage: "line.3.horizontal.decrease.circle")
                                 .font(.headline)
                                 .padding(8)
@@ -75,10 +71,15 @@ struct LearningNoteView: View {
                                 .cornerRadius(8)
                         }
                         Spacer()
+                        Button("노트 불러오기") {
+                            Task {
+                                await viewModel.fetchLearningNotes()
+                            }
+                        }
                     }
                     .padding([.top, .horizontal])
                     
-                    // MARK: - 필터 적용된 노트 리스트
+                    // MARK: - 노트 리스트
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(filteredNotes, id: \.id) { note in
@@ -87,31 +88,25 @@ struct LearningNoteView: View {
                                     isEditing: editingNoteId == note.id,
                                     newTitle: newTitle,
                                     onStartEditing: {
-                                        // 제목 수정 시작
                                         editingNoteId = note.id
                                         newTitle = note.title
                                     },
                                     onCommitEditing: { updatedTitle in
-                                        // 제목 수정 완료
-                                        if let idx = notes.firstIndex(where: { $0.id == note.id }) {
-                                            notes[idx].title = updatedTitle
+                                        if let idx = viewModel.notes.firstIndex(where: { $0.id == note.id }) {
+                                            viewModel.notes[idx].title = updatedTitle
                                         }
                                         editingNoteId = nil
                                     },
                                     onChangeTitle: { changedTitle in
-                                        // 제목 텍스트 필드 실시간 값 반영
                                         newTitle = changedTitle
                                     },
                                     onToggleFavorite: {
-                                        // 즐겨찾기 토글
-                                        if let idx = notes.firstIndex(where: { $0.id == note.id }) {
-                                            notes[idx].isFavorite.toggle()
-                                        }
+                                        toggleFavorite(note)
                                     }
                                 )
                                 .padding()
-                                .background(Color(.white))
-                                .cornerRadius(22) //라운드값
+                                .background(Color.white)
+                                .cornerRadius(22)
                                 .contextMenu {
                                     Button {
                                         toggleFavorite(note)
