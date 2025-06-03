@@ -51,7 +51,7 @@ struct LearningNoteView: View {
             ZStack {
                 // 🔵🔴 파랑~빨강 그라데이션 배경 (위→아래)
                 LinearGradient(
-                    colors: [Color.blue, Color.red],
+                    colors: [Color.supBlue3, Color.supOrange3],
                     startPoint: .top,
                     endPoint: .bottom
                 )
@@ -130,6 +130,7 @@ struct LearningNoteView: View {
                                 }
                             }
                         }
+                        .padding(.horizontal)
                     }
                 }
                 .navigationTitle("학습 노트")
