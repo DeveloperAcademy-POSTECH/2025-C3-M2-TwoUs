@@ -40,8 +40,14 @@ struct LearningNoteView: View {
     // MARK: - 즐겨찾기 토글
     private func toggleFavorite(_ note: LearningNote) {
         if let idx = viewModel.notes.firstIndex(where: { $0.id == note.id }) {
-            viewModel.notes[idx].isFavorite.toggle()
-        }
+                viewModel.notes[idx].isFavorite.toggle()
+                let newFavorite = viewModel.notes[idx].isFavorite
+                let sessionId = viewModel.notes[idx].sessionId
+
+                Task {
+                    await viewModel.patchFeedbackNoteFavorite(isFavorite: newFavorite, sessionId: sessionId)
+                }
+            }
     }
     
     var body: some View {

@@ -34,4 +34,18 @@ final class LearningNoteViewModel: ObservableObject {
             print("노트 가져오기 실패:", error.localizedDescription)
         }
     }
+    
+    func patchFeedbackNoteFavorite(isFavorite:Bool, sessionId: String) async {
+        
+        let model = PatchNoteFavoriteRequestDTO(sessionId: sessionId, isFavorite: isFavorite)
+        
+        do {
+            let result = try await NetworkService.shared.noteService.patchFeedbackNoteFavorite(model: model)
+            print("\(result)")
+        } catch {
+            print("\(error)")
+        }
+        
+    }
+    
 }
