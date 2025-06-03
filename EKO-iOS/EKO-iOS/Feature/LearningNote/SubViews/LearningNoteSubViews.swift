@@ -43,6 +43,13 @@ struct LearningNoteSubView: View {
                     Text(note.receiverId)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                    Button(action: {
+                    }) {
+                        Image(systemName: note.isFavorite ? "star.fill" : "star")
+                            .foregroundStyle(note.isFavorite ? .yellow : .gray)
+                            .font(.title2)
+                    }
+                    .buttonStyle(.plain)
                 }
                 // 제목(수정) + Spacer() + voice 버튼 그룹 한 줄 배치
                 HStack {
@@ -73,47 +80,28 @@ struct LearningNoteSubView: View {
                         }
                         .buttonStyle(.plain)
                     }
-
-                    // Spacer로 오른쪽 끝으로 voice 버튼 이동
-                    Spacer()
-
-                    // voice1 버튼
-                    Button(action: {
-                        // playVoice(fileName: note.voice1)
-                    }) {
-                        Image(systemName: "play.circle.fill")
-                            .font(.title2)
-                    }
-                    .buttonStyle(.plain)
-
-                    // voice2 버튼(없으면 placeholder)
-                    if let voice2 = note.voice2, !voice2.isEmpty {
-                        Button(action: {
-                            playVoice(fileName: voice2)
-                        }) {
-                            Image(systemName: "play.circle")
-                                .font(.title2)
-                        }
-                        .buttonStyle(.plain)
-                        .frame(width: 32, height: 32)
-                        .padding(.leading, 4)
-                    } else {
-                        Color.clear
-                            .frame(width: 32, height: 32)
-                            .padding(.leading, 4)
-                    }
                 }
             }
-            // 별 버튼은 가장 오른쪽 끝에
-            Spacer(minLength: 12)
+            Spacer()
+            // voice1 버튼
             Button(action: {
+                // playVoice(fileName: note.voice1)
             }) {
-                Image(systemName: note.isFavorite ? "star.circle.fill" : "star.circle")
-                    .foregroundStyle(note.isFavorite ? .yellow : .gray)
+                Image(systemName: "play.circle.fill")
                     .font(.title2)
+                    .foregroundStyle(.mainOrange)
             }
             .buttonStyle(.plain)
-            .padding(.top, -40)
+            
+            // voice2 버튼
+            Button(action: {
+                // playVoice(fileName: note.voice2)
+            }) {
+                Image(systemName: "play.circle.fill")
+                    .font(.title2)
+                    .foregroundStyle(.mainBlue)
+            }
+            .buttonStyle(.plain)
         }
         .padding(.vertical, 8)
     }
