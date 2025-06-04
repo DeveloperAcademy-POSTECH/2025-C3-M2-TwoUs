@@ -87,7 +87,7 @@ struct LearningNoteSubView: View {
                 // playVoice(fileName: note.voice1)
             }) {
                 Image(systemName: "play.circle.fill")
-                    .font(.system(size: 50))
+                    .font(.system(size: 45))
                     .foregroundStyle(.mainOrange)
             }
             .buttonStyle(.plain)
@@ -97,22 +97,22 @@ struct LearningNoteSubView: View {
                     // playVoice(fileName: note.voice2)
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
-                        .font(.system(size: 28))
+                        .font(.system(size: 40))
                         .foregroundStyle(.mainBlue)
+                        .padding(.trailing, 3)
+                        .padding(.leading, 4)
                 }
-                .padding(.leading, 14)
             } else {
                 // voice2 버튼
                 Button(action: {
                     // playVoice(fileName: note.voice2)
                 }) {
                     Image(systemName: "play.circle.fill")
-                        .font(.system(size: 50))
+                        .font(.system(size: 45))
                         .foregroundStyle(.mainBlue)
                 }
                 .buttonStyle(.plain)
             }
         }
-        .padding(.vertical, 8)
     }
 }

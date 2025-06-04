@@ -90,8 +90,8 @@ struct LearningNoteView: View {
                         VStack(spacing: 16) {
                             ForEach(filteredNotes, id: \.id) { note in
                                 LearningNoteSubView(note: note, viewModel: viewModel)
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 4)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
                                 .background(Color.white)
                                 .cornerRadius(15)
                                 .contextMenu {
