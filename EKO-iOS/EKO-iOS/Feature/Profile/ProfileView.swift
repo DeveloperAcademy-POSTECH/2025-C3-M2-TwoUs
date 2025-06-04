@@ -17,7 +17,7 @@ struct ProfileView: View {
     var body: some View {
         ZStack {
             LinearGradient(
-                colors: [Color.orange, Color.blue],
+                colors: [Color.supOrange2, Color.supBlue3],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -57,10 +57,6 @@ struct ProfileView: View {
                 .background(
                     RoundedRectangle(cornerRadius: 16)
                         .fill(Color.white) // 하얀 배경
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.blue, lineWidth: 2) // 파란 테두리
                 )
                 .padding(.bottom, 110)
                 
