@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		098C97672DEFD7FC004388D6 /* PostRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */; };
+		098C97692DEFD806004388D6 /* PostNewFriendsRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */; };
+		098C976B2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */; };
+		098C976D2DEFD933004388D6 /* PostRegisterResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976C2DEFD933004388D6 /* PostRegisterResponseDTO.swift */; };
+		098C976F2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */; };
+		098C97712DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */; };
+		098C97732DEFD951004388D6 /* PostNewFriendsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */; };
+		098C97752DEFEDA4004388D6 /* APITestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97742DEFEDA4004388D6 /* APITestView.swift */; };
 		099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8652DEBD23E00CC9717 /* AppDelegate.swift */; };
 		099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */; };
 		099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8672DEBEEDC00CC9717 /* RegisterView.swift */; };
@@ -99,6 +107,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRegisterRequestDTO.swift; sourceTree = "<group>"; };
+		098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewFriendsRequestDTO.swift; sourceTree = "<group>"; };
+		098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyprofileResponseDTO.swift; sourceTree = "<group>"; };
+		098C976C2DEFD933004388D6 /* PostRegisterResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRegisterResponseDTO.swift; sourceTree = "<group>"; };
+		098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFriendsProfileResponseDTO.swift; sourceTree = "<group>"; };
+		098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyFriendsListResponseDTO.swift; sourceTree = "<group>"; };
+		098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewFriendsResponseDTO.swift; sourceTree = "<group>"; };
+		098C97742DEFEDA4004388D6 /* APITestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITestView.swift; sourceTree = "<group>"; };
 		099AD8652DEBD23E00CC9717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		099AD8672DEBEEDC00CC9717 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
@@ -355,6 +371,7 @@
 				3D2C9EC92DE5F608009DAE77 /* Profile */,
 				099AD86E2DEBEEDC00CC9717 /* Register */,
 				3D2C9ECA2DE5F62F009DAE77 /* AddFriend */,
+				098C97742DEFEDA4004388D6 /* APITestView.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -775,6 +792,11 @@
 		3DF326162DE9867C00F9F3F9 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */,
+				098C976C2DEFD933004388D6 /* PostRegisterResponseDTO.swift */,
+				098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */,
+				098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */,
+				098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -782,6 +804,8 @@
 		3DF326172DE9867F00F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */,
+				098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -945,17 +969,21 @@
 				09F425272DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift in Sources */,
 				09F425282DEBC2CB00850CDB /* PatchFeedbackNoteFavoriteResponseDTO.swift in Sources */,
 				09F4251E2DEBC2C400850CDB /* PatchNoteTitleRequestDTO.swift in Sources */,
+				098C976F2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift in Sources */,
 				09F4251F2DEBC2C400850CDB /* DeleteFeedbackNoteRequestDTO.swift in Sources */,
 				09F425202DEBC2C400850CDB /* PatchNoteFavoriteRequestDTO.swift in Sources */,
 				099AD8712DEBEEDC00CC9717 /* RegisterModel.swift in Sources */,
 				3D27961B2DED9B13005D5A1B /* EKOToggleIndicator.swift in Sources */,
+				098C97712DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift in Sources */,
 				09F4251A2DEBC2BA00850CDB /* PostStartFeedbackResponseDTO.swift in Sources */,
 				3D2C9ED42DE5F6A6009DAE77 /* AddFriendView.swift in Sources */,
 				3DF3255E2DE7FDD400F9F3F9 /* BaseTargetType.swift in Sources */,
+				098C97672DEFD7FC004388D6 /* PostRegisterRequestDTO.swift in Sources */,
 				3D27961F2DEDDB86005D5A1B /* EKOEmptyView.swift in Sources */,
 				3D2C9EFB2DE5FA4B009DAE77 /* ProfileSubViews.swift in Sources */,
 				3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */,
 				3DF3272F2DE9A8DC00F9F3F9 /* PostStartQuestionResponseDTO.swift in Sources */,
+				098C976B2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift in Sources */,
 				3D2C9EF42DE5FA08009DAE77 /* LearningNoteModel.swift in Sources */,
 				3DF326012DE8951F00F9F3F9 /* FeedbackTargetType.swift in Sources */,
 				3D2C9EF22DE5F9D8009DAE77 /* MainView.swift in Sources */,
@@ -968,6 +996,7 @@
 				099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */,
 				3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */,
 				3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */,
+				098C976D2DEFD933004388D6 /* PostRegisterResponseDTO.swift in Sources */,
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
 				3D2C9EE52DE5F926009DAE77 /* RecordingRequestSubView.swift in Sources */,
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
@@ -987,6 +1016,7 @@
 				3D2C9ECE2DE5F68A009DAE77 /* RecordingRequestView.swift in Sources */,
 				3DF325642DE7FDFC00F9F3F9 /* NetworkService.swift in Sources */,
 				3D2C9EDA2DE5F739009DAE77 /* LearningNoteViewModel.swift in Sources */,
+				098C97692DEFD806004388D6 /* PostNewFriendsRequestDTO.swift in Sources */,
 				3DF326032DE8953500F9F3F9 /* FeedbackAPIService.swift in Sources */,
 				3DF326052DE8956300F9F3F9 /* NoteTargetType.swift in Sources */,
 				09F4252C2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift in Sources */,
@@ -998,12 +1028,14 @@
 				3DF326092DE895A400F9F3F9 /* SessionTargetType.swift in Sources */,
 				3DF325F62DE891A900F9F3F9 /* Config.swift in Sources */,
 				3D2C9EFD2DE5FA53009DAE77 /* ProfileModel.swift in Sources */,
+				098C97732DEFD951004388D6 /* PostNewFriendsResponseDTO.swift in Sources */,
 				3D2C9EDC2DE5F743009DAE77 /* ProfileViewModel.swift in Sources */,
 				3DF325FA2DE8943B00F9F3F9 /* MoyaProvider.swift in Sources */,
 				3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */,
 				09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */,
 				09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */,
 				09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */,
+				098C97752DEFEDA4004388D6 /* APITestView.swift in Sources */,
 				3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */,
 				3DF325602DE7FDE300F9F3F9 /* BaseAPIService.swift in Sources */,
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,

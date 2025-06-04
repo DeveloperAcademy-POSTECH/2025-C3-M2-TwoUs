@@ -17,6 +17,6 @@ final class NetworkService {
     let noteService: NoteAPIServiceProtocol = NoteAPIService()
     let notificationService: NotificationAPIServiceProtocol = NotificationAPIService()
     let sessionService: SessionAPIServiceProtocol = SessionAPIService()
-    //let userService: SessionAPIServiceProtocol = UserAPIService()
+    let userService: UserAPIServiceProtocol = UserAPIService()
     let s3Service: S3APIServiceProtocol = S3APIService()
 }
