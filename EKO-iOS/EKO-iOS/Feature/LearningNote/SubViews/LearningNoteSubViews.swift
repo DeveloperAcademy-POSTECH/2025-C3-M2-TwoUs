@@ -45,7 +45,7 @@ struct LearningNoteSubView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Text(note.receiverId)
-                        .font(.system(size: 16))
+                        .font(.textRegular03)
                         .foregroundStyle(.secondary)
                     Button(action: {
                     }) {
@@ -69,7 +69,7 @@ struct LearningNoteSubView: View {
                                 }
                             }
                         )
-                        .font(.system(size: 16))
+                        .font(.textRegular03)
                         .textFieldStyle(.roundedBorder)
                     } else {
                         Text(note.title)

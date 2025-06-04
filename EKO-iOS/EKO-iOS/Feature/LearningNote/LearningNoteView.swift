@@ -8,10 +8,10 @@
 import SwiftUI
 
 enum NoteFilter: String, CaseIterable, Identifiable {
-    case all = "전체"
-    case favorite = "즐겨찾기"
-    case feedback = "Feedback"
+    case all = "전체노트"
     case good = "Good"
+    case feedback = "Feedback"
+    case favorite = "즐겨찾기"
     
     var id: String { self.rawValue }
 }
@@ -26,9 +26,9 @@ struct LearningNoteView: View {
     var filteredNotes: [LearningNote] {
         switch filter {
         case .all: return viewModel.notes
-        case .favorite: return viewModel.notes.filter { $0.isFavorite }
         case .feedback: return viewModel.notes.filter { $0.status == "Bad" }
         case .good: return viewModel.notes.filter { $0.status == "Good" }
+        case .favorite: return viewModel.notes.filter { $0.isFavorite }
         }
     }
     
@@ -53,6 +53,7 @@ struct LearningNoteView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                EKOToggleIndicator(type: .upDirection)
                 LinearGradient(
                     colors: [Color.supBlue4, Color.supOrange2],
                     startPoint: .top,
@@ -71,11 +72,14 @@ struct LearningNoteView: View {
                             }
                         } label: {
                             Label(filter.rawValue, systemImage: "")
-                                .font(.system(size: 30))
+                                .font(.title01)
                                 .foregroundStyle(.black)
-                                .padding(8)
-                                .cornerRadius(8)
+                            Image(systemName: "chevron.down")
+                                .font(.title01)
+                                .foregroundStyle(.black)
                         }
+                        
+                            
                         Spacer()
                         Button("노트 불러오기") {
                             Task {
@@ -121,7 +125,8 @@ struct LearningNoteView: View {
                         .padding(.horizontal)
                     }
                 }
-                .navigationTitle("학습 노트")
+                .navigationTitle("")
+                
             }
         }
     }
