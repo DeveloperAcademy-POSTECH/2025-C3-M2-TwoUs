@@ -9,16 +9,20 @@ import SwiftUI
 import AVFoundation
 
 struct LearningNoteSubView: View {
-    // MARK: - Properties
     let note: LearningNote
-    let isEditing: Bool
-    let newTitle: String
-    let onStartEditing: () -> Void
-    let onCommitEditing: (String) -> Void
-    let onChangeTitle: (String) -> Void
-    let onToggleFavorite: () -> Void
+    @ObservedObject var viewModel: LearningNoteViewModel
+
+    // 내부 편집 상태
+    @State private var isEditing = false
+    @State private var editedTitle: String = ""
 
     @State private var audioPlayer: AVAudioPlayer?
+
+    // 수정 시작 시 note의 title로 초기화
+    private func startEditing() {
+        editedTitle = note.title
+        isEditing = true
+    }
 
     // MARK: - 음성 파일 재생 함수
     func playVoice(fileName: String) {
@@ -56,27 +60,22 @@ struct LearningNoteSubView: View {
                     if isEditing {
                         TextField(
                             "제목을 입력하세요",
-                            text: Binding<String>(
-                                get: { newTitle },
-                                set: { value in onChangeTitle(value) }
-                            ),
+                            text: $editedTitle,
                             onCommit: {
-                                onCommitEditing(newTitle)
+                                Task {
+                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId)
+                                    await viewModel.fetchLearningNotes()
+                                    isEditing = false
+                                }
                             }
                         )
                         .font(.system(size: 16))
-                        Button("완료") {
-                            onCommitEditing(newTitle)
-                        }
-                        .buttonStyle(.plain)
+                        .textFieldStyle(.roundedBorder)
                     } else {
                         Text(note.title)
                             .font(.headline)
-                        Button(action: {
-                            onStartEditing()
-                        }) {
+                        Button(action: startEditing) {
                             Image(systemName: "pencil")
-                                .foregroundStyle(.blue)
                         }
                         .buttonStyle(.plain)
                     }
@@ -98,9 +97,10 @@ struct LearningNoteSubView: View {
                     // playVoice(fileName: note.voice2)
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
-                        .font(.system(size: 50))
+                        .font(.system(size: 28))
                         .foregroundStyle(.mainBlue)
                 }
+                .padding(.leading, 14)
             } else {
                 // voice2 버튼
                 Button(action: {

@@ -54,7 +54,7 @@ struct LearningNoteView: View {
         NavigationView {
             ZStack {
                 LinearGradient(
-                    colors: [Color.supBlue3, Color.supOrange3],
+                    colors: [Color.supBlue4, Color.supOrange2],
                     startPoint: .top,
                     endPoint: .bottom
                 )
@@ -70,10 +70,10 @@ struct LearningNoteView: View {
                                 }
                             }
                         } label: {
-                            Label(filter.rawValue, systemImage: "line.3.horizontal.decrease.circle")
-                                .font(.headline)
+                            Label(filter.rawValue, systemImage: "")
+                                .font(.system(size: 30))
+                                .foregroundStyle(.black)
                                 .padding(8)
-                                .background(Color(.systemGray6))
                                 .cornerRadius(8)
                         }
                         Spacer()
@@ -89,43 +89,29 @@ struct LearningNoteView: View {
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(filteredNotes, id: \.id) { note in
-                                LearningNoteSubView(
-                                    note: note,
-                                    isEditing: editingNoteId == note.id,
-                                    newTitle: newTitle,
-                                    onStartEditing: {
-                                        editingNoteId = note.id
-                                        newTitle = note.title
-                                    },
-                                    onCommitEditing: { updatedTitle in
-                                        if let idx = viewModel.notes.firstIndex(where: { $0.id == note.id }) {
-                                            viewModel.notes[idx].title = updatedTitle
-                                        }
-                                        editingNoteId = nil
-                                    },
-                                    onChangeTitle: { changedTitle in
-                                        newTitle = changedTitle
-                                    },
-                                    onToggleFavorite: {
-                                        toggleFavorite(note)
-                                    }
-                                )
+                                LearningNoteSubView(note: note, viewModel: viewModel)
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 4)
                                 .background(Color.white)
-                                .cornerRadius(22)
+                                .cornerRadius(15)
                                 .contextMenu {
                                     Button {
-                                        toggleFavorite(note)
+                                        Task {
+                                            await viewModel.patchFeedbackNoteFavorite(isFavorite: note.isFavorite ? false : true, sessionId: note.sessionId)
+                                            await viewModel.fetchLearningNotes()
+                                        }
                                     } label: {
                                         if note.isFavorite {
-                                            Label("즐겨찾기 해제", systemImage: "star.slash")
+                                            Label("즐겨찾기 해제", systemImage: StringLiterals.starSlash)
                                         } else {
-                                            Label("즐겨찾기 등록", systemImage: "star")
+                                            Label("즐겨찾기 등록", systemImage: StringLiterals.star)
                                         }
                                     }
                                     Button(role: .destructive) {
-                                        deleteNote(note)
+                                        Task {
+                                            await viewModel.deleteFeedbackNoteRequest(sessionId: note.sessionId)
+                                            await viewModel.fetchLearningNotes()
+                                        }
                                     } label: {
                                         Label("삭제", systemImage: "trash")
                                     }
