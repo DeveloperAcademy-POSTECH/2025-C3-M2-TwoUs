@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 protocol NoteAPIServiceProtocol {
-    func fetchFeedbackNotes(senderId: String) async throws -> [FetchFeedbackNotesResponseDTO]
+    func fetchFeedbackNotes(senderId: String) async throws -> FetchFeedbackNotesResponseDTO
     func patchFeedbackNoteFavorite(model: PatchNoteFavoriteRequestDTO) async throws -> [PatchFeedbackNoteFavoriteResponseDTO]
     func patchFeedbackNoteTitle(model: PatchNoteTitleRequestDTO) async throws -> [PatchFeedbackNoteTitleResponseDTO]
     func deleteFeedbackNote(model: DeleteFeedbackNoteRequestDTO) async throws -> [DeleteFeedbackNoteResponseDTO]
@@ -19,9 +19,9 @@ final class NoteAPIService: BaseAPIService<NoteTargetType>, NoteAPIServiceProtoc
     
     private let provider = MoyaProvider<NoteTargetType>(plugins: [MoyaLoggerPlugin()])
     
-    func fetchFeedbackNotes(senderId: String) async throws -> [FetchFeedbackNotesResponseDTO] {
+    func fetchFeedbackNotes(senderId: String) async throws -> FetchFeedbackNotesResponseDTO {
         let response = try await provider.request(.fetchFeedbackNotes(senderId: senderId))
-        let result: NetworkResult<[FetchFeedbackNotesResponseDTO]> = fetchNetworkResult(
+        let result: NetworkResult<FetchFeedbackNotesResponseDTO> = fetchNetworkResult(
             statusCode: response.statusCode,
             data: response.data
         )
