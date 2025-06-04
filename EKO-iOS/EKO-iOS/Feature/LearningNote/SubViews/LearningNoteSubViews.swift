@@ -49,7 +49,7 @@ struct LearningNoteSubView: View {
                         .foregroundStyle(.secondary)
                     Button(action: {
                     }) {
-                        Image(systemName: note.isFavorite ? "star.fill" : "star")
+                        Image(systemName: note.isFavorite ? "star.fill" : "")
                             .foregroundStyle(note.isFavorite ? .yellow : .gray)
                             .font(.system(size: 16))
                     }
