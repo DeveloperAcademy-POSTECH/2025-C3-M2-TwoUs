@@ -8,13 +8,70 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject private var coordinator: AppCoordinator
-
+    // 임시 더미 데이터 생성
+    let dummyProfile = ProfileModel(
+        id: "1D856A",
+        qrImageURL: "dummyQR"
+    )
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            LinearGradient(
+                colors: [Color.orange, Color.blue],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            VStack {
+                Spacer()
+                VStack(spacing: 27) {
+                    Text("MINI")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.top, 11)
+                    
+                    Image(dummyProfile.qrImageURL)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 210, height: 210)
+                        .padding(.horizontal, 38)
+                    
+                    HStack {
+                        Text("ID:")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Text(dummyProfile.id)
+                            .font(.title)
+                        Button(action: {
+                            UIPasteboard.general.string = dummyProfile.id
+                        }) {
+                            Image(systemName: "square.on.square")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.black)
+                        }
+                    }
+                    .padding(.bottom, 25)
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.white) // 하얀 배경
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.blue, lineWidth: 2) // 파란 테두리
+                )
+                .padding(.bottom, 110)
+                
+                Text("ID 입력")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 50)
+            }
+        }
     }
 }
-
 #Preview {
     ProfileView()
 }
