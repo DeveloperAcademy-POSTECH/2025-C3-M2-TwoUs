@@ -48,4 +48,27 @@ final class LearningNoteViewModel: ObservableObject {
         
     }
     
+    func patchFeedbackNoteTitle(title: String, sessionId: String) async {
+        
+        let model = PatchNoteTitleRequestDTO(sessionId: sessionId, title: title)
+        
+        do {
+            let result = try await NetworkService.shared.noteService.patchFeedbackNoteTitle(model: model)
+            print("\(result)")
+        } catch {
+            print("\(error)")
+        }
+    }
+    
+    func deleteFeedbackNoteRequest(sessionId: String) async {
+        
+        let model = DeleteFeedbackNoteRequestDTO(sessionId: sessionId)
+        
+        do {
+            let result = try await NetworkService.shared.noteService.deleteFeedbackNote(model: model)
+            print("\(result)")
+        } catch {
+            print("\(error)")
+        }
+    }
 }
