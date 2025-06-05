@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct RecordingRequestView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
@@ -13,65 +14,129 @@ struct RecordingRequestView: View {
     
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
-    @State private var isPlaying = false
-    @State private var animatePulse = false
     @State private var lastRecordedURL: URL?
+    @State private var isPressing = false
+    
+    @State private var dragOffset: CGFloat = .zero
+    
+    struct LottieView: UIViewRepresentable {
+        let animationName: String
+        let loopMode: LottieLoopMode
+
+        func makeUIView(context: Context) -> some UIView {
+            let animationView = LottieAnimationView(name: animationName)
+            animationView.loopMode = loopMode
+            animationView.play()
+            animationView.animationSpeed = 0.3
+            animationView.contentMode = .scaleAspectFit
+            animationView.backgroundBehavior = .pauseAndRestore
+            return animationView
+        }
+
+        func updateUIView(_ uiView: UIViewType, context: Context) {}
+    }
+    
+    @ViewBuilder
+    private var recordingAnimation: some View {
+        if recorder.isRecording {
+            LottieView(animationName: "CircleWaveOrange", loopMode: .loop)
+                .frame(width: 350, height: 350)
+        }
+    }
+    
+    private var symbolName: String {
+        if recorder.isRecording {
+            return "stop.fill"
+        } else if lastRecordedURL != nil {
+            return "restart"
+        } else {
+            return "mic.fill"
+        }
+    }
+    
+    private var buttonColor: Color {
+        symbolName == "mic.fill" ? .white : Color("mainOrange")
+    }
     
     var body: some View {
-        VStack(spacing: 30) {
-            
+        VStack {
             ZStack {
-                Button(action: {
-                    if recorder.isRecording {
-                        recorder.stopRecording()
-                        animatePulse = false
-                    } else {
-                        recorder.startRecording()
-                        animatePulse = true
-                    }
-                }) {
-                    Circle()
-                        .fill(recorder.isRecording ? Color.red : Color.blue)
-                        .frame(width: 80, height: 80)
-                        .overlay(
-                            Image(systemName: recorder.isRecording ? "stop.fill" : "mic.fill")
-                                .foregroundColor(.white)
-                                .font(.system(size: 30))
-                        )
-                }
-            }
-            
-            if let url = lastRecordedURL {
-                Button(action: {
-                    isPlaying = true
-                    audioPlayer.playAudioWithHaptic(from: url)
-                }) {
-                    Text("듣기")
-                        .font(.headline)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                }
+                recordingAnimation
+                Circle()
+                    .fill(buttonColor)
+                    .frame(width: 185, height: 185)
+                    .overlay(
+                        Image(systemName: symbolName)
+                            .foregroundColor(.black)
+                            .font(.system(size: 40))
+                    )
+                    .shadow(
+                        color: symbolName == "mic.fill"
+                        ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
+                        : .clear,
+                        radius: symbolName == "mic.fill" ? 20 : 0,
+                        x: 0,
+                        y: symbolName == "mic.fill" ? 15 : 0
+                    )
+                    .offset(x: dragOffset)
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { value in
+                                if abs(value.translation.width) < 10 {
+                                    if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
+                                        isPressing = true
+                                        recorder.startRecording()
+                                    }
+                                } else {
+                                    guard lastRecordedURL != nil else { return }
+                                    dragOffset = value.translation.width
+                                }
+                            }
+                            .onEnded { value in
+                                if recorder.isRecording {
+                                    recorder.stopRecording()
+                                }
+                                isPressing = false
+                                
+                                guard let url = lastRecordedURL else { return }
+                                
+                                let threshold: CGFloat = 100
+                                if value.translation.width < -threshold {
+                                    lastRecordedURL = nil
+                                } else if value.translation.width > threshold {
+                                    Task {
+                                        await viewModel.sendQuestion(from: url)
+                                        lastRecordedURL = nil
+                                    }
+                                }
+                                
+                                withAnimation {
+                                    dragOffset = .zero
+                                }
+                            }
+                    )
             }
         }
         .onAppear {
             recorder.onRecordingFinished = { url in
                 print("녹음 완료 파일 URL:", url)
                 lastRecordedURL = url
-                
-                Task {
-                    await viewModel.sendQuestion(from: url)
-                }
+            }
+        }
+        .onChange(of: isPressing) { isNowPressing in
+            if isNowPressing && !recorder.isRecording && lastRecordedURL == nil {
+                recorder.startRecording()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.05))
+        
+        Spacer()
+        EKOToggleIndicator(type: .downDirection)
     }
 }
 
 #Preview {
     RecordingRequestView()
 }
+
 
