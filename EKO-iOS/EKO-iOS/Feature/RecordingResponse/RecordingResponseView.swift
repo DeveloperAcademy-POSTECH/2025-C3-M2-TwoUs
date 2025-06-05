@@ -18,26 +18,9 @@ struct RecordingResponseView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            
-            Button("피드백 조회 (s3Key)") {
+            Button("피드백 듣기") {
                 Task {
-                    await viewModel.fetchFeedbackS3Key()
-                }
-            }
-
-            Button("음성 다운로드") {
-                Task {
-                    await viewModel.downloadAudio()
-                }
-            }
-            
-            Button("재생") {
-                if let playbackURL = viewModel.playbackURL {
-                    print(playbackURL)
-                    audioPlayer.downloadAndPlayWithHaptics(from: playbackURL)
-                } else {
-                    print("❌ 재생할 URL이 없습니다.")
-                    // 혹은 사용자에게 알림 띄우기 (Alert 등)
+                    await viewModel.playFeedback(using: audioPlayer)
                 }
             }
 
@@ -81,6 +64,11 @@ struct RecordingResponseView: View {
             }
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
+//        .background(Color.gray.opacity(0.1))
     }
 }
+
+#Preview {
+    RecordingResponseView()
+}
+
