@@ -7,43 +7,35 @@
 
 import SwiftUI
 
-enum MainTab {
-    case request
-    case response
-}
-
 struct MainView: View {
+    @State private var selectedTab: EKOTab = .question
     @EnvironmentObject private var coordinator: AppCoordinator
     
-    @State private var selectedTab: MainTab = .request
-    
     var body: some View {
-        VStack {
-            Picker("선택", selection: $selectedTab) {
-                Text("요청").tag(MainTab.request)
-                Text("응답").tag(MainTab.response)
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-            .padding(.top, 16)
-
-            Spacer().frame(height: 16)
-
-            Group {
-                switch selectedTab {
-                case .request:
+        ZStack {
+            VStack(spacing: 0) {
+                HStack {
+                    EKOTabSelector(selected: $selectedTab)
+                    Spacer().frame(width: 186)
+                }
+                .padding(.top, 32)
+                
+                Spacer()
+                
+                if selectedTab == .question {
                     RecordingRequestView()
-                case .response:
+                } else {
                     RecordingResponseView()
                 }
+                
+                Spacer()
             }
-
-            Spacer()
         }
-        .padding()
     }
 }
+
 
 #Preview {
     MainView()
 }
+
