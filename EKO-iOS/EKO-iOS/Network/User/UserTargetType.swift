@@ -17,7 +17,7 @@ enum UserTargetType {
 }
 
 extension UserTargetType: BaseTargetType {
-    var utilPath: UtilPath { return .session }
+    var utilPath: UtilPath { return .user }
     var pathParameter: String? { return .none }
     
     var headerType: [String: String?]{
@@ -29,7 +29,7 @@ extension UserTargetType: BaseTargetType {
         case .fetchFriendsProfile:
             return ["Content-Type" : "application/json"]
         case .postNewFriends:
-            return ["Content-Type" : "multipart/form-data"]
+            return ["Content-Type" : "application/json"]
         case .fetchMyFriendsList:
             return ["Content-Type" : "application/json"]
         }
