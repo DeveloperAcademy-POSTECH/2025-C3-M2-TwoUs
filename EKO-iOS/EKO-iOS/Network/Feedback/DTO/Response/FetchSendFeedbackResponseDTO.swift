@@ -19,4 +19,5 @@ struct FetchSession: Decodable {
     let senderUserId: String
     let s3Key: String
     let title: String
+    let senderNickname: String
 }

@@ -7,12 +7,30 @@
 
 import SwiftUI
 
-struct RecordingResponseSubView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+struct FetchMyRequsetSubView: View {
+    @EnvironmentObject private var coordinator: AppCoordinator
 
-#Preview {
-    RecordingResponseSubView()
+    @Binding var friends: [RecordingResponseViewModel.EKORequestFriend]
+    @Binding var selectedRequestUserId: String?
+
+    let type: EKOFriendsViewType = .response
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                ForEach(friends) { friend in
+                    EKOFriendsView(
+                        type: type,
+                        name: friend.senderNickname,
+                        isSelected: selectedRequestUserId == friend.senderUserId
+                    )
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 2)
+                    .onTapGesture {
+                        selectedRequestUserId = friend.senderUserId
+                    }
+                }
+            }
+        }
+    }
 }

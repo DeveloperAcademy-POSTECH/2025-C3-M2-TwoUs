@@ -32,13 +32,13 @@ final class RecordingRequestViewModel: ObservableObject {
             self.friends = fetched
             self.selectedReceiverUserId = fetched.first?.friendUserId // 첫 친구 선택
         } catch {
-            print("❌ 친구 목록 불러오기 실패: \(error.localizedDescription)")
+            print("친구 목록 불러오기 실패: \(error.localizedDescription)")
         }
     }
 
     func sendQuestion(from url: URL) async {
         guard let receiverId = selectedReceiverUserId else {
-            print("❌ 선택된 친구가 없습니다.")
+            print("선택된 친구가 없습니다.")
             return
         }
 
@@ -50,9 +50,9 @@ final class RecordingRequestViewModel: ObservableObject {
 
         do {
             let result = try await NetworkService.shared.sessionService.postStartQuestion(model: model)
-            print("✅ postStartFeedback result: \(result)")
+            print("postStartFeedback result: \(result)")
         } catch {
-            print("❌ postStartFeedback error: \(error)")
+            print("postStartFeedback error: \(error)")
         }
     }
 }
