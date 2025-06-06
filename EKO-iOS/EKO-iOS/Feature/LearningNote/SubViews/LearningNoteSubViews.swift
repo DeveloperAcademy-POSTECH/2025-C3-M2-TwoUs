@@ -11,12 +11,11 @@ import AVFoundation
 struct LearningNoteSubView: View {
     let note: LearningNote
     @ObservedObject var viewModel: LearningNoteViewModel
+    @State private var audioPlayer = AudioPlayer()
 
     // 내부 편집 상태
     @State private var isEditing = false
     @State private var editedTitle: String = ""
-
-    @State private var audioPlayer: AVAudioPlayer?
 
     // 수정 시작 시 note의 title로 초기화
     private func startEditing() {
@@ -25,15 +24,12 @@ struct LearningNoteSubView: View {
     }
 
     // MARK: - 음성 파일 재생 함수
-    func playVoice(fileName: String) {
-        let components = fileName.split(separator: ".")
-        guard components.count == 2 else { return }
-        if let url = Bundle.main.url(forResource: String(components[0]), withExtension: String(components[1])) {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("음성파일 재생 오류:", error.localizedDescription)
+    private func playVoice(from s3Key: String) {
+        Task {
+            if let url = await viewModel.fetchPresignedURL(for: s3Key) {
+                audioPlayer.downloadAndPlayWithHaptics(from: url)
+            } else {
+                print("❌ Presigned URL 가져오기 실패")
             }
         }
     }
@@ -84,17 +80,18 @@ struct LearningNoteSubView: View {
             Spacer()
             // voice1 버튼
             Button(action: {
-                // playVoice(fileName: note.voice1)
-            }) {
+                if let voice1 = note.voice1 {
+                    playVoice(from: voice1)
+                }
+            }, label: {
                 Image(systemName: "play.circle.fill")
                     .font(.system(size: 45))
                     .foregroundStyle(.mainOrange)
-            }
+            })
             .buttonStyle(.plain)
             
             if note.status == "Good" {
                 Button(action: {
-                    // playVoice(fileName: note.voice2)
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
                         .font(.system(size: 40))
@@ -103,14 +100,15 @@ struct LearningNoteSubView: View {
                         .padding(.leading, 4)
                 }
             } else {
-                // voice2 버튼
                 Button(action: {
-                    // playVoice(fileName: note.voice2)
-                }) {
+                    if let voice2 = note.voice2 {
+                        playVoice(from: voice2)
+                    }
+                }, label: {
                     Image(systemName: "play.circle.fill")
                         .font(.system(size: 45))
                         .foregroundStyle(.mainBlue)
-                }
+                })
                 .buttonStyle(.plain)
             }
         }

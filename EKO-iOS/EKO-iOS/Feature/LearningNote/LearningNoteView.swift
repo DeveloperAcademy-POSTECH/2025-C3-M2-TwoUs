@@ -18,7 +18,7 @@ enum NoteFilter: String, CaseIterable, Identifiable {
 
 struct LearningNoteView: View {
     @State private var filter: NoteFilter = .all
-    @State private var editingNoteId: String? = nil
+    @State private var editingNoteId: String?
     @State private var newTitle: String = ""
     @StateObject private var viewModel = LearningNoteViewModel()
 
@@ -51,6 +51,9 @@ struct LearningNoteView: View {
     }
     
     var body: some View {
+        EKOToggleIndicator(type: .upDirection)
+        .padding(.bottom, 20)
+        
         NavigationView {
             ZStack {
                 EKOToggleIndicator(type: .upDirection)
@@ -78,7 +81,6 @@ struct LearningNoteView: View {
                                 .font(.title01)
                                 .foregroundStyle(.black)
                         }
-                        
                             
                         Spacer()
                         Button("노트 불러오기") {
@@ -106,9 +108,9 @@ struct LearningNoteView: View {
                                         }
                                     } label: {
                                         if note.isFavorite {
-                                            Label("즐겨찾기 해제", systemImage: StringLiterals.starSlash)
+                                            Label("즐겨찾기 해제", systemImage: "star.slash")
                                         } else {
-                                            Label("즐겨찾기 등록", systemImage: StringLiterals.star)
+                                            Label("즐겨찾기 등록", systemImage: "star")
                                         }
                                     }
                                     Button(role: .destructive) {
@@ -120,6 +122,11 @@ struct LearningNoteView: View {
                                         Label("삭제", systemImage: "trash")
                                     }
                                 }
+                            }
+                        }
+                        .onAppear {
+                            Task {
+                                await viewModel.fetchLearningNotes()
                             }
                         }
                         .padding(.horizontal)

@@ -19,6 +19,6 @@ struct LearningNote: Identifiable {
     var isFavorite: Bool
     let s3Key: String
     var title: String
-    var voice1: String? = nil
-    var voice2: String? = nil
+    var voice1: String?
+    var voice2: String?
 }
