@@ -168,19 +168,49 @@ struct RecordingResponseView: View {
                 
                 if feedbackPlayed {
                     HStack(spacing: 20) {
-                        Button("Good") {
-                            Task {
-                                await viewModel.sendFeedback(status: "Good", fileURL: nil)
-                                feedbackSubmitted = true
-                                feedbackPlayed = false
-                            }
-                        }
-                        .buttonStyle(.bordered)
-                        
-                        Button("Bad") {
-                            showRecordingUI = true
-                        }
-                        .buttonStyle(.bordered)
+                        Button(action: {
+                              Task {
+                                  await viewModel.sendFeedback(status: "Good", fileURL: nil)
+                                  feedbackSubmitted = true
+                                  feedbackPlayed = false
+                              }
+                          }) {
+                              Image(systemName: "hand.thumbsup.fill")
+                                  .resizable()
+                                  .scaledToFit()
+                                  .frame(width: 24, height: 24)
+                                  .foregroundColor(Color("mainBlue"))
+                                  .padding(24)
+                                  .background(
+                                      Circle()
+                                          .fill(Color.white)
+                                          .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 2)
+                                          .overlay(
+                                              Circle()
+                                                  .stroke(Color.white.opacity(0.6), lineWidth: 1)
+                                          )
+                                  )
+                          }
+
+                          // 내 발음 들려주기 버튼 커스텀
+                          Button(action: {
+                              showRecordingUI = true
+                          }) {
+                              Text("내 발음 들려주기")
+                                  .font(.system(size: 17, weight: .semibold))
+                                  .foregroundColor(Color("mainBlue"))
+                                  .padding(.horizontal, 28)
+                                  .padding(.vertical, 18)
+                                  .background(
+                                      RoundedRectangle(cornerRadius: 40)
+                                          .fill(Color.white)
+                                          .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 2)
+                                          .overlay(
+                                              RoundedRectangle(cornerRadius: 40)
+                                                  .stroke(Color.white.opacity(0.6), lineWidth: 1)
+                                          )
+                                  )
+                          }
                     }
                     .padding()
                 }
