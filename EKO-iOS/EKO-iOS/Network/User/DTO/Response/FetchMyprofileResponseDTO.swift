@@ -8,12 +8,9 @@
 import Foundation
 
 struct FetchMyprofileResponseDTO: Decodable {
-    let myProfile: [MyProfile]
-}
-
-struct MyProfile: Codable {
     let userId: String
     let nickname: String
-    let userAddcode: String
-    let userQrCodeURL: String
+    let userAddCode: Int
+    let userQrCodeUrl: String
 }
+
