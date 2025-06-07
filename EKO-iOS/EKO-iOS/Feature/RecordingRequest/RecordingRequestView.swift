@@ -11,7 +11,6 @@ import Lottie
 struct RecordingRequestView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingRequestViewModel()
-    @State private var selectedTab: EKOTab = .question
     
     @State private var recorder = AudioRecorder()
     @State private var audioPlayer = AudioPlayer()
