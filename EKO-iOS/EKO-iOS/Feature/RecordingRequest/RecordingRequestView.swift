@@ -16,7 +16,6 @@ struct RecordingRequestView: View {
     @State private var audioPlayer = AudioPlayer()
     @State private var lastRecordedURL: URL?
     @State private var isPressing = false
-    @State private var showNote = false
     @State private var dragOffset: CGFloat = .zero
 
     struct LottieView: UIViewRepresentable {
@@ -58,22 +57,6 @@ struct RecordingRequestView: View {
 
     var body: some View {
         ZStack {
-            LearningNoteView()
-                .offset(y: showNote ? 0 : UIScreen.main.bounds.height)
-                .animation(.easeInOut, value: showNote)
-                .gesture(
-                    DragGesture()
-                        .onEnded { value in
-                            if abs(value.translation.height) > abs(value.translation.width),
-                               value.translation.height > 80 {
-                                withAnimation {
-                                    showNote = false
-                                }
-                            }
-                        }
-                )
-                .zIndex(0)
-
             VStack {
                 Spacer()
                 ZStack {
@@ -172,26 +155,6 @@ struct RecordingRequestView: View {
                 EKOToggleIndicator(type: .downDirection)
                     .padding(.bottom, 24)
             }
-            .offset(y: showNote ? -UIScreen.main.bounds.height : 0)
-            .animation(.easeInOut, value: showNote)
-            .zIndex(1)
-
-            // 학습 노트로 전환하는 상단 스와이프 제스처
-            Color.clear
-                .ignoresSafeArea()
-                .contentShape(Rectangle())
-                .simultaneousGesture(
-                    DragGesture()
-                        .onEnded { value in
-                            if abs(value.translation.height) > abs(value.translation.width),
-                               value.translation.height < -80 {
-                                withAnimation {
-                                    showNote = true
-                                }
-                            }
-                        }
-                )
-                .zIndex(0)
         }
         .onAppear {
             recorder.onRecordingFinished = { url in
