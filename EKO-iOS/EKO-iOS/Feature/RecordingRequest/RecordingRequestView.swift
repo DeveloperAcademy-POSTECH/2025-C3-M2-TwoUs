@@ -11,9 +11,10 @@ import Lottie
 struct RecordingRequestView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingRequestViewModel()
+    @State private var selectedTab: EKOTab = .question
     
-    @StateObject private var recorder = AudioRecorder()
-    @StateObject private var audioPlayer = AudioPlayer()
+    @State private var recorder = AudioRecorder()
+    @State private var audioPlayer = AudioPlayer()
     @State private var lastRecordedURL: URL?
     @State private var isPressing = false
     @State private var showNote = false
@@ -33,7 +34,7 @@ struct RecordingRequestView: View {
         }
         func updateUIView(_ uiView: UIViewType, context: Context) {}
     }
-    
+
     @ViewBuilder
     private var recordingAnimation: some View {
         if recorder.isRecording {
@@ -41,7 +42,7 @@ struct RecordingRequestView: View {
                 .frame(width: 300, height: 300)
         }
     }
-    
+
     private var symbolName: String {
         if recorder.isRecording {
             return "stop.fill"
@@ -73,11 +74,42 @@ struct RecordingRequestView: View {
                         }
                 )
                 .zIndex(0)
-            
+
             VStack {
                 Spacer()
                 ZStack {
                     recordingAnimation
+                    
+                    if lastRecordedURL != nil {
+                            Capsule()
+                                .fill(Color.white)
+                                .frame(width: 370, height: 130)
+                                .shadow(
+                                    color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
+                                    radius: 20,
+                                    x: 0,
+                                    y: 15
+                                )
+                                .overlay(
+                                    HStack {
+                                        Image(systemName: "trash")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(.leading, 32)
+                                        
+                                        Image(systemName: "paperplane.fill")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .padding(.trailing, 32)
+                                    }
+                                )
+                                .padding(.horizontal, 20)
+                                .offset(y: 0)
+                                .zIndex(0)
+                        }
+
                     Circle()
                         .fill(buttonColor)
                         .frame(width: 185, height: 185)
@@ -88,8 +120,8 @@ struct RecordingRequestView: View {
                         )
                         .shadow(
                             color: symbolName == "mic.fill"
-                            ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
-                            : .clear,
+                                ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
+                                : .clear,
                             radius: symbolName == "mic.fill" ? 20 : 0,
                             x: 0,
                             y: symbolName == "mic.fill" ? 15 : 0
@@ -136,7 +168,6 @@ struct RecordingRequestView: View {
                                     }
                                 }
                         )
-                        .zIndex(2)
                 }
                 Spacer()
                 EKOToggleIndicator(type: .downDirection)
@@ -146,6 +177,7 @@ struct RecordingRequestView: View {
             .animation(.easeInOut, value: showNote)
             .zIndex(1)
 
+            // 학습 노트로 전환하는 상단 스와이프 제스처
             Color.clear
                 .ignoresSafeArea()
                 .contentShape(Rectangle())

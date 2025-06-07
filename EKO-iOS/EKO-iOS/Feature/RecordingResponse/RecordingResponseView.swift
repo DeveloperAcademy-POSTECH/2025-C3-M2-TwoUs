@@ -89,7 +89,36 @@ struct RecordingResponseView: View {
             } else if showRecordingUI {
                 ZStack {
                     recordingAnimation
-                    
+                    if lastRecordedURL != nil {
+                            Capsule()
+                                .fill(Color.white)
+                                .frame(width: 370, height: 130)
+                                .shadow(
+                                    color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
+                                    radius: 20,
+                                    x: 0,
+                                    y: 15
+                                )
+                                .overlay(
+                                    HStack {
+                                        Image(systemName: "trash")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(.leading, 32)
+                                        
+                                        Image(systemName: "paperplane.fill")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .padding(.trailing, 32)
+                                    }
+                                )
+                                .padding(.horizontal, 20)
+                                .offset(y: 0)
+                                .zIndex(0)
+                        }
+
                     Circle()
                         .fill(buttonColor)
                         .frame(width: 185, height: 185)
