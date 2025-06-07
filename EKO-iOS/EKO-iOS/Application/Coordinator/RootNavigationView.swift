@@ -12,29 +12,38 @@ struct RootNavigationView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            Group {
-                if UserDefaults.standard.string(forKey: "userId") != nil {
+            ZStack {
+                LinearGradient(
+                    colors: [Color.supOrange2, Color.supBlue4],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                Group {
+                    if UserDefaults.standard.string(forKey: "userId") != nil {
                         MainView()
                     } else {
                         RegisterView()
                     }
-            }
-            .navigationDestination(for: AppRoute.self) { route in
-                switch route {
-                case .main: MainView()
-                case .recordingRequest: RecordingRequestView()
-                case .recordingResponse: RecordingResponseView()
-                case .learningNote: LearningNoteView()
-                case .profile: ProfileView()
-                case .addFriend: AddFriendView()
-                case .register: RegisterView()
+                }
+                .navigationDestination(for: AppRoute.self) { route in
+                    switch route {
+                    case .main: MainView()
+                    case .recordingRequest: RecordingRequestView()
+                    case .recordingResponse: RecordingResponseView()
+                    case .learningNote: LearningNoteView()
+                    case .profile: ProfileView()
+                    case .addFriend: AddFriendView()
+                    case .register: RegisterView()
+                    }
                 }
             }
         }
-    }
-}
+    }}
 
 #Preview {
     RootNavigationView()
         .environmentObject(AppCoordinator())
 }
+
