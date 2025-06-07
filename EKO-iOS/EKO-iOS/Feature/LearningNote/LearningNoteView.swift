@@ -21,7 +21,7 @@ struct LearningNoteView: View {
     @State private var editingNoteId: String?
     @State private var newTitle: String = ""
     @StateObject private var viewModel = LearningNoteViewModel()
-
+    
     // MARK: - 필터링된 노트 리스트 반환
     var filteredNotes: [LearningNote] {
         switch filter {
@@ -36,35 +36,33 @@ struct LearningNoteView: View {
     private func deleteNote(_ note: LearningNote) {
         viewModel.notes.removeAll { $0.id == note.id }
     }
-
+    
     // MARK: - 즐겨찾기 토글
     private func toggleFavorite(_ note: LearningNote) {
         if let idx = viewModel.notes.firstIndex(where: { $0.id == note.id }) {
-                viewModel.notes[idx].isFavorite.toggle()
-                let newFavorite = viewModel.notes[idx].isFavorite
-                let sessionId = viewModel.notes[idx].sessionId
-
-                Task {
-                    await viewModel.patchFeedbackNoteFavorite(isFavorite: newFavorite, sessionId: sessionId)
-                }
+            viewModel.notes[idx].isFavorite.toggle()
+            let newFavorite = viewModel.notes[idx].isFavorite
+            let sessionId = viewModel.notes[idx].sessionId
+            
+            Task {
+                await viewModel.patchFeedbackNoteFavorite(isFavorite: newFavorite, sessionId: sessionId)
             }
+        }
     }
     
     var body: some View {
-        EKOToggleIndicator(type: .upDirection)
-        .padding(.bottom, 20)
-        
         NavigationView {
             ZStack {
-                EKOToggleIndicator(type: .upDirection)
                 LinearGradient(
-                    colors: [Color.supBlue4, Color.supOrange2],
+                    colors: [Color.mainWhite, Color.mainWhite],
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .ignoresSafeArea()
                 
                 VStack {
+                    EKOToggleIndicator(type: .upDirection)
+                    Color.clear.frame(height: 16)
                     // MARK: - 필터 메뉴 및 불러오기 버튼
                     HStack {
                         Menu {
@@ -78,10 +76,10 @@ struct LearningNoteView: View {
                                 .font(.title01)
                                 .foregroundStyle(.black)
                             Image(systemName: "chevron.down")
-                                .font(.title01)
-                                .foregroundStyle(.black)
+                                .font(.callout)
+                                .foregroundStyle(.gray)
                         }
-                            
+                        
                         Spacer()
                         Button("노트 불러오기") {
                             Task {
@@ -89,39 +87,41 @@ struct LearningNoteView: View {
                             }
                         }
                     }
-                    .padding([.top, .horizontal])
+                    .padding(.horizontal, 8)
                     
                     // MARK: - 노트 리스트
                     ScrollView {
                         VStack(spacing: 16) {
+                            Color.clear.frame(height: 8)
                             ForEach(filteredNotes, id: \.id) { note in
                                 LearningNoteSubView(note: note, viewModel: viewModel)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 10)
-                                .background(Color.white)
-                                .cornerRadius(15)
-                                .contextMenu {
-                                    Button {
-                                        Task {
-                                            await viewModel.patchFeedbackNoteFavorite(isFavorite: note.isFavorite ? false : true, sessionId: note.sessionId)
-                                            await viewModel.fetchLearningNotes()
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 10)
+                                    .background(Color.white)
+                                    .cornerRadius(15)
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 4)
+                                    .contextMenu {
+                                        Button {
+                                            Task {
+                                                await viewModel.patchFeedbackNoteFavorite(isFavorite: note.isFavorite ? false : true, sessionId: note.sessionId)
+                                                await viewModel.fetchLearningNotes()
+                                            }
+                                        } label: {
+                                            if note.isFavorite {
+                                                Label("즐겨찾기 해제", systemImage: "star.slash")
+                                            } else {
+                                                Label("즐겨찾기 등록", systemImage: "star")
+                                            }
                                         }
-                                    } label: {
-                                        if note.isFavorite {
-                                            Label("즐겨찾기 해제", systemImage: "star.slash")
-                                        } else {
-                                            Label("즐겨찾기 등록", systemImage: "star")
+                                        Button(role: .destructive) {
+                                            Task {
+                                                await viewModel.deleteFeedbackNoteRequest(sessionId: note.sessionId)
+                                                await viewModel.fetchLearningNotes()
+                                            }
+                                        } label: {
+                                            Label("삭제", systemImage: "trash")
                                         }
                                     }
-                                    Button(role: .destructive) {
-                                        Task {
-                                            await viewModel.deleteFeedbackNoteRequest(sessionId: note.sessionId)
-                                            await viewModel.fetchLearningNotes()
-                                        }
-                                    } label: {
-                                        Label("삭제", systemImage: "trash")
-                                    }
-                                }
                             }
                         }
                         .onAppear {

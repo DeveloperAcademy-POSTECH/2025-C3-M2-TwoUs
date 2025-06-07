@@ -16,6 +16,10 @@ struct LearningNoteSubView: View {
     // 내부 편집 상태
     @State private var isEditing = false
     @State private var editedTitle: String = ""
+    
+    // Voice1 재생 상태 관리
+    @State private var isPlayingVoice1 = false
+    @State private var isPlayingVoice2 = false
 
     // 수정 시작 시 note의 title로 초기화
     private func startEditing() {
@@ -47,9 +51,10 @@ struct LearningNoteSubView: View {
                     }) {
                         Image(systemName: note.isFavorite ? "star.fill" : "")
                             .foregroundStyle(note.isFavorite ? .yellow : .gray)
-                            .font(.system(size: 16))
+                            .font(.system(size: 13))
                     }
                     .buttonStyle(.plain)
+                    .padding(.bottom, 4)
                 }
                 // 제목(수정) + Spacer() + voice 버튼 그룹 한 줄 배치
                 HStack {
@@ -78,19 +83,37 @@ struct LearningNoteSubView: View {
                 }
             }
             Spacer()
-            // voice1 버튼
-            Button(action: {
-                if let voice1 = note.voice1 {
-                    playVoice(from: voice1)
-                }
-            }, label: {
-                Image(systemName: "play.circle.fill")
-                    .font(.system(size: 45))
-                    .foregroundStyle(.mainOrange)
-            })
-            .buttonStyle(.plain)
             
+            // MARK: - Voice1 버튼 (Play / Pause 토글)
+            if isPlayingVoice1 {
+                // Pause 버튼
+                Button(action: {
+                    audioPlayer.pause()
+                    isPlayingVoice1 = false
+                }) {
+                    Image(systemName: "pause.circle.fill")
+                        .font(.system(size: 45))
+                        .foregroundStyle(.mainOrange)
+                }
+                .buttonStyle(.plain)
+            } else {
+                // Play 버튼
+                Button(action: {
+                    if let voice1 = note.voice1 {
+                        playVoice(from: voice1)
+                        isPlayingVoice1 = true
+                    }
+                }) {
+                    Image(systemName: "play.circle.fill")
+                        .font(.system(size: 45))
+                        .foregroundStyle(.mainOrange)
+                }
+                .buttonStyle(.plain)
+            }
+            
+            // MARK: - Voice2 or Good 상태 표시 (Play / Pause 토글)
             if note.status == "Good" {
+                // 따봉 표시 고정
                 Button(action: {
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
@@ -100,16 +123,31 @@ struct LearningNoteSubView: View {
                         .padding(.leading, 4)
                 }
             } else {
-                Button(action: {
-                    if let voice2 = note.voice2 {
-                        playVoice(from: voice2)
+                if isPlayingVoice2 {
+                    // Pause 버튼
+                    Button(action: {
+                        audioPlayer.pause()
+                        isPlayingVoice2 = false
+                    }) {
+                        Image(systemName: "pause.circle.fill")
+                            .font(.system(size: 45))
+                            .foregroundStyle(.mainBlue)
                     }
-                }, label: {
-                    Image(systemName: "play.circle.fill")
-                        .font(.system(size: 45))
-                        .foregroundStyle(.mainBlue)
-                })
-                .buttonStyle(.plain)
+                    .buttonStyle(.plain)
+                } else {
+                    // Play 버튼
+                    Button(action: {
+                        if let voice2 = note.voice2 {
+                            playVoice(from: voice2)
+                            isPlayingVoice2 = true
+                        }
+                    }) {
+                        Image(systemName: "play.circle.fill")
+                            .font(.system(size: 45))
+                            .foregroundStyle(.mainBlue)
+                    }
+                    .buttonStyle(.plain)
+                }
             }
         }
     }

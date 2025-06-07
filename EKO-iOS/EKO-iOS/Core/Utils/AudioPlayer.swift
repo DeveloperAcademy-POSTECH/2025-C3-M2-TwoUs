@@ -126,4 +126,9 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
             print("햅틱 재생 실패: \(error)")
         }
     }
+    
+    func pause() {
+        audioPlayer?.pause()
+        stopMonitoring()
+    }
 }
