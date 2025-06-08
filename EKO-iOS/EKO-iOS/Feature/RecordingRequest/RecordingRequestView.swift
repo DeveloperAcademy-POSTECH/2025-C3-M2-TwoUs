@@ -172,18 +172,22 @@ struct RecordingRequestView: View {
                                     }
                                 }
                         )
-                }
-                if showToast {
-                    EKOToastMessage(toastType: .completeAnswer)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.easeInOut(duration: 0.3), value: showToast)
+                    Spacer()
                 }
                 Spacer()
                 EKOToggleIndicator(type: .downDirection)
                     .padding(.bottom, 24)
-                
             }
 
+            VStack {
+                Spacer()
+                if showToast {
+                    EKOToastMessage(toastType: .completeAnswer)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .animation(.easeInOut(duration: 0.3), value: showToast)
+                        .padding(.bottom, 60)
+                }
+            }
         }
         .onAppear {
             recorder.onRecordingFinished = { url in
