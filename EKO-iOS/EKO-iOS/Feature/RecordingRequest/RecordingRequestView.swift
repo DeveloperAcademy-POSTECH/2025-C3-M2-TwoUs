@@ -17,6 +17,7 @@ struct RecordingRequestView: View {
     @State private var lastRecordedURL: URL?
     @State private var isPressing = false
     @State private var dragOffset: CGFloat = .zero
+    @State private var showToast: Bool = false
 
     struct LottieView: UIViewRepresentable {
         let animationName: String
@@ -63,34 +64,34 @@ struct RecordingRequestView: View {
                     recordingAnimation
                     
                     if lastRecordedURL != nil {
-                            Capsule()
-                                .fill(Color.white)
-                                .frame(width: 370, height: 130)
-                                .shadow(
-                                    color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
-                                    radius: 20,
-                                    x: 0,
-                                    y: 15
-                                )
-                                .overlay(
-                                    HStack {
-                                        Image(systemName: "trash")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.gray)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.leading, 32)
-                                        
-                                        Image(systemName: "paperplane.fill")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.gray)
-                                            .frame(maxWidth: .infinity, alignment: .trailing)
-                                            .padding(.trailing, 32)
-                                    }
-                                )
-                                .padding(.horizontal, 20)
-                                .offset(y: 0)
-                                .zIndex(0)
-                        }
+                        Capsule()
+                            .fill(Color.white)
+                            .frame(width: 370, height: 130)
+                            .shadow(
+                                color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
+                                radius: 20,
+                                x: 0,
+                                y: 15
+                            )
+                            .overlay(
+                                HStack {
+                                    Image(systemName: "trash")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.gray)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.leading, 32)
+                                    
+                                    Image(systemName: "paperplane.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.gray)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                        .padding(.trailing, 32)
+                                }
+                            )
+                            .padding(.horizontal, 20)
+                            .offset(y: 0)
+                            .zIndex(0)
+                    }
 
                     Circle()
                         .fill(buttonColor)
@@ -110,7 +111,6 @@ struct RecordingRequestView: View {
                                         .scaledToFit()
                                         .frame(width: 60, height: 50)
                                         .offset(x: 5, y: 0)
-                                        
                                 } else {
                                     Image(systemName: symbolName)
                                         .foregroundColor(.black)
@@ -153,6 +153,10 @@ struct RecordingRequestView: View {
                                         Task {
                                             await viewModel.sendQuestion(from: url)
                                             lastRecordedURL = nil
+                                            showToast = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                showToast = false
+                                            }
                                         }
                                     }
                                     withAnimation {
@@ -169,10 +173,17 @@ struct RecordingRequestView: View {
                                 }
                         )
                 }
+                if showToast {
+                    EKOToastMessage(toastType: .completeAnswer)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .animation(.easeInOut(duration: 0.3), value: showToast)
+                }
                 Spacer()
                 EKOToggleIndicator(type: .downDirection)
                     .padding(.bottom, 24)
+                
             }
+
         }
         .onAppear {
             recorder.onRecordingFinished = { url in
@@ -191,3 +202,4 @@ struct RecordingRequestView: View {
 #Preview {
     RecordingRequestView()
 }
+
