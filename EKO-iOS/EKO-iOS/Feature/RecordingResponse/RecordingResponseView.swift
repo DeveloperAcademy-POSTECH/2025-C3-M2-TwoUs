@@ -6,81 +6,260 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct RecordingResponseView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
-    
     @StateObject private var viewModel = RecordingResponseViewModel()
+    
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
+    
     @State private var lastRecordedURL: URL?
-    @State private var animatePulse = false
+    @State private var isPressing = false
+    @State private var dragOffset: CGFloat = .zero
+    @State private var feedbackPlayed = false
+    @State private var feedbackSubmitted = false
+    @State private var showRecordingUI = false
+    
+    struct LottieView: UIViewRepresentable {
+        let animationName: String
+        let loopMode: LottieLoopMode
+        
+        func makeUIView(context: Context) -> some UIView {
+            let animationView = LottieAnimationView(name: animationName)
+            animationView.loopMode = loopMode
+            animationView.play()
+            animationView.animationSpeed = 0.7
+            animationView.backgroundBehavior = .pauseAndRestore
+            return animationView
+        }
+        
+        func updateUIView(_ uiView: UIViewType, context: Context) {}
+    }
+    
+    @ViewBuilder
+    private func CircleActionButton(symbolName: String, color: Color, action: @escaping () -> Void) -> some View {
+        Circle()
+            .fill(color)
+            .frame(width: 185, height: 185)
+            .overlay(
+                Image(systemName: symbolName)
+                    .foregroundColor(.black)
+                    .font(.system(size: 40))
+            )
+            .shadow(
+                color: symbolName == "mic.fill"
+                ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
+                : .clear,
+                radius: symbolName == "mic.fill" ? 20 : 0,
+                x: 0,
+                y: symbolName == "mic.fill" ? 15 : 0
+            )
+            .onTapGesture {
+                action()
+            }
+    }
+    
+    @ViewBuilder
+    private var recordingAnimation: some View {
+        if recorder.isRecording {
+            LottieView(animationName: "CircleWaveBlue", loopMode: .loop)
+                .frame(width: 300, height: 300)
+        }
+    }
+    
+    private var symbolName: String {
+        if recorder.isRecording {
+            return "stop.fill"
+        } else if lastRecordedURL != nil {
+            return "restart"
+        } else {
+            return "mic.fill"
+        }
+    }
+    
+    private var buttonColor: Color {
+        symbolName == "mic.fill" ? .white : Color("mainBlue")
+    }
     
     var body: some View {
-        VStack(spacing: 30) {
-            
-            Button("피드백 조회 (s3Key)") {
-                Task {
-                    await viewModel.fetchFeedbackS3Key()
-                }
-            }
+        VStack {
+            if feedbackSubmitted {
+            } else if showRecordingUI {
+                ZStack {
+                    recordingAnimation
+                    if lastRecordedURL != nil {
+                            Capsule()
+                                .fill(Color.white)
+                                .frame(width: 370, height: 130)
+                                .shadow(
+                                    color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
+                                    radius: 20,
+                                    x: 0,
+                                    y: 15
+                                )
+                                .overlay(
+                                    HStack {
+                                        Image(systemName: "trash")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(.leading, 32)
+                                        
+                                        Image(systemName: "paperplane.fill")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .padding(.trailing, 32)
+                                    }
+                                )
+                                .padding(.horizontal, 20)
+                                .offset(y: 0)
+                                .zIndex(0)
+                        }
 
-            Button("음성 다운로드") {
-                Task {
-                    await viewModel.downloadAudio()
+                    Circle()
+                        .fill(buttonColor)
+                        .frame(width: 185, height: 185)
+                        .overlay(
+                            Image(systemName: symbolName)
+                                .foregroundColor(.black)
+                                .font(.system(size: 40))
+                        )
+                        .shadow(
+                            color: symbolName == "mic.fill"
+                            ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
+                            : .clear,
+                            radius: symbolName == "mic.fill" ? 20 : 0,
+                            x: 0,
+                            y: symbolName == "mic.fill" ? 15 : 0
+                        )
+                        .offset(x: dragOffset)
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { value in
+                                    if abs(value.translation.width) < 10 {
+                                        if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
+                                            isPressing = true
+                                            recorder.startRecording()
+                                        }
+                                    } else {
+                                        guard lastRecordedURL != nil else { return }
+                                        dragOffset = value.translation.width
+                                    }
+                                }
+                                .onEnded { value in
+                                    if recorder.isRecording {
+                                        recorder.stopRecording()
+                                    }
+                                    isPressing = false
+                                    
+                                    guard let url = lastRecordedURL else { return }
+                                    
+                                    let threshold: CGFloat = 100
+                                    if value.translation.width < -threshold {
+                                        lastRecordedURL = nil
+                                    } else if value.translation.width > threshold {
+                                        Task {
+                                            await viewModel.sendFeedback(status: "Bad", fileURL: url)
+                                            lastRecordedURL = nil
+                                            feedbackSubmitted = true
+                                            showRecordingUI = false
+                                        }
+                                    }
+                                    
+                                    withAnimation {
+                                        dragOffset = .zero
+                                    }
+                                }
+                        )
+                        .simultaneousGesture(
+                            TapGesture()
+                                .onEnded {
+                                    if let url = lastRecordedURL, !recorder.isRecording {
+                                        audioPlayer.playAudioWithHaptic(from: url)
+                                    }
+                                }
+                        )
                 }
-            }
-            
-            Button("재생") {
-                if let playbackURL = viewModel.playbackURL {
-                    print(playbackURL)
-                    audioPlayer.downloadAndPlayWithHaptics(from: playbackURL)
-                } else {
-                    print("❌ 재생할 URL이 없습니다.")
-                    // 혹은 사용자에게 알림 띄우기 (Alert 등)
-                }
-            }
-
-            Button("피드백 전송_Good") {
-                Task {
-                    await viewModel.sendFeedback(status: "Good", fileURL: nil)
-                }
-            }
-
-            Button(action: {
-                if recorder.isRecording {
-                    recorder.stopRecording()
-                    animatePulse = false
-                } else {
-                    recorder.startRecording()
-                    animatePulse = true
-                }
-            }) {
-                Circle()
-                    .fill(recorder.isRecording ? Color.red : Color.orange)
-                    .frame(width: 80, height: 80)
-                    .overlay(
-                        Image(systemName: recorder.isRecording ? "stop.fill" : "mic.fill")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30))
-                    )
-            }
-
-            if let url = lastRecordedURL {
-                Button("피드백 전송_Bad") {
+                .padding()
+            } else {
+                CircleActionButton(symbolName: "restart", color: Color("mainBlue")) {
                     Task {
-                        await viewModel.sendFeedback(status: "Bad", fileURL: url)
+                        await viewModel.playFeedback(using: audioPlayer)
+                        feedbackPlayed = true
                     }
+                }
+                .padding()
+                .buttonStyle(.borderedProminent)
+                .padding()
+                
+                if feedbackPlayed {
+                    HStack(spacing: 20) {
+                        Button(action: {
+                              Task {
+                                  await viewModel.sendFeedback(status: "Good", fileURL: nil)
+                                  feedbackSubmitted = true
+                                  feedbackPlayed = false
+                              }
+                          }) {
+                              Image(systemName: "hand.thumbsup.fill")
+                                  .resizable()
+                                  .scaledToFit()
+                                  .frame(width: 24, height: 24)
+                                  .foregroundColor(Color("mainBlue"))
+                                  .padding(24)
+                                  .background(
+                                      Circle()
+                                          .fill(Color.white)
+                                          .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 2)
+                                          .overlay(
+                                              Circle()
+                                                  .stroke(Color.white.opacity(0.6), lineWidth: 1)
+                                          )
+                                  )
+                          }
+
+                          // 내 발음 들려주기 버튼 커스텀
+                          Button(action: {
+                              showRecordingUI = true
+                          }) {
+                              Text("내 발음 들려주기")
+                                  .font(.system(size: 17, weight: .semibold))
+                                  .foregroundColor(Color("mainBlue"))
+                                  .padding(.horizontal, 28)
+                                  .padding(.vertical, 18)
+                                  .background(
+                                      RoundedRectangle(cornerRadius: 40)
+                                          .fill(Color.white)
+                                          .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 2)
+                                          .overlay(
+                                              RoundedRectangle(cornerRadius: 40)
+                                                  .stroke(Color.white.opacity(0.6), lineWidth: 1)
+                                          )
+                                  )
+                          }
+                    }
+                    .padding()
                 }
             }
         }
         .onAppear {
             recorder.onRecordingFinished = { url in
-                print("피드백 녹음 완료:", url)
+                print("녹음 완료 파일 URL:", url)
                 lastRecordedURL = url
             }
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
+        .onChange(of: isPressing) { isNowPressing in
+            if isNowPressing && !recorder.isRecording && lastRecordedURL == nil {
+                recorder.startRecording()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    RecordingResponseView()
 }
