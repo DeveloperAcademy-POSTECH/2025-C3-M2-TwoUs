@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = ProfileViewModel()
 
     var body: some View {
@@ -16,6 +17,29 @@ struct ProfileView: View {
                 .ignoresSafeArea()
 
             VStack {
+                HStack {
+                    Button(action: {
+                        coordinator.push(.main)
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+
+                    Spacer()
+
+                    Button(action: {
+                        coordinator.push(.addFriend)
+                    }) {
+                        Image(systemName: "qrcode.viewfinder")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+                }
+                .padding(.horizontal)
+
                 Spacer()
 
                 VStack(spacing: 27) {
@@ -63,11 +87,8 @@ struct ProfileView: View {
                     RoundedRectangle(cornerRadius: 16).fill(Color.white)
                 )
                 .padding(.bottom, 110)
-
-                Text("ID 입력")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 50)
+                
+                Spacer()
             }
         }
         .onAppear {
@@ -75,6 +96,8 @@ struct ProfileView: View {
                 await viewModel.fetchProfile(userId: "userA123")
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
 
