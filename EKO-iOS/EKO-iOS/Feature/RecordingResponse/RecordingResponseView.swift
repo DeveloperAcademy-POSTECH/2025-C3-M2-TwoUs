@@ -44,9 +44,20 @@ struct RecordingResponseView: View {
             .fill(color)
             .frame(width: 185, height: 185)
             .overlay(
-                Image(systemName: symbolName)
-                    .foregroundColor(.black)
-                    .font(.system(size: 40))
+                Group {
+                    if symbolName == "restart" {
+                        Image("play")
+                            .resizable()
+                            .renderingMode(.original)
+                            .scaledToFit()
+                            .frame(width: 60, height: 50)
+                            .offset(x: 5)
+                    } else {
+                        Image(systemName: symbolName)
+                            .foregroundColor(.black)
+                            .font(.system(size: 40))
+                    }
+                }
             )
             .shadow(
                 color: symbolName == "mic.fill"
@@ -123,9 +134,26 @@ struct RecordingResponseView: View {
                         .fill(buttonColor)
                         .frame(width: 185, height: 185)
                         .overlay(
-                            Image(systemName: symbolName)
-                                .foregroundColor(.black)
-                                .font(.system(size: 40))
+                            Group {
+                                if recorder.isRecording || symbolName == "mic.fill" {
+                                    Image("mic_blue")
+                                        .resizable()
+                                        .renderingMode(.original)
+                                        .scaledToFit()
+                                        .frame(width: 120, height: 120)
+                                } else if symbolName == "restart" {
+                                    Image("play")
+                                        .resizable()
+                                        .renderingMode(.original)
+                                        .scaledToFit()
+                                        .frame(width: 60, height: 50)
+                                        .offset(x: 5, y: 0)
+                                } else {
+                                    Image(systemName: symbolName)
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 40))
+                                }
+                            }
                         )
                         .shadow(
                             color: symbolName == "mic.fill"
