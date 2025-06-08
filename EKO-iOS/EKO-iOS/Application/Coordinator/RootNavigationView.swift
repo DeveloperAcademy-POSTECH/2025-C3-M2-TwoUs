@@ -14,7 +14,7 @@ struct RootNavigationView: View {
         NavigationStack(path: $coordinator.path) {
             ZStack {
                 LinearGradient(
-                    colors: [Color.supOrange2, Color.supBlue4],
+                    colors: [Color.supOrange2, Color.supBlue3],
                     startPoint: .top,
                     endPoint: .bottom
                 )
