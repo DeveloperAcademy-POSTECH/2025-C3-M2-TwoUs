@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct QRData: Decodable {
+    let userId: String
+    let userAddCode: Int
+}
+
