@@ -7,43 +7,72 @@
 
 import SwiftUI
 
-enum MainTab {
-    case request
-    case response
-}
-
 struct MainView: View {
+    @State private var selectedTab: EKOTab = .question
     @EnvironmentObject private var coordinator: AppCoordinator
-    
-    @State private var selectedTab: MainTab = .request
+    @State private var showNote = false
     
     var body: some View {
-        VStack {
-            Picker("선택", selection: $selectedTab) {
-                Text("요청").tag(MainTab.request)
-                Text("응답").tag(MainTab.response)
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-            .padding(.top, 16)
-
-            Spacer().frame(height: 16)
-
-            Group {
-                switch selectedTab {
-                case .request:
+        ZStack {
+            LearningNoteView()
+                .offset(y: showNote ? 0 : UIScreen.main.bounds.height)
+                .animation(.easeInOut, value: showNote)
+                .gesture(
+                        DragGesture()
+                            .onEnded { value in
+                                if abs(value.translation.height) > abs(value.translation.width),
+                                   value.translation.height > 80 {
+                                    withAnimation {
+                                        showNote = false
+                                    }
+                                }
+                            }
+                )
+                .zIndex(0)
+            VStack(spacing: 0) {
+                HStack {
+                    EKOTabSelector(selected: $selectedTab)
+                    Spacer().frame(width: 186)
+                }
+                .padding(.top, 32)
+                
+                Spacer()
+                
+                if selectedTab == .question {
                     RecordingRequestView()
-                case .response:
+                } else {
                     RecordingResponseView()
                 }
+                
+                Spacer()
             }
-
-            Spacer()
+            .offset(y: showNote ? -UIScreen.main.bounds.height : 0)
+            .animation(.easeInOut, value: showNote)
+            .zIndex(1)
+            
+            Color.clear
+                .ignoresSafeArea()
+                .contentShape(Rectangle())
+                .gesture(
+                    selectedTab == .question ?
+                    DragGesture()
+                        .onEnded { value in
+                            if abs(value.translation.height) > abs(value.translation.width),
+                               value.translation.height < -80 {
+                                withAnimation {
+                                    showNote = true
+                                }
+                            }
+                        }
+                    : nil
+                )
+                .zIndex(0)
         }
-        .padding()
     }
 }
+
 
 #Preview {
     MainView()
 }
+
