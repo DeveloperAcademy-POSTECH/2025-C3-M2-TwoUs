@@ -98,6 +98,16 @@ struct RecordingResponseView: View {
     var body: some View {
         ZStack {
             VStack {
+                FetchMyRequsetSubView(
+                        friends: $viewModel.friends,
+                        selectedRequestUserId: $viewModel.selectedRequestUserId
+                    )
+                    .padding(.top)
+                    .onAppear {
+                          Task {
+                              await viewModel.fetchMyRequestList()
+                          }
+                      }
                 if feedbackSubmitted {
                     EmptyView()
                 } else if showRecordingUI {
