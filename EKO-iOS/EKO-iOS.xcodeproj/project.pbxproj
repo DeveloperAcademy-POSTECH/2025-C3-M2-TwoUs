@@ -105,7 +105,6 @@
 		3DF327352DE9A9E400F9F3F9 /* NotificationTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */; };
 		3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */; };
 		3DF327392DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */; };
-		6DCF64AD2DEFCA5E006E8B67 /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCF64AC2DEFCA5E006E8B67 /* StringLiterals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -989,7 +988,6 @@
 				3D2C9ED62DE5F6E7009DAE77 /* RecordingRequestViewModel.swift in Sources */,
 				09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */,
 				09F425252DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift in Sources */,
-				6DCF64AD2DEFCA5E006E8B67 /* StringLiterals.swift in Sources */,
 				09F425262DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift in Sources */,
 				3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */,
 				09F425272DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift in Sources */,
