@@ -18,17 +18,18 @@ struct MainView: View {
                 .offset(y: showNote ? 0 : UIScreen.main.bounds.height)
                 .animation(.easeInOut, value: showNote)
                 .gesture(
-                        DragGesture()
-                            .onEnded { value in
-                                if abs(value.translation.height) > abs(value.translation.width),
-                                   value.translation.height > 80 {
-                                    withAnimation {
-                                        showNote = false
-                                    }
+                    DragGesture()
+                        .onEnded { value in
+                            if abs(value.translation.height) > abs(value.translation.width),
+                               value.translation.height > 80 {
+                                withAnimation {
+                                    showNote = false
                                 }
                             }
+                        }
                 )
                 .zIndex(0)
+            
             VStack(spacing: 0) {
                 HStack {
                     EKOTabSelector(selected: $selectedTab)
@@ -50,13 +51,13 @@ struct MainView: View {
             .animation(.easeInOut, value: showNote)
             .zIndex(1)
             
-            Color.clear
-                .ignoresSafeArea()
-                .contentShape(Rectangle())
-                .gesture(
-                    selectedTab == .question ?
-                    DragGesture()
-                        .onEnded { value in
+            // Note View에서는 눌리지 않도록 하기
+            if selectedTab == .question && !showNote {
+                Color.clear
+                    .ignoresSafeArea()
+                    .contentShape(Rectangle())
+                    .gesture(
+                        DragGesture().onEnded { value in
                             if abs(value.translation.height) > abs(value.translation.width),
                                value.translation.height < -80 {
                                 withAnimation {
@@ -64,15 +65,12 @@ struct MainView: View {
                                 }
                             }
                         }
-                    : nil
-                )
-                .zIndex(0)
+                    )
+            }
         }
     }
 }
 
-
 #Preview {
     MainView()
 }
-
