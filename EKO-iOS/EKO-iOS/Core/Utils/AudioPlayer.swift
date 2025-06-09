@@ -33,6 +33,9 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func playAudioWithHaptic(from url: URL) {
         do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.delegate = self
             audioPlayer?.isMeteringEnabled = true
