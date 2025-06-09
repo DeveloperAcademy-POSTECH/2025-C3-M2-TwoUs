@@ -48,6 +48,7 @@ struct MainView: View {
             VStack(spacing: 0) {
                 HStack {
                     EKOTabSelector(selected: $selectedTab)
+                        .opacity(isPressing ? 0 : 1)
                     Spacer().frame(width: 186)
                 }
                 .padding(.top, 32)

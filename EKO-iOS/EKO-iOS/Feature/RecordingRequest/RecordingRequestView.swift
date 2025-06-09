@@ -172,11 +172,23 @@ struct RecordingRequestView: View {
                                     }
                                 }
                         )
-                    Spacer()
                 }
                 Spacer()
+                
+                if symbolName == "mic.fill" {
+                    EKONoticeText(title: "길게 눌러 궁금한 발음 보내기")
+                        .padding(.bottom, 40)
+                } else if symbolName == "restart" {
+                    EKONoticeText(title: "음성을 확인한 뒤 좌우로 스와이프 해주세요.")
+                        .padding(.bottom, 40)
+                } else if recorder.isRecording {
+                    EKONoticeText(title: "")
+                        .padding(.bottom, 40)
+                }
+
                 EKOToggleIndicator(type: .downDirection)
                     .padding(.bottom, 24)
+                    .opacity(isPressing ? 0 : 1)
             }
 
             VStack {
@@ -201,4 +213,8 @@ struct RecordingRequestView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    RecordingRequestView(isPressing: .constant(false))
 }
