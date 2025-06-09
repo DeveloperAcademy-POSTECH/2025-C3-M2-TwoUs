@@ -106,9 +106,9 @@ struct LearningNoteView: View {
                                         }
                                     } label: {
                                         if note.isFavorite {
-                                            Label("즐겨찾기 해제", systemImage: StringLiterals.starSlash)
+                                            Label("즐겨찾기 해제", systemImage: "starSlash")
                                         } else {
-                                            Label("즐겨찾기 등록", systemImage: StringLiterals.star)
+                                            Label("즐겨찾기 등록", systemImage: "star")
                                         }
                                     }
                                     Button(role: .destructive) {
