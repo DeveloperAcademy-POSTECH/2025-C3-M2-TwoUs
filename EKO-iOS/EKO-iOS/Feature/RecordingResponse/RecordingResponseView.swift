@@ -101,126 +101,135 @@ struct RecordingResponseView: View {
                 if feedbackSubmitted {
                     EmptyView()
                 } else if showRecordingUI {
-                    ZStack {
-                        recordingAnimation
+                    VStack {
+                        FetchMyRequsetSubView(
+                            friends: $viewModel.friends,
+                            selectedRequestUserId: $viewModel.selectedRequestUserId
+                        )
+                        .padding(.top)
+                        
+                        ZStack {
+                            recordingAnimation
 
-                        if lastRecordedURL != nil {
-                            Capsule()
-                                .fill(Color.white)
-                                .frame(width: 370, height: 130)
-                                .shadow(
-                                    color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
-                                    radius: 20,
-                                    x: 0,
-                                    y: 15
-                                )
+                            if lastRecordedURL != nil {
+                                Capsule()
+                                    .fill(Color.white)
+                                    .frame(width: 370, height: 130)
+                                    .shadow(
+                                        color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
+                                        radius: 20,
+                                        x: 0,
+                                        y: 15
+                                    )
+                                    .overlay(
+                                        HStack {
+                                            Image(systemName: "trash")
+                                                .font(.system(size: 20))
+                                                .foregroundColor(.gray)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .padding(.leading, 32)
+
+                                            Image(systemName: "paperplane.fill")
+                                                .font(.system(size: 20))
+                                                .foregroundColor(.gray)
+                                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                                .padding(.trailing, 32)
+                                        }
+                                    )
+                                    .padding(.horizontal, 20)
+                                    .offset(y: 0)
+                                    .zIndex(0)
+                            }
+
+                            Circle()
+                                .fill(buttonColor)
+                                .frame(width: 185, height: 185)
                                 .overlay(
-                                    HStack {
-                                        Image(systemName: "trash")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.gray)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.leading, 32)
-
-                                        Image(systemName: "paperplane.fill")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.gray)
-                                            .frame(maxWidth: .infinity, alignment: .trailing)
-                                            .padding(.trailing, 32)
+                                    Group {
+                                        if recorder.isRecording || symbolName == "mic.fill" {
+                                            Image("mic_blue")
+                                                .resizable()
+                                                .renderingMode(.original)
+                                                .scaledToFit()
+                                                .frame(width: 120, height: 120)
+                                        } else if symbolName == "restart" {
+                                            Image("play")
+                                                .resizable()
+                                                .renderingMode(.original)
+                                                .scaledToFit()
+                                                .frame(width: 60, height: 50)
+                                                .offset(x: 5, y: 0)
+                                        } else {
+                                            Image(systemName: symbolName)
+                                                .foregroundColor(.black)
+                                                .font(.system(size: 40))
+                                        }
                                     }
                                 )
-                                .padding(.horizontal, 20)
-                                .offset(y: 0)
-                                .zIndex(0)
-                        }
-
-                        Circle()
-                            .fill(buttonColor)
-                            .frame(width: 185, height: 185)
-                            .overlay(
-                                Group {
-                                    if recorder.isRecording || symbolName == "mic.fill" {
-                                        Image("mic_blue")
-                                            .resizable()
-                                            .renderingMode(.original)
-                                            .scaledToFit()
-                                            .frame(width: 120, height: 120)
-                                    } else if symbolName == "restart" {
-                                        Image("play")
-                                            .resizable()
-                                            .renderingMode(.original)
-                                            .scaledToFit()
-                                            .frame(width: 60, height: 50)
-                                            .offset(x: 5, y: 0)
-                                    } else {
-                                        Image(systemName: symbolName)
-                                            .foregroundColor(.black)
-                                            .font(.system(size: 40))
-                                    }
-                                }
-                            )
-                            .shadow(
-                                color: symbolName == "mic.fill"
-                                ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
-                                : .clear,
-                                radius: symbolName == "mic.fill" ? 20 : 0,
-                                x: 0,
-                                y: symbolName == "mic.fill" ? 15 : 0
-                            )
-                            .offset(x: dragOffset)
-                            .gesture(
-                                DragGesture(minimumDistance: 0)
-                                    .onChanged { value in
-                                        if abs(value.translation.width) < 10 {
-                                            if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
-                                                isPressing = true
-                                                recorder.startRecording()
+                                .shadow(
+                                    color: symbolName == "mic.fill"
+                                    ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
+                                    : .clear,
+                                    radius: symbolName == "mic.fill" ? 20 : 0,
+                                    x: 0,
+                                    y: symbolName == "mic.fill" ? 15 : 0
+                                )
+                                .offset(x: dragOffset)
+                                .gesture(
+                                    DragGesture(minimumDistance: 0)
+                                        .onChanged { value in
+                                            if abs(value.translation.width) < 10 {
+                                                if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
+                                                    isPressing = true
+                                                    recorder.startRecording()
+                                                }
+                                            } else {
+                                                guard lastRecordedURL != nil else { return }
+                                                dragOffset = value.translation.width
                                             }
-                                        } else {
-                                            guard lastRecordedURL != nil else { return }
-                                            dragOffset = value.translation.width
                                         }
-                                    }
-                                    .onEnded { value in
-                                        if recorder.isRecording {
-                                            recorder.stopRecording()
-                                        }
-                                        isPressing = false
+                                        .onEnded { value in
+                                            if recorder.isRecording {
+                                                recorder.stopRecording()
+                                            }
+                                            isPressing = false
 
-                                        guard let url = lastRecordedURL else { return }
+                                            guard let url = lastRecordedURL else { return }
 
-                                        let threshold: CGFloat = 100
-                                        if value.translation.width < -threshold {
-                                            lastRecordedURL = nil
-                                        } else if value.translation.width > threshold {
-                                            Task {
-                                                await viewModel.sendFeedback(status: "Bad", fileURL: url)
+                                            let threshold: CGFloat = 100
+                                            if value.translation.width < -threshold {
                                                 lastRecordedURL = nil
-                                                feedbackSubmitted = true
-                                                showRecordingUI = false
+                                            } else if value.translation.width > threshold {
+                                                Task {
+                                                    await viewModel.sendFeedback(status: "Bad", fileURL: url)
+                                                    lastRecordedURL = nil
+                                                    feedbackSubmitted = true
+                                                    showRecordingUI = false
 
-                                                showToast = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                    showToast = false
+                                                    showToast = true
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                        showToast = false
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        withAnimation {
-                                            dragOffset = .zero
+                                            withAnimation {
+                                                dragOffset = .zero
+                                            }
                                         }
-                                    }
-                            )
-                            .simultaneousGesture(
-                                TapGesture()
-                                    .onEnded {
-                                        if let url = lastRecordedURL, !recorder.isRecording {
-                                            audioPlayer.playAudioWithHaptic(from: url)
+                                )
+                                .simultaneousGesture(
+                                    TapGesture()
+                                        .onEnded {
+                                            if let url = lastRecordedURL, !recorder.isRecording {
+                                                audioPlayer.playAudioWithHaptic(from: url)
+                                            }
                                         }
-                                    }
-                            )
+                                )
+                        }
+                        .padding()
+                        
                     }
-                    .padding()
                 } else {
                     CircleActionButton(symbolName: "restart", color: Color("mainBlue")) {
                         Task {

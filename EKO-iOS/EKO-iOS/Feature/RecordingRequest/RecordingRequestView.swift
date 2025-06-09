@@ -59,6 +59,15 @@ struct RecordingRequestView: View {
     var body: some View {
         ZStack {
             VStack {
+                FetchMyFriendsSubView(
+                    friends: $viewModel.friends,
+                    selectedReceiverUserId: $viewModel.selectedReceiverUserId
+                )
+                .onAppear {
+                    Task {
+                        await viewModel.fetchMyFriendsList()
+                    }
+                }
                 Spacer()
                 ZStack {
                     recordingAnimation
