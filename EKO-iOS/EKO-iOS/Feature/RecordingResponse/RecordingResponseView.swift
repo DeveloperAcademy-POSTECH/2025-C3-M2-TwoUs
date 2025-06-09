@@ -99,7 +99,7 @@ struct RecordingResponseView: View {
         ZStack {
             VStack {
                 if feedbackSubmitted {
-                    EmptyView()
+                    EKOEmptyView(title:"아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if showRecordingUI {
                     VStack {
                         FetchMyRequsetSubView(
