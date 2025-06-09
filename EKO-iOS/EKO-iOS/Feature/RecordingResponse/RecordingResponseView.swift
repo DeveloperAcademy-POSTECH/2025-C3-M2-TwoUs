@@ -16,12 +16,12 @@ struct RecordingResponseView: View {
     @StateObject private var audioPlayer = AudioPlayer()
 
     @State private var lastRecordedURL: URL?
-    @State private var isPressing = false
     @State private var dragOffset: CGFloat = .zero
     @State private var feedbackPlayed = false
     @State private var feedbackSubmitted = false
     @State private var showRecordingUI = false
     @State private var showToast: Bool = false
+    @Binding var isPressing: Bool
 
     struct LottieView: UIViewRepresentable {
         let animationName: String
@@ -303,8 +303,3 @@ struct RecordingResponseView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-
-#Preview {
-    RecordingResponseView()
-}
-

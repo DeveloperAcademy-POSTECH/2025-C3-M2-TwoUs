@@ -11,9 +11,24 @@ struct MainView: View {
     @State private var selectedTab: EKOTab = .question
     @EnvironmentObject private var coordinator: AppCoordinator
     @State private var showNote = false
+    @State private var isPressing = false
     
     var body: some View {
         ZStack {
+            if isPressing {
+                switch selectedTab {
+                case .question: Color.supOrange3.ignoresSafeArea()
+                case .answer: Color.supBlue4.ignoresSafeArea()
+                }
+            } else {
+                LinearGradient(
+                    colors: [Color.supOrange2, Color.supBlue3],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+            }
+            
             LearningNoteView()
                 .offset(y: showNote ? 0 : UIScreen.main.bounds.height)
                 .animation(.easeInOut, value: showNote)
@@ -40,9 +55,9 @@ struct MainView: View {
                 Spacer()
                 
                 if selectedTab == .question {
-                    RecordingRequestView()
+                    RecordingRequestView(isPressing: $isPressing)
                 } else {
-                    RecordingResponseView()
+                    RecordingResponseView(isPressing: $isPressing)
                 }
                 
                 Spacer()
