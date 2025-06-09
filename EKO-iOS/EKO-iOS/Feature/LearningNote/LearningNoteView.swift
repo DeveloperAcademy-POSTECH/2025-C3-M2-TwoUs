@@ -81,11 +81,6 @@ struct LearningNoteView: View {
                         }
                         
                         Spacer()
-                        Button("노트 불러오기") {
-                            Task {
-                                await viewModel.fetchLearningNotes()
-                            }
-                        }
                     }
                     .padding(.horizontal, 8)
                     
