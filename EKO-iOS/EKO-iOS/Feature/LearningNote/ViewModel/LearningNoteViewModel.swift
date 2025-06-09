@@ -11,6 +11,16 @@ import Foundation
 final class LearningNoteViewModel: ObservableObject {
     @Published var notes: [LearningNote] = []
     
+    func fetchPresignedURL(for s3Key: String) async -> URL? {
+        do {
+            let result = try await NetworkService.shared.s3Service.fetchS3DownloadURL(s3Key: s3Key)
+            return URL(string: result.url)
+        } catch {
+            print("❌ S3 URL 요청 실패: \(error)")
+            return nil
+        }
+    }
+    
     func fetchLearningNotes() async {
         do {
             let result = try await NetworkService.shared.noteService.fetchFeedbackNotes(senderId: "userA123")
@@ -26,8 +36,8 @@ final class LearningNoteViewModel: ObservableObject {
                     isFavorite: note.isFavorite,
                     s3Key: note.s3Key,
                     title: note.title,
-                    voice1: nil,
-                    voice2: nil
+                    voice1: note.s3Key,
+                    voice2: note.feedbackS3Key
                 )
             }
         } catch {

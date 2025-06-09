@@ -45,6 +45,8 @@ final class RecordingResponseViewModel: ObservableObject {
         
         guard let receiverId = selectedRequestUserId else {
             print("선택된 친구가 없습니다.")
+            return
+        }
 
         let model = PostStartFeedbackRequsetDTO(
             senderUserId: "userB456",
@@ -60,6 +62,7 @@ final class RecordingResponseViewModel: ObservableObject {
             await fetchMyRequestList()
         } catch {
             print("\(error)")
+        }
     }
 
     func fetchFeedbackS3Key() async -> String? {
@@ -113,4 +116,3 @@ final class RecordingResponseViewModel: ObservableObject {
         }
     }
 }
-
