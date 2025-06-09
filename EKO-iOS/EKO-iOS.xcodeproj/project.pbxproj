@@ -14,7 +14,6 @@
 		098C976F2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */; };
 		098C97712DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */; };
 		098C97732DEFD951004388D6 /* PostNewFriendsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */; };
-		098C97752DEFEDA4004388D6 /* APITestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97742DEFEDA4004388D6 /* APITestView.swift */; };
 		099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8652DEBD23E00CC9717 /* AppDelegate.swift */; };
 		099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */; };
 		099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8672DEBEEDC00CC9717 /* RegisterView.swift */; };
@@ -35,6 +34,9 @@
 		09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425322DEBC34D00850CDB /* S3TargetType.swift */; };
 		09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */; };
 		09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425312DEBC34D00850CDB /* S3APIService.swift */; };
+		0F2E83002DF136820082B256 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0F2E82FF2DF136820082B256 /* Lottie */; };
+		0F2E83022DF13AAC0082B256 /* CircleWaveOrange.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */; };
+		0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */; };
 		0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */; };
 		3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796152DED3283005D5A1B /* EKOToastMessage.swift */; };
 		3D2796192DED36CC005D5A1B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796182DED36CC005D5A1B /* View+.swift */; };
@@ -114,7 +116,6 @@
 		098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFriendsProfileResponseDTO.swift; sourceTree = "<group>"; };
 		098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyFriendsListResponseDTO.swift; sourceTree = "<group>"; };
 		098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewFriendsResponseDTO.swift; sourceTree = "<group>"; };
-		098C97742DEFEDA4004388D6 /* APITestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITestView.swift; sourceTree = "<group>"; };
 		099AD8652DEBD23E00CC9717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		099AD8672DEBEEDC00CC9717 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
@@ -135,6 +136,8 @@
 		09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchS3DownloadURLResposeDTO.swift; sourceTree = "<group>"; };
 		09F425312DEBC34D00850CDB /* S3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3APIService.swift; sourceTree = "<group>"; };
 		09F425322DEBC34D00850CDB /* S3TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TargetType.swift; sourceTree = "<group>"; };
+		0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CircleWaveOrange.json; sourceTree = "<group>"; };
+		0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CircleWaveBlue.json; sourceTree = "<group>"; };
 		0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3D2796152DED3283005D5A1B /* EKOToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToastMessage.swift; sourceTree = "<group>"; };
 		3D2796182DED36CC005D5A1B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -219,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F2E83002DF136820082B256 /* Lottie in Frameworks */,
 				3DF325582DE7FC1000F9F3F9 /* Moya in Frameworks */,
 				3DF325562DE7FC1000F9F3F9 /* CombineMoya in Frameworks */,
 				3DF3255C2DE7FC1000F9F3F9 /* RxMoya in Frameworks */,
@@ -371,7 +375,6 @@
 				3D2C9EC92DE5F608009DAE77 /* Profile */,
 				099AD86E2DEBEEDC00CC9717 /* Register */,
 				3D2C9ECA2DE5F62F009DAE77 /* AddFriend */,
-				098C97742DEFEDA4004388D6 /* APITestView.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -419,6 +422,8 @@
 				3D2C9F102DE74AD5009DAE77 /* Assets */,
 				3DF325F52DE891A900F9F3F9 /* Config.swift */,
 				0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */,
+				0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */,
+				0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -870,6 +875,7 @@
 				3DF325572DE7FC1000F9F3F9 /* Moya */,
 				3DF325592DE7FC1000F9F3F9 /* ReactiveMoya */,
 				3DF3255B2DE7FC1000F9F3F9 /* RxMoya */,
+				0F2E82FF2DF136820082B256 /* Lottie */,
 			);
 			productName = "EKO-iOS";
 			productReference = 3D2C9E102DE5E031009DAE77 /* EKO-iOS.app */;
@@ -902,6 +908,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				3DF325542DE7FC1000F9F3F9 /* XCRemoteSwiftPackageReference "Moya" */,
+				0F2E82FE2DF136820082B256 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3D2C9E112DE5E031009DAE77 /* Products */;
@@ -922,10 +929,12 @@
 				3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */,
 				3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */,
 				3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */,
+				0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */,
 				0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */,
 				3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */,
 				3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */,
 				3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */,
+				0F2E83022DF13AAC0082B256 /* CircleWaveOrange.json in Resources */,
 				3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1035,7 +1044,6 @@
 				09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */,
 				09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */,
 				09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */,
-				098C97752DEFEDA4004388D6 /* APITestView.swift in Sources */,
 				3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */,
 				3DF325602DE7FDE300F9F3F9 /* BaseAPIService.swift in Sources */,
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,
@@ -1278,6 +1286,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0F2E82FE2DF136820082B256 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 		3DF325542DE7FC1000F9F3F9 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -1289,6 +1305,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0F2E82FF2DF136820082B256 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F2E82FE2DF136820082B256 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		3DF325552DE7FC1000F9F3F9 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3DF325542DE7FC1000F9F3F9 /* XCRemoteSwiftPackageReference "Moya" */;

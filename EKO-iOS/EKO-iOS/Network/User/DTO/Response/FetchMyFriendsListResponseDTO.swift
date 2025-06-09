@@ -8,13 +8,13 @@
 import Foundation
 
 struct FetchMyFriendsListResponseDTO: Decodable {
-    let friendsList: [FetchFriendsList]
+    let friends: [FetchFriendsList]
 }
 
 struct FetchFriendsList: Decodable {
-    let firendNickname: String
+    let friendNickname: String
     let createdAt: Int
     let hasPendingQuestion: Bool
     let userId: String
-    let friendId: String
+    let friendUserId: String
 }
