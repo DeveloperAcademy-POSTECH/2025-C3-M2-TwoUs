@@ -154,9 +154,6 @@ struct RecordingRequestView: View {
                                             await viewModel.sendQuestion(from: url)
                                             lastRecordedURL = nil
                                             showToast = true
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                showToast = false
-                                            }
                                         }
                                     }
                                     withAnimation {
@@ -190,17 +187,12 @@ struct RecordingRequestView: View {
                     .padding(.bottom, 24)
                     .opacity(isPressing ? 0 : 1)
             }
-
-            VStack {
-                Spacer()
-                if showToast {
-                    EKOToastMessage(toastType: .completeAnswer)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.easeInOut(duration: 0.3), value: showToast)
-                        .padding(.bottom, 60)
-                }
-            }
         }
+        .showToast(
+            toastType: .completeQuestion,
+            isShowing: $showToast,
+            bottomPadding: 180
+        )
         .onAppear {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
