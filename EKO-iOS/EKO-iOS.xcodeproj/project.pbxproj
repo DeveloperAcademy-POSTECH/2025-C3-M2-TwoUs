@@ -37,7 +37,6 @@
 		0F2E83002DF136820082B256 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0F2E82FF2DF136820082B256 /* Lottie */; };
 		0F2E83022DF13AAC0082B256 /* CircleWaveOrange.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */; };
 		0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */; };
-		0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */; };
 		3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796152DED3283005D5A1B /* EKOToastMessage.swift */; };
 		3D2796192DED36CC005D5A1B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796182DED36CC005D5A1B /* View+.swift */; };
 		3D27961B2DED9B13005D5A1B /* EKOToggleIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */; };
@@ -106,6 +105,7 @@
 		3DF327352DE9A9E400F9F3F9 /* NotificationTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */; };
 		3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */; };
 		3DF327392DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */; };
+		6DCF64AD2DEFCA5E006E8B67 /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCF64AC2DEFCA5E006E8B67 /* StringLiterals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,7 +138,6 @@
 		09F425322DEBC34D00850CDB /* S3TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TargetType.swift; sourceTree = "<group>"; };
 		0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CircleWaveOrange.json; sourceTree = "<group>"; };
 		0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CircleWaveBlue.json; sourceTree = "<group>"; };
-		0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3D2796152DED3283005D5A1B /* EKOToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToastMessage.swift; sourceTree = "<group>"; };
 		3D2796182DED36CC005D5A1B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToggleIndicator.swift; sourceTree = "<group>"; };
@@ -207,12 +206,19 @@
 		3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTargetType.swift; sourceTree = "<group>"; };
 		3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPIService.swift; sourceTree = "<group>"; };
 		3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartQuestionRequestDTO.swift; sourceTree = "<group>"; };
+		6DCF64AA2DEEEE2E006E8B67 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		6DCF64AC2DEFCA5E006E8B67 /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0F49DC812DE741DC007C15C7 /* Utils */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		6DA5FDE52DF3D4000003AF13 /* CoreData */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -321,6 +327,7 @@
 				3D2C9F0F2DE61521009DAE77 /* .swiftlint.yml */,
 				3D2C9E282DE5E0A0009DAE77 /* EKO-iOS */,
 				3D2C9E112DE5E031009DAE77 /* Products */,
+				6DCF64BA2DF03215006E8B67 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -418,10 +425,10 @@
 		3D2C9E322DE5E256009DAE77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6DA5FDE52DF3D4000003AF13 /* CoreData */,
 				3D2C9F112DE74AEC009DAE77 /* Fonts */,
 				3D2C9F102DE74AD5009DAE77 /* Assets */,
 				3DF325F52DE891A900F9F3F9 /* Config.swift */,
-				0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */,
 				0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */,
 				0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */,
 			);
@@ -850,6 +857,15 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		6DCF64BA2DF03215006E8B67 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6DCF64AA2DEEEE2E006E8B67 /* Config.xcconfig */,
+				6DCF64AC2DEFCA5E006E8B67 /* StringLiterals.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -868,6 +884,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				0F49DC812DE741DC007C15C7 /* Utils */,
+				6DA5FDE52DF3D4000003AF13 /* CoreData */,
 			);
 			name = "EKO-iOS";
 			packageProductDependencies = (
@@ -930,7 +947,6 @@
 				3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */,
 				3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */,
 				0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */,
-				0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */,
 				3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */,
 				3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */,
 				3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */,
@@ -973,6 +989,7 @@
 				3D2C9ED62DE5F6E7009DAE77 /* RecordingRequestViewModel.swift in Sources */,
 				09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */,
 				09F425252DEBC2CB00850CDB /* PatchFeedbackNoteTitleResponseDTO.swift in Sources */,
+				6DCF64AD2DEFCA5E006E8B67 /* StringLiterals.swift in Sources */,
 				09F425262DEBC2CB00850CDB /* FetchFeedbackNotesResponseDTO.swift in Sources */,
 				3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */,
 				09F425272DEBC2CB00850CDB /* DeleteFeedbackNoteResponseDTO.swift in Sources */,
@@ -1058,7 +1075,6 @@
 /* Begin XCBuildConfiguration section */
 		3D2C9E1D2DE5E032009DAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1121,7 +1137,6 @@
 		};
 		3D2C9E1E2DE5E032009DAE77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1176,7 +1191,6 @@
 		};
 		3D2C9E202DE5E032009DAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1210,7 +1224,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -1220,7 +1235,6 @@
 		};
 		3D2C9E212DE5E032009DAE77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1254,7 +1268,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
