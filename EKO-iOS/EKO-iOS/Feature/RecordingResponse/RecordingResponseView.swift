@@ -16,12 +16,12 @@ struct RecordingResponseView: View {
     @StateObject private var audioPlayer = AudioPlayer()
 
     @State private var lastRecordedURL: URL?
-    @State private var isPressing = false
     @State private var dragOffset: CGFloat = .zero
     @State private var feedbackPlayed = false
     @State private var feedbackSubmitted = false
     @State private var showRecordingUI = false
     @State private var showToast: Bool = false
+    @Binding var isPressing: Bool
 
     struct LottieView: UIViewRepresentable {
         let animationName: String
@@ -98,8 +98,11 @@ struct RecordingResponseView: View {
     var body: some View {
         ZStack {
             VStack {
+                Spacer()
                 if feedbackSubmitted {
-                    EmptyView()
+                    EKOEmptyView(
+                        title: "아직 받은 질문이 없습니다.",
+                        description: "친구가 발음을 보내면\n피드백을 해줄 수 있어요.")
                 } else if showRecordingUI {
                     ZStack {
                         recordingAnimation
@@ -198,11 +201,7 @@ struct RecordingResponseView: View {
                                                 lastRecordedURL = nil
                                                 feedbackSubmitted = true
                                                 showRecordingUI = false
-
                                                 showToast = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                    showToast = false
-                                                }
                                             }
                                         }
 
@@ -237,6 +236,7 @@ struct RecordingResponseView: View {
                                     await viewModel.sendFeedback(status: "Good", fileURL: nil)
                                     feedbackSubmitted = true
                                     feedbackPlayed = false
+                                    showToast = true
                                 }
                             }) {
                                 Image(systemName: "hand.thumbsup.fill")
@@ -278,18 +278,17 @@ struct RecordingResponseView: View {
                         .padding()
                     }
                 }
-            }
-
-            VStack {
                 Spacer()
-                if showToast {
-                    EKOToastMessage(toastType: .completeQuestion)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.easeInOut(duration: 0.3), value: showToast)
-                        .padding(.bottom, 60)
-                }
+                EKONoticeText(title: "발음 듣고 피드백 보내기")
+                    .opacity(feedbackPlayed ? 0 : 1)
+                    .padding(.bottom, 64)
             }
         }
+        .showToast(
+            toastType: .completeAnswer,
+            isShowing: $showToast,
+            bottomPadding: 180
+        )
         .onAppear {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
@@ -305,6 +304,5 @@ struct RecordingResponseView: View {
 }
 
 #Preview {
-    RecordingResponseView()
+    RecordingResponseView(isPressing: .constant(false))
 }
-

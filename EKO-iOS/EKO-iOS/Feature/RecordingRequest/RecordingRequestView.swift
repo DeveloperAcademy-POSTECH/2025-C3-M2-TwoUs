@@ -15,9 +15,9 @@ struct RecordingRequestView: View {
     @State private var recorder = AudioRecorder()
     @State private var audioPlayer = AudioPlayer()
     @State private var lastRecordedURL: URL?
-    @State private var isPressing = false
     @State private var dragOffset: CGFloat = .zero
     @State private var showToast: Bool = false
+    @Binding var isPressing: Bool
 
     struct LottieView: UIViewRepresentable {
         let animationName: String
@@ -154,9 +154,6 @@ struct RecordingRequestView: View {
                                             await viewModel.sendQuestion(from: url)
                                             lastRecordedURL = nil
                                             showToast = true
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                showToast = false
-                                            }
                                         }
                                     }
                                     withAnimation {
@@ -172,23 +169,30 @@ struct RecordingRequestView: View {
                                     }
                                 }
                         )
-                    Spacer()
                 }
                 Spacer()
+                
+                if symbolName == "mic.fill" {
+                    EKONoticeText(title: "길게 눌러 궁금한 발음 보내기")
+                        .padding(.bottom, 40)
+                } else if symbolName == "restart" {
+                    EKONoticeText(title: "음성을 확인한 뒤 좌우로 스와이프 해주세요.")
+                        .padding(.bottom, 40)
+                } else if recorder.isRecording {
+                    EKONoticeText(title: "")
+                        .padding(.bottom, 40)
+                }
+
                 EKOToggleIndicator(type: .downDirection)
                     .padding(.bottom, 24)
-            }
-
-            VStack {
-                Spacer()
-                if showToast {
-                    EKOToastMessage(toastType: .completeAnswer)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.easeInOut(duration: 0.3), value: showToast)
-                        .padding(.bottom, 60)
-                }
+                    .opacity(isPressing ? 0 : 1)
             }
         }
+        .showToast(
+            toastType: .completeQuestion,
+            isShowing: $showToast,
+            bottomPadding: 180
+        )
         .onAppear {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
@@ -204,6 +208,5 @@ struct RecordingRequestView: View {
 }
 
 #Preview {
-    RecordingRequestView()
+    RecordingRequestView(isPressing: .constant(false))
 }
-

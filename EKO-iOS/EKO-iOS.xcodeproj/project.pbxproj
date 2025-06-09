@@ -50,7 +50,6 @@
 		3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E252DE5E0A0009DAE77 /* ContentView.swift */; };
 		3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */; };
 		3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E332DE5E388009DAE77 /* Colors.xcassets */; };
-		3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */; };
 		3D2C9E382DE5F460009DAE77 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E372DE5F460009DAE77 /* Date+.swift */; };
 		3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9ECB2DE5F665009DAE77 /* LearningNoteView.swift */; };
 		3D2C9ECE2DE5F68A009DAE77 /* RecordingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9ECD2DE5F68A009DAE77 /* RecordingRequestView.swift */; };
@@ -76,6 +75,7 @@
 		3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F092DE60F75009DAE77 /* AppRoute.swift */; };
 		3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */; };
 		3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */; };
+		3D96D9152DF6743500C8F2F2 /* EKONoticeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96D9142DF6743500C8F2F2 /* EKONoticeText.swift */; };
 		3DF3254E2DE74BA100F9F3F9 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */; };
 		3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */; };
 		3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */; };
@@ -152,7 +152,6 @@
 		3D2C9E262DE5E0A0009DAE77 /* EKO_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EKO_iOS.entitlements; sourceTree = "<group>"; };
 		3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKO_iOSApp.swift; sourceTree = "<group>"; };
 		3D2C9E332DE5E388009DAE77 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		3D2C9E372DE5F460009DAE77 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		3D2C9EC32DE5F4FB009DAE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D2C9ECB2DE5F665009DAE77 /* LearningNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningNoteView.swift; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 		3D2C9F0F2DE61521009DAE77 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3D96D9142DF6743500C8F2F2 /* EKONoticeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKONoticeText.swift; sourceTree = "<group>"; };
 		3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -316,6 +316,7 @@
 				3D27961E2DEDDB86005D5A1B /* EKOEmptyView.swift */,
 				3D2796202DEDDD1D005D5A1B /* EKOFriendsView.swift */,
 				3D2796222DEDE28A005D5A1B /* EKOTabSelector.swift */,
+				3D96D9142DF6743500C8F2F2 /* EKONoticeText.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -640,7 +641,6 @@
 			children = (
 				3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */,
 				3D2C9E332DE5E388009DAE77 /* Colors.xcassets */,
-				3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -948,7 +948,6 @@
 				0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */,
 				3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */,
 				3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */,
-				3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */,
 				0F2E83022DF13AAC0082B256 /* CircleWaveOrange.json in Resources */,
 				3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */,
 			);
@@ -1062,6 +1061,7 @@
 				3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */,
 				3DF325602DE7FDE300F9F3F9 /* BaseAPIService.swift in Sources */,
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,
+				3D96D9152DF6743500C8F2F2 /* EKONoticeText.swift in Sources */,
 				3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */,
 				09F4252A2DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift in Sources */,
 				099AD8722DEBEEDC00CC9717 /* RegisterViewModel.swift in Sources */,
@@ -1213,6 +1213,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -1257,6 +1258,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
