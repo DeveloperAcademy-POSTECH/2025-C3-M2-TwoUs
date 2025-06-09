@@ -23,7 +23,7 @@ struct LearningNoteSubView: View {
 
     // 수정 시작 시 note의 title로 초기화
     private func startEditing() {
-        editedTitle = note.title
+        editedTitle = note.title ?? ""
         isEditing = true
     }
 
@@ -58,7 +58,7 @@ struct LearningNoteSubView: View {
             // 왼쪽: 프로필, 이름
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(note.receiverId)
+                    Text(note.receiverId ?? "")
                         .font(.textRegular03)
                         .foregroundStyle(.secondary)
                     Button(action: {
@@ -78,7 +78,7 @@ struct LearningNoteSubView: View {
                             text: $editedTitle,
                             onCommit: {
                                 Task {
-                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId)
+                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId ?? "")
                                     await viewModel.fetchLearningNotes()
                                     isEditing = false
                                 }
@@ -87,7 +87,7 @@ struct LearningNoteSubView: View {
                         .font(.textRegular03)
                         .textFieldStyle(.roundedBorder)
                     } else {
-                        Text(note.title)
+                        Text(note.title ?? "")
                             .font(.headline)
                         Button(action: startEditing) {
                             Image(systemName: "pencil")
