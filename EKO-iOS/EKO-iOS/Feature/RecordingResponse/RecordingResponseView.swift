@@ -323,3 +323,6 @@ struct RecordingResponseView: View {
     }
 }
 
+#Preview {
+    RecordingResponseView(isPressing: .constant(false))
+}
