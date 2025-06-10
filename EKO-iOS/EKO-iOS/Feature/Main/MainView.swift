@@ -11,27 +11,44 @@ struct MainView: View {
     @State private var selectedTab: EKOTab = .question
     @EnvironmentObject private var coordinator: AppCoordinator
     @State private var showNote = false
+    @State private var isPressing = false
     
     var body: some View {
         ZStack {
+            if isPressing {
+                switch selectedTab {
+                case .question: Color.supOrange3.ignoresSafeArea()
+                case .answer: Color.supBlue4.ignoresSafeArea()
+                }
+            } else {
+                LinearGradient(
+                    colors: [Color.supOrange2, Color.supBlue3],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+            }
+            
             LearningNoteView()
                 .offset(y: showNote ? 0 : UIScreen.main.bounds.height)
                 .animation(.easeInOut, value: showNote)
                 .gesture(
-                        DragGesture()
-                            .onEnded { value in
-                                if abs(value.translation.height) > abs(value.translation.width),
-                                   value.translation.height > 80 {
-                                    withAnimation {
-                                        showNote = false
-                                    }
+                    DragGesture()
+                        .onEnded { value in
+                            if abs(value.translation.height) > abs(value.translation.width),
+                               value.translation.height > 80 {
+                                withAnimation {
+                                    showNote = false
                                 }
                             }
+                        }
                 )
                 .zIndex(0)
+            
             VStack(spacing: 0) {
                 HStack {
                     EKOTabSelector(selected: $selectedTab)
+                        .opacity(isPressing ? 0 : 1)
                     Spacer().frame(width: 186)
                 }
                 .padding(.top, 32)
@@ -39,9 +56,9 @@ struct MainView: View {
                 Spacer()
                 
                 if selectedTab == .question {
-                    RecordingRequestView()
+                    RecordingRequestView(isPressing: $isPressing)
                 } else {
-                    RecordingResponseView()
+                    RecordingResponseView(isPressing: $isPressing)
                 }
                 
                 Spacer()
@@ -50,13 +67,13 @@ struct MainView: View {
             .animation(.easeInOut, value: showNote)
             .zIndex(1)
             
-            Color.clear
-                .ignoresSafeArea()
-                .contentShape(Rectangle())
-                .gesture(
-                    selectedTab == .question ?
-                    DragGesture()
-                        .onEnded { value in
+            // Note View에서는 눌리지 않도록 하기
+            if selectedTab == .question && !showNote {
+                Color.clear
+                    .ignoresSafeArea()
+                    .contentShape(Rectangle())
+                    .gesture(
+                        DragGesture().onEnded { value in
                             if abs(value.translation.height) > abs(value.translation.width),
                                value.translation.height < -80 {
                                 withAnimation {
@@ -64,15 +81,12 @@ struct MainView: View {
                                 }
                             }
                         }
-                    : nil
-                )
-                .zIndex(0)
+                    )
+            }
         }
     }
 }
 
-
 #Preview {
     MainView()
 }
-

@@ -9,34 +9,26 @@ import SwiftUI
 
 struct RootNavigationView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
+    @State private var isPressing: Bool = false
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            ZStack {
-                LinearGradient(
-                    colors: [Color.supOrange2, Color.supBlue3],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
-                
-                Group {
-                    if UserDefaults.standard.string(forKey: "userId") != nil {
-                        MainView()
-                    } else {
-                        RegisterView()
-                    }
+            Group {
+                if UserDefaults.standard.string(forKey: "userId") != nil {
+                    MainView()
+                } else {
+                    RegisterView()
                 }
-                .navigationDestination(for: AppRoute.self) { route in
-                    switch route {
-                    case .main: MainView()
-                    case .recordingRequest: RecordingRequestView()
-                    case .recordingResponse: RecordingResponseView()
-                    case .learningNote: LearningNoteView()
-                    case .profile: ProfileView()
-                    case .addFriend: AddFriendView()
-                    case .register: RegisterView()
-                    }
+            }
+            .navigationDestination(for: AppRoute.self) { route in
+                switch route {
+                case .main: MainView()
+                case .recordingRequest: RecordingRequestView(isPressing: $isPressing)
+                case .recordingResponse: RecordingResponseView(isPressing: $isPressing)
+                case .learningNote: LearningNoteView()
+                case .profile: ProfileView()
+                case .addFriend: AddFriendView()
+                case .register: RegisterView()
                 }
             }
         }
@@ -46,4 +38,3 @@ struct RootNavigationView: View {
     RootNavigationView()
         .environmentObject(AppCoordinator())
 }
-

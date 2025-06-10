@@ -11,49 +11,64 @@ import AVFoundation
 struct LearningNoteSubView: View {
     let note: LearningNote
     @ObservedObject var viewModel: LearningNoteViewModel
+    @State private var audioPlayer = AudioPlayer()
 
     // 내부 편집 상태
     @State private var isEditing = false
     @State private var editedTitle: String = ""
-
-    @State private var audioPlayer: AVAudioPlayer?
+    
+    // Voice1 재생 상태 관리
+    @State private var isPlayingVoice1 = false
+    @State private var isPlayingVoice2 = false
 
     // 수정 시작 시 note의 title로 초기화
     private func startEditing() {
-        editedTitle = note.title
+        editedTitle = note.title ?? ""
         isEditing = true
     }
 
     // MARK: - 음성 파일 재생 함수
-    func playVoice(fileName: String) {
-        let components = fileName.split(separator: ".")
-        guard components.count == 2 else { return }
-        if let url = Bundle.main.url(forResource: String(components[0]), withExtension: String(components[1])) {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("음성파일 재생 오류:", error.localizedDescription)
+    private func playVoice(from s3Key: String, forVoice1: Bool) {
+        Task {
+            if let url = await viewModel.fetchPresignedURL(for: s3Key) {
+                audioPlayer.downloadAndPlayWithHaptics(from: url)
+
+                // 재생 상태 관리
+                if forVoice1 {
+                    isPlayingVoice1 = true
+                    isPlayingVoice2 = false
+                    audioPlayer.onFinishPlaying = {
+                        isPlayingVoice1 = false
+                    }
+                } else {
+                    isPlayingVoice2 = true
+                    isPlayingVoice1 = false
+                    audioPlayer.onFinishPlaying = {
+                        isPlayingVoice2 = false
+                    }
+                }
+            } else {
+                print("❌ Presigned URL 가져오기 실패")
             }
         }
     }
-
     // MARK: - 뷰 본문
     var body: some View {
         HStack {
             // 왼쪽: 프로필, 이름
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(note.receiverId)
+                    Text(note.receiverId ?? "")
                         .font(.textRegular03)
                         .foregroundStyle(.secondary)
                     Button(action: {
                     }) {
                         Image(systemName: note.isFavorite ? "star.fill" : "")
                             .foregroundStyle(note.isFavorite ? .yellow : .gray)
-                            .font(.system(size: 16))
+                            .font(.system(size: 13))
                     }
                     .buttonStyle(.plain)
+                    .padding(.bottom, 4)
                 }
                 // 제목(수정) + Spacer() + voice 버튼 그룹 한 줄 배치
                 HStack {
@@ -63,7 +78,7 @@ struct LearningNoteSubView: View {
                             text: $editedTitle,
                             onCommit: {
                                 Task {
-                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId)
+                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId ?? "")
                                     await viewModel.fetchLearningNotes()
                                     isEditing = false
                                 }
@@ -72,7 +87,7 @@ struct LearningNoteSubView: View {
                         .font(.textRegular03)
                         .textFieldStyle(.roundedBorder)
                     } else {
-                        Text(note.title)
+                        Text(note.title ?? "")
                             .font(.headline)
                         Button(action: startEditing) {
                             Image(systemName: "pencil")
@@ -82,19 +97,37 @@ struct LearningNoteSubView: View {
                 }
             }
             Spacer()
-            // voice1 버튼
-            Button(action: {
-                // playVoice(fileName: note.voice1)
-            }) {
-                Image(systemName: "play.circle.fill")
-                    .font(.system(size: 45))
-                    .foregroundStyle(.mainOrange)
-            }
-            .buttonStyle(.plain)
             
-            if note.status == "Good" {
+            // MARK: - Voice1 버튼 (Play / Pause 토글)
+            if isPlayingVoice1 {
+                // Pause 버튼
                 Button(action: {
-                    // playVoice(fileName: note.voice2)
+                    audioPlayer.pause()
+                    isPlayingVoice1 = false
+                }) {
+                    Image(systemName: "pause.circle.fill")
+                        .font(.system(size: 45))
+                        .foregroundStyle(.mainOrange)
+                }
+                .buttonStyle(.plain)
+            } else {
+                // Play 버튼
+                Button(action: {
+                    if let voice1 = note.voice1 {
+                        playVoice(from: voice1, forVoice1: true)
+                    }
+                }) {
+                    Image(systemName: "play.circle.fill")
+                        .font(.system(size: 45))
+                        .foregroundStyle(.mainOrange)
+                }
+                .buttonStyle(.plain)
+            }
+            
+            // MARK: - Voice2 or Good 상태 표시 (Play / Pause 토글)
+            if note.status == "Good" {
+                // 따봉 표시 고정
+                Button(action: {
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
                         .font(.system(size: 40))
@@ -103,15 +136,30 @@ struct LearningNoteSubView: View {
                         .padding(.leading, 4)
                 }
             } else {
-                // voice2 버튼
-                Button(action: {
-                    // playVoice(fileName: note.voice2)
-                }) {
-                    Image(systemName: "play.circle.fill")
-                        .font(.system(size: 45))
-                        .foregroundStyle(.mainBlue)
+                if isPlayingVoice2 {
+                    // Pause 버튼
+                    Button(action: {
+                        audioPlayer.pause()
+                        isPlayingVoice2 = false
+                    }) {
+                        Image(systemName: "pause.circle.fill")
+                            .font(.system(size: 45))
+                            .foregroundStyle(.mainBlue)
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    // Play 버튼
+                    Button(action: {
+                        if let voice2 = note.voice2 {
+                            playVoice(from: voice2, forVoice1: false)
+                        }
+                    }) {
+                        Image(systemName: "play.circle.fill")
+                            .font(.system(size: 45))
+                            .foregroundStyle(.mainBlue)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
         }
     }

@@ -326,4 +326,3 @@ struct RecordingResponseView: View {
 #Preview {
     RecordingResponseView()
 }
-
