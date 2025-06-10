@@ -301,8 +301,22 @@ struct RecordingResponseView: View {
 
             VStack {
                 Spacer()
+                if !feedbackSubmitted {
+                            if showRecordingUI {
+                                if lastRecordedURL != nil {
+                                    EKONoticeText(title: "음성을 확인한 뒤 좌우로 스와이프 해주세요.")
+                                        .padding(.bottom, 120)
+                                } else {
+                                    EKONoticeText(title: "길게 눌러 들은 문장을 그대로 따라 읽기")
+                                        .padding(.bottom, 120)
+                                }
+                            } else if !feedbackPlayed {
+                                EKONoticeText(title: "발음 듣고 피드백 보내기")
+                                    .padding(.bottom, 120)
+                            }
+                        }
                 if showToast {
-                    EKOToastMessage(toastType: .completeQuestion)
+                    EKOToastMessage(toastType: .completeAnswer)
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .animation(.easeInOut(duration: 0.3), value: showToast)
                         .padding(.bottom, 60)
