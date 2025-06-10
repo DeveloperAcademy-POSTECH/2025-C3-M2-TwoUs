@@ -12,7 +12,7 @@ struct RecordingRequestView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingRequestViewModel()
     
-    @State private var recorder = AudioRecorder()
+    @StateObject private var recorder = AudioRecorder()
     @State private var audioPlayer = AudioPlayer()
     @State private var lastRecordedURL: URL?
     @State private var dragOffset: CGFloat = .zero
