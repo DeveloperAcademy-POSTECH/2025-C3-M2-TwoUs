@@ -118,7 +118,7 @@ final class RecordingResponseViewModel: ObservableObject {
 
         if let url = playbackURL {
             print("🎧 피드백 오디오 재생: \(url)")
-            player.downloadAndPlayWithHaptics(from: url)
+            player.downloadAndPlayWithHaptics(from: url, noteId: nil, voiceType: .none)
         } else {
             print("❌ 다운로드된 URL이 없어 재생 불가")
         }

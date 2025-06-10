@@ -21,6 +21,7 @@ struct LearningNoteView: View {
     @State private var editingNoteId: String?
     @State private var newTitle: String = ""
     @StateObject private var viewModel = LearningNoteViewModel()
+    @StateObject private var audioPlayer = AudioPlayer()
     
     // MARK: - 필터링된 노트 리스트 반환
     var filteredNotes: [LearningNote] {
@@ -52,7 +53,7 @@ struct LearningNoteView: View {
     
     @ViewBuilder
     private func makeNoteCard(note: LearningNote) -> some View {
-        LearningNoteSubView(note: note, viewModel: viewModel)
+        LearningNoteSubView(note: note, viewModel: viewModel, audioPlayer: audioPlayer)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(Color.white)

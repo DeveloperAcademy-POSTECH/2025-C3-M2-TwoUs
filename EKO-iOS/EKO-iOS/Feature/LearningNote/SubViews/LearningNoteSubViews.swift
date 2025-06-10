@@ -11,15 +11,25 @@ import AVFoundation
 struct LearningNoteSubView: View {
     let note: LearningNote
     @ObservedObject var viewModel: LearningNoteViewModel
-    @State private var audioPlayer = AudioPlayer()
+    @ObservedObject var audioPlayer: AudioPlayer
 
     // 내부 편집 상태
     @State private var isEditing = false
     @State private var editedTitle: String = ""
-    
+
     // Voice1 재생 상태 관리
-    @State private var isPlayingVoice1 = false
-    @State private var isPlayingVoice2 = false
+    var isVoice1Playing: Bool {
+        audioPlayer.currentNoteId == note.id &&
+        audioPlayer.currentVoiceType == .voice1 &&
+        audioPlayer.isPlaying
+    }
+
+    // Voice2 재생 상태 관리
+    var isVoice2Playing: Bool {
+        audioPlayer.currentNoteId == note.id &&
+        audioPlayer.currentVoiceType == .voice2 &&
+        audioPlayer.isPlaying
+    }
 
     // 수정 시작 시 note의 title로 초기화
     private func startEditing() {
@@ -28,30 +38,16 @@ struct LearningNoteSubView: View {
     }
 
     // MARK: - 음성 파일 재생 함수
-    private func playVoice(from s3Key: String, forVoice1: Bool) {
+    private func playVoice(from s3Key: String, voiceType: VoiceType) {
         Task {
             if let url = await viewModel.fetchPresignedURL(for: s3Key) {
-                audioPlayer.downloadAndPlayWithHaptics(from: url)
-
-                // 재생 상태 관리
-                if forVoice1 {
-                    isPlayingVoice1 = true
-                    isPlayingVoice2 = false
-                    audioPlayer.onFinishPlaying = {
-                        isPlayingVoice1 = false
-                    }
-                } else {
-                    isPlayingVoice2 = true
-                    isPlayingVoice1 = false
-                    audioPlayer.onFinishPlaying = {
-                        isPlayingVoice2 = false
-                    }
-                }
+                audioPlayer.downloadAndPlayWithHaptics(from: url, noteId: note.id, voiceType: voiceType)
             } else {
                 print("❌ Presigned URL 가져오기 실패")
             }
         }
     }
+
     // MARK: - 뷰 본문
     var body: some View {
         HStack {
@@ -97,13 +93,12 @@ struct LearningNoteSubView: View {
                 }
             }
             Spacer()
-            
+
             // MARK: - Voice1 버튼 (Play / Pause 토글)
-            if isPlayingVoice1 {
+            if isVoice1Playing {
                 // Pause 버튼
                 Button(action: {
                     audioPlayer.pause()
-                    isPlayingVoice1 = false
                 }) {
                     Image(systemName: "pause.circle.fill")
                         .font(.system(size: 45))
@@ -114,7 +109,7 @@ struct LearningNoteSubView: View {
                 // Play 버튼
                 Button(action: {
                     if let voice1 = note.voice1 {
-                        playVoice(from: voice1, forVoice1: true)
+                        playVoice(from: voice1, voiceType: .voice1)
                     }
                 }) {
                     Image(systemName: "play.circle.fill")
@@ -123,7 +118,7 @@ struct LearningNoteSubView: View {
                 }
                 .buttonStyle(.plain)
             }
-            
+
             // MARK: - Voice2 or Good 상태 표시 (Play / Pause 토글)
             if note.status == "Good" {
                 // 따봉 표시 고정
@@ -136,11 +131,10 @@ struct LearningNoteSubView: View {
                         .padding(.leading, 4)
                 }
             } else {
-                if isPlayingVoice2 {
+                if isVoice2Playing {
                     // Pause 버튼
                     Button(action: {
                         audioPlayer.pause()
-                        isPlayingVoice2 = false
                     }) {
                         Image(systemName: "pause.circle.fill")
                             .font(.system(size: 45))
@@ -151,7 +145,7 @@ struct LearningNoteSubView: View {
                     // Play 버튼
                     Button(action: {
                         if let voice2 = note.voice2 {
-                            playVoice(from: voice2, forVoice1: false)
+                            playVoice(from: voice2, voiceType: .voice2)
                         }
                     }) {
                         Image(systemName: "play.circle.fill")
