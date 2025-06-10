@@ -45,9 +45,41 @@ struct LearningNoteView: View {
             let sessionId = viewModel.notes[idx].sessionId
             
             Task {
-                await viewModel.patchFeedbackNoteFavorite(isFavorite: newFavorite, sessionId: sessionId)
+                await viewModel.patchFeedbackNoteFavorite(isFavorite: newFavorite, sessionId: sessionId ?? "")
             }
         }
+    }
+    
+    @ViewBuilder
+    private func makeNoteCard(note: LearningNote) -> some View {
+        LearningNoteSubView(note: note, viewModel: viewModel)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Color.white)
+            .cornerRadius(15)
+            .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 4)
+            .contextMenu {
+                Button {
+                    Task {
+                        await viewModel.patchFeedbackNoteFavorite(isFavorite: note.isFavorite ? false : true, sessionId: note.sessionId ?? "")
+                        await viewModel.fetchLearningNotes()
+                    }
+                } label: {
+                    if note.isFavorite {
+                        Label("즐겨찾기 해제", systemImage: "star.slash")
+                    } else {
+                        Label("즐겨찾기 등록", systemImage: "star")
+                    }
+                }
+                Button(role: .destructive) {
+                    Task {
+                        await viewModel.deleteFeedbackNoteRequest(sessionId: note.sessionId ?? "")
+                        await viewModel.fetchLearningNotes()
+                    }
+                } label: {
+                    Label("삭제", systemImage: "trash")
+                }
+            }
     }
     
     var body: some View {
@@ -79,56 +111,29 @@ struct LearningNoteView: View {
                                 .font(.callout)
                                 .foregroundStyle(.gray)
                         }
-                        
                         Spacer()
                     }
                     .padding(.horizontal, 8)
-                    
                     // MARK: - 노트 리스트
                     ScrollView {
                         VStack(spacing: 16) {
                             Color.clear.frame(height: 8)
+                            
                             ForEach(filteredNotes, id: \.id) { note in
-                                LearningNoteSubView(note: note, viewModel: viewModel)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 10)
-                                    .background(Color.white)
-                                    .cornerRadius(15)
-                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 4)
-                                    .contextMenu {
-                                        Button {
-                                            Task {
-                                                await viewModel.patchFeedbackNoteFavorite(isFavorite: note.isFavorite ? false : true, sessionId: note.sessionId)
-                                                await viewModel.fetchLearningNotes()
-                                            }
-                                        } label: {
-                                            if note.isFavorite {
-                                                Label("즐겨찾기 해제", systemImage: "star.slash")
-                                            } else {
-                                                Label("즐겨찾기 등록", systemImage: "star")
-                                            }
-                                        }
-                                        Button(role: .destructive) {
-                                            Task {
-                                                await viewModel.deleteFeedbackNoteRequest(sessionId: note.sessionId)
-                                                await viewModel.fetchLearningNotes()
-                                            }
-                                        } label: {
-                                            Label("삭제", systemImage: "trash")
-                                        }
-                                    }
+                                makeNoteCard(note: note)
                             }
-                        }
-                        .onAppear {
-                            Task {
-                                await viewModel.fetchLearningNotes()
-                            }
+                            
                         }
                         .padding(.horizontal)
                     }
                 }
                 .navigationTitle("")
-                
+            }
+            .onAppear {
+                viewModel.loadLearningNotes()
+                Task {
+                    await viewModel.fetchLearningNotes()
+                }
             }
         }
     }

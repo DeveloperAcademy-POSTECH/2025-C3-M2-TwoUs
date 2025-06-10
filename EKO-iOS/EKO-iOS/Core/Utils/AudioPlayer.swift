@@ -13,6 +13,8 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     private var audioPlayer: AVAudioPlayer?
     private var timer: Timer?
     private var engine: CHHapticEngine?
+    
+    var onFinishPlaying: (() -> Void)?
 
     override init() {
         super.init()
@@ -31,6 +33,9 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func playAudioWithHaptic(from url: URL) {
         do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.delegate = self
             audioPlayer?.isMeteringEnabled = true
@@ -101,6 +106,8 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         stopMonitoring()
         print("오디오 재생 종료")
+        
+        onFinishPlaying?()
     }
 
     private func triggerHaptic(for db: Float) {

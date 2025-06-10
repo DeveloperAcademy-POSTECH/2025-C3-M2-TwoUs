@@ -23,28 +23,42 @@ struct LearningNoteSubView: View {
 
     // 수정 시작 시 note의 title로 초기화
     private func startEditing() {
-        editedTitle = note.title
+        editedTitle = note.title ?? ""
         isEditing = true
     }
 
     // MARK: - 음성 파일 재생 함수
-    private func playVoice(from s3Key: String) {
+    private func playVoice(from s3Key: String, forVoice1: Bool) {
         Task {
             if let url = await viewModel.fetchPresignedURL(for: s3Key) {
                 audioPlayer.downloadAndPlayWithHaptics(from: url)
+
+                // 재생 상태 관리
+                if forVoice1 {
+                    isPlayingVoice1 = true
+                    isPlayingVoice2 = false
+                    audioPlayer.onFinishPlaying = {
+                        isPlayingVoice1 = false
+                    }
+                } else {
+                    isPlayingVoice2 = true
+                    isPlayingVoice1 = false
+                    audioPlayer.onFinishPlaying = {
+                        isPlayingVoice2 = false
+                    }
+                }
             } else {
                 print("❌ Presigned URL 가져오기 실패")
             }
         }
     }
-
     // MARK: - 뷰 본문
     var body: some View {
         HStack {
             // 왼쪽: 프로필, 이름
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(note.receiverId)
+                    Text(note.receiverId ?? "")
                         .font(.textRegular03)
                         .foregroundStyle(.secondary)
                     Button(action: {
@@ -64,7 +78,7 @@ struct LearningNoteSubView: View {
                             text: $editedTitle,
                             onCommit: {
                                 Task {
-                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId)
+                                    await viewModel.patchFeedbackNoteTitle(title: editedTitle, sessionId: note.sessionId ?? "")
                                     await viewModel.fetchLearningNotes()
                                     isEditing = false
                                 }
@@ -73,7 +87,7 @@ struct LearningNoteSubView: View {
                         .font(.textRegular03)
                         .textFieldStyle(.roundedBorder)
                     } else {
-                        Text(note.title)
+                        Text(note.title ?? "")
                             .font(.headline)
                         Button(action: startEditing) {
                             Image(systemName: "pencil")
@@ -100,8 +114,7 @@ struct LearningNoteSubView: View {
                 // Play 버튼
                 Button(action: {
                     if let voice1 = note.voice1 {
-                        playVoice(from: voice1)
-                        isPlayingVoice1 = true
+                        playVoice(from: voice1, forVoice1: true)
                     }
                 }) {
                     Image(systemName: "play.circle.fill")
@@ -138,8 +151,7 @@ struct LearningNoteSubView: View {
                     // Play 버튼
                     Button(action: {
                         if let voice2 = note.voice2 {
-                            playVoice(from: voice2)
-                            isPlayingVoice2 = true
+                            playVoice(from: voice2, forVoice1: false)
                         }
                     }) {
                         Image(systemName: "play.circle.fill")
