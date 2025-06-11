@@ -19,6 +19,9 @@ struct RecordingRequestView: View {
     @State private var showToast: Bool = false
     @Binding var isPressing: Bool
     
+    @State private var timerBottomPadding: CGFloat = 550
+    @State private var showTimerView: Bool = false
+
     struct LottieView: UIViewRepresentable {
         let animationName: String
         let loopMode: LottieLoopMode
@@ -63,23 +66,17 @@ struct RecordingRequestView: View {
                     friends: $viewModel.friends,
                     selectedReceiverUserId: $viewModel.selectedReceiverUserId
                 )
+                .padding(.top, 40)
                 .onAppear {
                     Task {
                         await viewModel.fetchMyFriendsList()
                     }
                 }
+
                 Spacer()
-                
-                if recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil {
-                    RecordingTimerView(
-                        time: viewModel.elapsedSeconds,
-                        color: Color("mainOrange")
-                    )
-                }
-                
                 ZStack {
                     recordingAnimation
-                    
+
                     if lastRecordedURL != nil {
                         Capsule()
                             .fill(Color.white)
@@ -97,7 +94,7 @@ struct RecordingRequestView: View {
                                         .foregroundColor(.gray)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding(.leading, 32)
-                                    
+
                                     Image(systemName: "paperplane.fill")
                                         .font(.system(size: 20))
                                         .foregroundColor(.gray)
@@ -106,95 +103,11 @@ struct RecordingRequestView: View {
                                 }
                             )
                             .padding(.horizontal, 20)
-                            .offset(y: 0)
-                            .zIndex(0)
                     }
-
-                    Circle()
-                        .fill(buttonColor)
-                        .frame(width: 185, height: 185)
-                        .overlay(
-                            Group {
-                                if recorder.isRecording || symbolName == "mic.fill" {
-                                    Image("mic_orange")
-                                        .resizable()
-                                        .renderingMode(.original)
-                                        .scaledToFit()
-                                        .frame(width: 120, height: 120)
-                                } else if symbolName == "restart" {
-                                    Image("play")
-                                        .resizable()
-                                        .renderingMode(.original)
-                                        .scaledToFit()
-                                        .frame(width: 60, height: 50)
-                                        .offset(x: 5, y: 0)
-                                } else {
-                                    Image(systemName: symbolName)
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 40))
-                                }
-                            }
-                        )
-                        .shadow(
-                            color: symbolName == "mic.fill"
-                                ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
-                                : .clear,
-                            radius: symbolName == "mic.fill" ? 20 : 0,
-                            x: 0,
-                            y: symbolName == "mic.fill" ? 15 : 0
-                        )
-                        .offset(x: dragOffset)
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged { value in
-                                    if abs(value.translation.width) < 10 {
-                                        if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
-                                            isPressing = true
-                                            recorder.startRecording()
-                                            viewModel.startTimer()
-                                        }
-                                    } else {
-                                        guard lastRecordedURL != nil else { return }
-                                        dragOffset = value.translation.width
-                                    }
-                                }
-                                .onEnded { value in
-                                    if recorder.isRecording {
-                                        recorder.stopRecording()
-                                    }
-                                    isPressing = false
-                                    guard let url = lastRecordedURL else { return }
-                                    let threshold: CGFloat = 100
-                                    if value.translation.width < -threshold {
-                                        lastRecordedURL = nil
-                                    } else if value.translation.width > threshold {
-                                        Task {
-                                            await viewModel.sendQuestion(from: url)
-                                            lastRecordedURL = nil
-                                            showToast = true
-                                        }
-                                    }
-                                    withAnimation {
-                                        dragOffset = .zero
-                                    }
-                                }
-                        )
-                        .simultaneousGesture(
-                            TapGesture()
-                                .onEnded {
-                                    if let url = lastRecordedURL, !recorder.isRecording {
-                                        audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
-                                    }
-                                    viewModel.startTimer()
-                                    
-                                    audioPlayer.onFinishPlaying = {
-                                        viewModel.stopTimer()
-                                    }
-                                }
-                        )
                 }
+
                 Spacer()
-                
+
                 if symbolName == "mic.fill" {
                     EKONoticeText(title: "길게 눌러 궁금한 발음 보내기")
                         .padding(.bottom, 40)
@@ -207,9 +120,104 @@ struct RecordingRequestView: View {
                 }
 
                 EKOToggleIndicator(type: .downDirection)
-                    .padding(.bottom, 24)
                     .opacity(isPressing ? 0 : 1)
             }
+            
+            if showTimerView {
+                VStack {
+                    Spacer()
+                    RecordingTimerView(
+                        time: viewModel.elapsedSeconds,
+                        color: Color("mainOrange")
+                    )
+                    .padding(.bottom, timerBottomPadding)
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.4), value: timerBottomPadding)
+                }
+            }
+            
+            Circle()
+                .fill(buttonColor)
+                .frame(width: 185, height: 185)
+                .overlay(
+                    Group {
+                        if recorder.isRecording || symbolName == "mic.fill" {
+                            Image("mic_orange")
+                                .resizable()
+                                .renderingMode(.original)
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
+                        } else if symbolName == "restart" {
+                            Image("play")
+                                .resizable()
+                                .renderingMode(.original)
+                                .scaledToFit()
+                                .frame(width: 60, height: 50)
+                                .offset(x: 5, y: 0)
+                        } else {
+                            Image(systemName: symbolName)
+                                .foregroundColor(.black)
+                                .font(.system(size: 40))
+                        }
+                    }
+                )
+                .shadow(
+                    color: symbolName == "mic.fill"
+                        ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
+                        : .clear,
+                    radius: symbolName == "mic.fill" ? 20 : 0,
+                    x: 0,
+                    y: symbolName == "mic.fill" ? 15 : 0
+                )
+                .offset(x: dragOffset)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { value in
+                            if abs(value.translation.width) < 10 {
+                                if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
+                                    isPressing = true
+                                    recorder.startRecording()
+                                    viewModel.startTimer()
+                                }
+                            } else {
+                                guard lastRecordedURL != nil else { return }
+                                dragOffset = value.translation.width
+                            }
+                        }
+                        .onEnded { value in
+                            if recorder.isRecording {
+                                recorder.stopRecording()
+                            }
+                            isPressing = false
+                            guard let url = lastRecordedURL else { return }
+                            let threshold: CGFloat = 100
+                            if value.translation.width < -threshold {
+                                lastRecordedURL = nil
+                            } else if value.translation.width > threshold {
+                                Task {
+                                    await viewModel.sendQuestion(from: url)
+                                    lastRecordedURL = nil
+                                    showToast = true
+                                }
+                            }
+                            withAnimation {
+                                dragOffset = .zero
+                            }
+                        }
+                )
+                .simultaneousGesture(
+                    TapGesture()
+                        .onEnded {
+                            if let url = lastRecordedURL, !recorder.isRecording {
+                                audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
+                            }
+                            viewModel.startTimer()
+
+                            audioPlayer.onFinishPlaying = {
+                                viewModel.stopTimer()
+                            }
+                        }
+                )
         }
         .showToast(
             toastType: .completeQuestion,
@@ -220,12 +228,22 @@ struct RecordingRequestView: View {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
                 viewModel.stopTimer()
-                
             }
         }
-        .onChange(of: isPressing) { isNowPressing in
-            if isNowPressing && !recorder.isRecording && lastRecordedURL == nil {
-                recorder.startRecording()
+        .onChange(of: recorder.isRecording) { isRecording in
+            withAnimation(.easeInOut(duration: 0.4)) {
+                timerBottomPadding = isRecording ? 550 : 500
+                showTimerView = isRecording
+            }
+        }
+        .onChange(of: lastRecordedURL) { url in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showTimerView = (url != nil)
+            }
+        }
+        .onChange(of: audioPlayer.isPlaying) { isPlaying in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                if isPlaying { showTimerView = true }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
