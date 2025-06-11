@@ -146,9 +146,17 @@ struct LearningNoteView: View {
                     lastShowNote = newValue
                 }
                 .navigationTitle("")
+                .onReceive(NotificationCenter.default.publisher(for: .feedbackFinalizedReceived)) { _ in
+                    Task {
+                        await viewModel.fetchLearningNotes()
+                    }
+                }
             }
         }
     }
+}
+extension Notification.Name {
+    static let feedbackFinalizedReceived = Notification.Name("feedbackFinalizedReceived")
 }
 
 #Preview {

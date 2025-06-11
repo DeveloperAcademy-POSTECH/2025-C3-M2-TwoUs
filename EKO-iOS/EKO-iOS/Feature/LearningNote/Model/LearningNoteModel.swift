@@ -14,6 +14,7 @@ struct LearningNote: Identifiable {
     let receiverId: String?
     let senderId: String?
     let status: String?
+    let friendNickname: String
     let feedbackS3Key: String?
     let createdAt: Int           // 밀리초 그대로 사용
     var isFavorite: Bool

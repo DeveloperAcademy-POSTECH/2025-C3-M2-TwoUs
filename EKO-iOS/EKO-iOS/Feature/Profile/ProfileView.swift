@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
-    
-    // 임시 더미 데이터 생성Add commentMore actions
-    let dummyProfile = ProfileModel(
-        id: "1D856A",
-        qrImageURL: "dummyQR"
-    )
-    
+    @EnvironmentObject private var coordinator: AppCoordinator
+    @StateObject private var viewModel = ProfileViewModel()
+
     var body: some View {
                 ZStack {
             LinearGradient(
@@ -23,29 +19,65 @@ struct ProfileView: View {
                 endPoint: .bottom
             )
             .ignoresSafeArea()
-            
+
             VStack {
+                HStack {
+                    Button(action: {
+                        coordinator.push(.main)
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+
+                    Spacer()
+
+                    Button(action: {
+                        coordinator.push(.addFriend)
+                    }) {
+                        Image(systemName: "qrcode.viewfinder")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+                }
+                .padding(.horizontal)
+
                 Spacer()
+
                 VStack(spacing: 27) {
-                    Text("MINI")
+                    Text(viewModel.nickname ?? "닉네임 로딩 중")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.top, 11)
-                    
-                    Image(dummyProfile.qrImageURL)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 210, height: 210)
-                        .padding(.horizontal, 38)
-                    
+
+                    if let image = viewModel.profileImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 210, height: 210)
+                            .padding(.horizontal, 38)
+                    } else if viewModel.isLoading {
+                        ProgressView()
+                            .frame(width: 210, height: 210)
+                    } else {
+                        Image(systemName: "qrcode")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 210, height: 210)
+                            .foregroundColor(.gray)
+                            .padding(.horizontal, 38)
+                    }
+
                     HStack {
-                        Text("ID:")
+                        Text("ID")
                             .font(.title)
                             .fontWeight(.bold)
-                        Text(dummyProfile.id)
+                        Text(viewModel.userAddCode ?? "로딩 중")
                             .font(.title)
                         Button(action: {
-                            UIPasteboard.general.string = dummyProfile.id
+                            UIPasteboard.general.string = viewModel.userAddCode
                         }) {
                             Image(systemName: "square.on.square")
                                 .font(.title2)
@@ -56,21 +88,20 @@ struct ProfileView: View {
                     .padding(.bottom, 25)
                 }
                 .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.white) // 하얀 배경
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.blue, lineWidth: 2) // 파란 테두리
+                    RoundedRectangle(cornerRadius: 16).fill(Color.white)
                 )
                 .padding(.bottom, 110)
                 
-                Text("ID 입력")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 50)
+                Spacer()
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchProfile(userId: UserDefaults.standard.string(forKey: "userId") ?? "")
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
 
