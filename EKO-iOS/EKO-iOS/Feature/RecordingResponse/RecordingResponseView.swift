@@ -102,22 +102,42 @@ struct RecordingResponseView: View {
                         friends: $viewModel.friends,
                         selectedRequestUserId: $viewModel.selectedRequestUserId
                     )
-                    .padding(.top)
+                    .padding(.leading, 20)
+                    .padding(.bottom, 155)
                     .onAppear {
                           Task {
                               await viewModel.fetchMyRequestList()
                           }
                       }
+                if !feedbackPlayed && viewModel.elapsedSeconds > 0 && !feedbackSubmitted {
+                    RecordingTimerView(
+                        time: viewModel.elapsedSeconds,
+                        color: Color("mainBlue")
+                    )
+                } else if (recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil) && !feedbackSubmitted {
+                    RecordingTimerView(
+                        time: viewModel.elapsedSeconds,
+                        color: Color("mainBlue")
+                    )
+                }
+//                if viewModel.elapsedSeconds > 0 && !feedbackSubmitted {
+//                        RecordingTimerView(
+//                            time: viewModel.elapsedSeconds,
+//                            color: Color("mainBlue")
+//                        )
+//                    }
+//                
+//                if recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil {
+//                    RecordingTimerView(
+//                        time: viewModel.elapsedSeconds,
+//                        color: Color("mainBlue")
+//                    )
+//                }
+                
                 if feedbackSubmitted {
                     EKOEmptyView(title:"아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if showRecordingUI {
                     VStack {
-                        FetchMyRequsetSubView(
-                            friends: $viewModel.friends,
-                            selectedRequestUserId: $viewModel.selectedRequestUserId
-                        )
-                        .padding(.top)
-                        
                         ZStack {
                             recordingAnimation
 
@@ -192,6 +212,7 @@ struct RecordingResponseView: View {
                                                 if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
                                                     isPressing = true
                                                     recorder.startRecording()
+                                                    viewModel.startTimer()
                                                 }
                                             } else {
                                                 guard lastRecordedURL != nil else { return }
@@ -232,19 +253,28 @@ struct RecordingResponseView: View {
                                     TapGesture()
                                         .onEnded {
                                             if let url = lastRecordedURL, !recorder.isRecording {
-                                                audioPlayer.playAudioWithHaptic(from: url)
+                                                audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
+                                                viewModel.startTimer()
+                                                
+                                                audioPlayer.onFinishPlaying = {
+                                                    viewModel.stopTimer()
+                                                }
                                             }
                                         }
                                 )
                         }
-                        .padding()
-                        
+                        Spacer()
                     }
                 } else {
                     CircleActionButton(symbolName: "restart", color: Color("mainBlue")) {
                         Task {
+                            viewModel.elapsedSeconds = 0
                             await viewModel.playFeedback(using: audioPlayer)
                             feedbackPlayed = true
+                            viewModel.startTimer()
+                            audioPlayer.onFinishPlaying = {
+                                viewModel.stopTimer()
+                            }
                         }
                     }
                     .padding()
@@ -297,12 +327,27 @@ struct RecordingResponseView: View {
                         .padding()
                     }
                 }
+                Spacer()
             }
 
             VStack {
                 Spacer()
+                if !feedbackSubmitted {
+                            if showRecordingUI {
+                                if lastRecordedURL != nil {
+                                    EKONoticeText(title: "음성을 확인한 뒤 좌우로 스와이프 해주세요.")
+                                        .padding(.bottom, 120)
+                                } else {
+                                    EKONoticeText(title: "길게 눌러 들은 문장을 그대로 따라 읽기")
+                                        .padding(.bottom, 120)
+                                }
+                            } else if !feedbackPlayed {
+                                EKONoticeText(title: "발음 듣고 피드백 보내기")
+                                    .padding(.bottom, 120)
+                            }
+                        }
                 if showToast {
-                    EKOToastMessage(toastType: .completeQuestion)
+                    EKOToastMessage(toastType: .completeAnswer)
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .animation(.easeInOut(duration: 0.3), value: showToast)
                         .padding(.bottom, 60)
@@ -312,6 +357,7 @@ struct RecordingResponseView: View {
         .onAppear {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
+                viewModel.stopTimer()
             }
         }
         .onChange(of: isPressing) { isNowPressing in
@@ -321,4 +367,8 @@ struct RecordingResponseView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    RecordingResponseView(isPressing: .constant(false))
 }

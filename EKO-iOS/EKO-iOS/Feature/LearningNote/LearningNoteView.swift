@@ -21,6 +21,7 @@ struct LearningNoteView: View {
     @State private var editingNoteId: String?
     @State private var newTitle: String = ""
     @StateObject private var viewModel = LearningNoteViewModel()
+    @StateObject private var audioPlayer = AudioPlayer()
     @State private var didLoad = false
     @State private var showNote = false
     @State private var lastShowNote = false
@@ -55,7 +56,7 @@ struct LearningNoteView: View {
     
     @ViewBuilder
     private func makeNoteCard(note: LearningNote) -> some View {
-        LearningNoteSubView(note: note, viewModel: viewModel)
+        LearningNoteSubView(note: note, viewModel: viewModel, audioPlayer: audioPlayer)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(Color.white)

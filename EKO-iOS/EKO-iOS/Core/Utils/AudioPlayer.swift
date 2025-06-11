@@ -9,11 +9,21 @@ import Foundation
 import AVFoundation
 import CoreHaptics
 
+enum VoiceType {
+    case voice1
+    case voice2
+    case none
+}
+
 class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     private var audioPlayer: AVAudioPlayer?
     private var timer: Timer?
     private var engine: CHHapticEngine?
     
+    @Published private(set) var isPlaying: Bool = false
+    @Published var currentNoteId: String?
+    @Published var currentVoiceType: VoiceType = .none
+
     var onFinishPlaying: (() -> Void)?
 
     override init() {
@@ -31,7 +41,18 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
 
-    func playAudioWithHaptic(from url: URL) {
+    func playAudioWithHaptic(from url: URL, noteId: String?, voiceType: VoiceType) {
+        if isPlaying {
+            audioPlayer?.stop()
+            stopMonitoring()
+            isPlaying = false
+            currentNoteId = nil
+            currentVoiceType = .none
+        }
+
+        currentNoteId = noteId
+        currentVoiceType = voiceType
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -41,13 +62,14 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
             audioPlayer?.isMeteringEnabled = true
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
+            isPlaying = true
             startMonitoring()
         } catch {
             print("오디오 재생 실패: \(error)")
         }
     }
     
-    func downloadAndPlayWithHaptics(from remoteURL: URL) {
+    func downloadAndPlayWithHaptics(from remoteURL: URL, noteId: String?, voiceType: VoiceType) {
         let tempURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             .appendingPathComponent("downloaded_feedback.m4a")
         
@@ -70,17 +92,8 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 try FileManager.default.copyItem(at: localURL, to: tempURL)
                 print("✅ 다운로드 및 저장 완료: \(tempURL.path)")
                 
-                let resourceValues = try tempURL.resourceValues(forKeys: [.typeIdentifierKey])
-                print("File type identifier: \(resourceValues.typeIdentifier ?? "unknown")")
-                
-                let exists = FileManager.default.fileExists(atPath: tempURL.path)
-                let size = (try? FileManager.default.attributesOfItem(atPath: tempURL.path))?[.size] as? NSNumber
-
-                print("파일 존재 여부:", exists)
-                print("파일 크기:", size ?? "Unknown")
-                
                 DispatchQueue.main.async {
-                    self.playAudioWithHaptic(from: tempURL)
+                    self.playAudioWithHaptic(from: tempURL, noteId: noteId, voiceType: voiceType)
                 }
             } catch {
                 print("❌ 파일 저장 실패: \(error)")
@@ -105,6 +118,9 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         stopMonitoring()
+        isPlaying = false
+        currentNoteId = nil
+        currentVoiceType = .none
         print("오디오 재생 종료")
         
         onFinishPlaying?()
@@ -137,5 +153,6 @@ class AudioPlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func pause() {
         audioPlayer?.pause()
         stopMonitoring()
+        isPlaying = false
     }
 }

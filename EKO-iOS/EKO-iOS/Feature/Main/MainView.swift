@@ -22,7 +22,7 @@ struct MainView: View {
                 }
             } else {
                 LinearGradient(
-                    colors: [Color.supOrange2, Color.supBlue3],
+                    colors: [Color.supOrange3, Color.supBlue4],
                     startPoint: .top,
                     endPoint: .bottom
                 )
