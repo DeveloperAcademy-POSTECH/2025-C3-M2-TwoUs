@@ -11,7 +11,7 @@ import Lottie
 struct RecordingRequestView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingRequestViewModel()
-    
+
     @StateObject private var recorder = AudioRecorder()
     @State private var audioPlayer = AudioPlayer()
     @State private var lastRecordedURL: URL?
@@ -19,7 +19,6 @@ struct RecordingRequestView: View {
     @State private var showToast: Bool = false
     @Binding var isPressing: Bool
     
-
     struct LottieView: UIViewRepresentable {
         let animationName: String
         let loopMode: LottieLoopMode
@@ -70,6 +69,14 @@ struct RecordingRequestView: View {
                     }
                 }
                 Spacer()
+                
+                if recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil {
+                    RecordingTimerView(
+                        time: viewModel.elapsedSeconds,
+                        color: Color("mainOrange")
+                    )
+                }
+                
                 ZStack {
                     recordingAnimation
                     
@@ -144,6 +151,7 @@ struct RecordingRequestView: View {
                                         if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
                                             isPressing = true
                                             recorder.startRecording()
+                                            viewModel.startTimer()
                                         }
                                     } else {
                                         guard lastRecordedURL != nil else { return }
@@ -177,6 +185,11 @@ struct RecordingRequestView: View {
                                     if let url = lastRecordedURL, !recorder.isRecording {
                                         audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
                                     }
+                                    viewModel.startTimer()
+                                    
+                                    audioPlayer.onFinishPlaying = {
+                                        viewModel.stopTimer()
+                                    }
                                 }
                         )
                 }
@@ -206,6 +219,8 @@ struct RecordingRequestView: View {
         .onAppear {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
+                viewModel.stopTimer()
+                
             }
         }
         .onChange(of: isPressing) { isNowPressing in
