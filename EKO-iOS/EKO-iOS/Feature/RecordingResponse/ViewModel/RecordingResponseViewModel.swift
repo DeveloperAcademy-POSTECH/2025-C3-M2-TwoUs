@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 final class RecordingResponseViewModel: ObservableObject {
@@ -15,6 +16,8 @@ final class RecordingResponseViewModel: ObservableObject {
 
     @Published var friends: [EKORequestFriend] = []
     @Published var selectedRequestUserId: String?
+    @Published var elapsedSeconds: Int = 0
+    private var timer: AnyCancellable?
 
     struct EKORequestFriend: Identifiable, Equatable {
         let id = UUID()
@@ -22,7 +25,6 @@ final class RecordingResponseViewModel: ObservableObject {
         let senderNickname: String
     }
 
-    // ✅ 요청 목록 불러오기
     func fetchMyRequestList() async {
         do {
             let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "userB456")
@@ -39,7 +41,6 @@ final class RecordingResponseViewModel: ObservableObject {
         }
     }
 
-    // ✅ 피드백 전송 (Good/Bad)
     func sendFeedback(status: String, fileURL: URL?) async {
         guard let sessionId = feedbackSessionId else {
             print("❌ sessionId 없음")
@@ -68,7 +69,6 @@ final class RecordingResponseViewModel: ObservableObject {
         }
     }
 
-    // ✅ S3 키 가져오기
     func fetchFeedbackS3Key() async -> String? {
         do {
             let result = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "userB456")
@@ -86,7 +86,6 @@ final class RecordingResponseViewModel: ObservableObject {
         }
     }
 
-    // ✅ S3 URL 다운로드
     func downloadAudio() async {
         guard let s3Key = feedbackS3Key else {
             print("❌ s3Key 없음")
@@ -107,7 +106,6 @@ final class RecordingResponseViewModel: ObservableObject {
         }
     }
 
-    // ✅ 오디오 재생
     func playFeedback(using player: AudioPlayer) async {
         guard let _ = await fetchFeedbackS3Key() else {
             print("❌ s3Key를 가져오지 못해 재생 중단")
@@ -122,5 +120,19 @@ final class RecordingResponseViewModel: ObservableObject {
         } else {
             print("❌ 다운로드된 URL이 없어 재생 불가")
         }
+    }
+    
+    func startTimer() {
+        elapsedSeconds = 0
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.elapsedSeconds += 1
+            }
+    }
+    
+    func stopTimer() {
+        timer?.cancel()
+        timer = nil
     }
 }
