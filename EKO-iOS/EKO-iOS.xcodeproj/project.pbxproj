@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		093F3BC82DF4C32900D1CB44 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093F3BC72DF4C32900D1CB44 /* KeyboardObserver.swift */; };
+		0937955A2DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093795592DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift */; };
+		0937955C2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937955B2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift */; };
+		093795902DF948A90041A3E1 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937958E2DF948A90041A3E1 /* KeyboardObserver.swift */; };
+		093795912DF948A90041A3E1 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937958F2DF948A90041A3E1 /* ScannerViewController.swift */; };
 		098C97672DEFD7FC004388D6 /* PostRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */; };
 		098C97692DEFD806004388D6 /* PostNewFriendsRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */; };
 		098C976B2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */; };
@@ -15,7 +18,6 @@
 		098C976F2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */; };
 		098C97712DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */; };
 		098C97732DEFD951004388D6 /* PostNewFriendsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */; };
-		098C979B2DF3C1AC004388D6 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C979A2DF3C1AC004388D6 /* ScannerViewController.swift */; };
 		099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8652DEBD23E00CC9717 /* AppDelegate.swift */; };
 		099AD86F2DEBEEDC00CC9717 /* RegisterSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD86A2DEBEEDC00CC9717 /* RegisterSubViews.swift */; };
 		099AD8702DEBEEDC00CC9717 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099AD8672DEBEEDC00CC9717 /* RegisterView.swift */; };
@@ -36,7 +38,9 @@
 		09F425342DEBC34D00850CDB /* S3TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425322DEBC34D00850CDB /* S3TargetType.swift */; };
 		09F425352DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */; };
 		09F425362DEBC34D00850CDB /* S3APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F425312DEBC34D00850CDB /* S3APIService.swift */; };
-		0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */; };
+		0F2E83002DF136820082B256 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0F2E82FF2DF136820082B256 /* Lottie */; };
+		0F2E83022DF13AAC0082B256 /* CircleWaveOrange.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */; };
+		0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */; };
 		3D2796162DED3283005D5A1B /* EKOToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796152DED3283005D5A1B /* EKOToastMessage.swift */; };
 		3D2796192DED36CC005D5A1B /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2796182DED36CC005D5A1B /* View+.swift */; };
 		3D27961B2DED9B13005D5A1B /* EKOToggleIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */; };
@@ -50,7 +54,6 @@
 		3D2C9E2B2DE5E0A0009DAE77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E252DE5E0A0009DAE77 /* ContentView.swift */; };
 		3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */; };
 		3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E332DE5E388009DAE77 /* Colors.xcassets */; };
-		3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */; };
 		3D2C9E382DE5F460009DAE77 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9E372DE5F460009DAE77 /* Date+.swift */; };
 		3D2C9ECC2DE5F665009DAE77 /* LearningNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9ECB2DE5F665009DAE77 /* LearningNoteView.swift */; };
 		3D2C9ECE2DE5F68A009DAE77 /* RecordingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9ECD2DE5F68A009DAE77 /* RecordingRequestView.swift */; };
@@ -76,6 +79,7 @@
 		3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F092DE60F75009DAE77 /* AppRoute.swift */; };
 		3D2C9F0C2DE60FCE009DAE77 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */; };
 		3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */; };
+		3D96D9152DF6743500C8F2F2 /* EKONoticeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96D9142DF6743500C8F2F2 /* EKONoticeText.swift */; };
 		3DF3254E2DE74BA100F9F3F9 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */; };
 		3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */; };
 		3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3254D2DE74BA100F9F3F9 /* Pretendard-SemiBold.otf */; };
@@ -108,7 +112,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		093F3BC72DF4C32900D1CB44 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		093795592DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAppleSignupRequestDTO.swift; sourceTree = "<group>"; };
+		0937955B2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAppleSignupResponseDTO.swift; sourceTree = "<group>"; };
+		0937958E2DF948A90041A3E1 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		0937958F2DF948A90041A3E1 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRegisterRequestDTO.swift; sourceTree = "<group>"; };
 		098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewFriendsRequestDTO.swift; sourceTree = "<group>"; };
 		098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyprofileResponseDTO.swift; sourceTree = "<group>"; };
@@ -116,7 +123,6 @@
 		098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFriendsProfileResponseDTO.swift; sourceTree = "<group>"; };
 		098C97702DEFD947004388D6 /* FetchMyFriendsListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyFriendsListResponseDTO.swift; sourceTree = "<group>"; };
 		098C97722DEFD951004388D6 /* PostNewFriendsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewFriendsResponseDTO.swift; sourceTree = "<group>"; };
-		098C979A2DF3C1AC004388D6 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		099AD8652DEBD23E00CC9717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		099AD8672DEBEEDC00CC9717 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		099AD8682DEBEEDC00CC9717 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
@@ -137,7 +143,8 @@
 		09F4252E2DEBC34D00850CDB /* FetchS3DownloadURLResposeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchS3DownloadURLResposeDTO.swift; sourceTree = "<group>"; };
 		09F425312DEBC34D00850CDB /* S3APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3APIService.swift; sourceTree = "<group>"; };
 		09F425322DEBC34D00850CDB /* S3TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3TargetType.swift; sourceTree = "<group>"; };
-		0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CircleWaveOrange.json; sourceTree = "<group>"; };
+		0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CircleWaveBlue.json; sourceTree = "<group>"; };
 		3D2796152DED3283005D5A1B /* EKOToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToastMessage.swift; sourceTree = "<group>"; };
 		3D2796182DED36CC005D5A1B /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		3D27961A2DED9B13005D5A1B /* EKOToggleIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKOToggleIndicator.swift; sourceTree = "<group>"; };
@@ -153,7 +160,6 @@
 		3D2C9E262DE5E0A0009DAE77 /* EKO_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EKO_iOS.entitlements; sourceTree = "<group>"; };
 		3D2C9E272DE5E0A0009DAE77 /* EKO_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKO_iOSApp.swift; sourceTree = "<group>"; };
 		3D2C9E332DE5E388009DAE77 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		3D2C9E372DE5F460009DAE77 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		3D2C9EC32DE5F4FB009DAE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D2C9ECB2DE5F665009DAE77 /* LearningNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningNoteView.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 		3D2C9F0B2DE60FCE009DAE77 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3D2C9F0D2DE61072009DAE77 /* RootNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationView.swift; sourceTree = "<group>"; };
 		3D2C9F0F2DE61521009DAE77 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3D96D9142DF6743500C8F2F2 /* EKONoticeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKONoticeText.swift; sourceTree = "<group>"; };
 		3DF3254A2DE74BA100F9F3F9 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3DF3254B2DE74BA100F9F3F9 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3DF3254C2DE74BA100F9F3F9 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -206,12 +213,19 @@
 		3DF327342DE9A9E400F9F3F9 /* NotificationTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTargetType.swift; sourceTree = "<group>"; };
 		3DF327362DE9A9EE00F9F3F9 /* NotificationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAPIService.swift; sourceTree = "<group>"; };
 		3DF327382DE9AA3F00F9F3F9 /* PostStartQuestionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStartQuestionRequestDTO.swift; sourceTree = "<group>"; };
+		6DCF64AA2DEEEE2E006E8B67 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		6DCF64AC2DEFCA5E006E8B67 /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0F49DC812DE741DC007C15C7 /* Utils */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		6DA5FDE52DF3D4000003AF13 /* CoreData */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -221,6 +235,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F2E83002DF136820082B256 /* Lottie in Frameworks */,
 				3DF325582DE7FC1000F9F3F9 /* Moya in Frameworks */,
 				3DF325562DE7FC1000F9F3F9 /* CombineMoya in Frameworks */,
 				3DF3255C2DE7FC1000F9F3F9 /* RxMoya in Frameworks */,
@@ -309,6 +324,7 @@
 				3D27961E2DEDDB86005D5A1B /* EKOEmptyView.swift */,
 				3D2796202DEDDD1D005D5A1B /* EKOFriendsView.swift */,
 				3D2796222DEDE28A005D5A1B /* EKOTabSelector.swift */,
+				3D96D9142DF6743500C8F2F2 /* EKONoticeText.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -319,6 +335,7 @@
 				3D2C9F0F2DE61521009DAE77 /* .swiftlint.yml */,
 				3D2C9E282DE5E0A0009DAE77 /* EKO-iOS */,
 				3D2C9E112DE5E031009DAE77 /* Products */,
+				6DCF64BA2DF03215006E8B67 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -416,10 +433,12 @@
 		3D2C9E322DE5E256009DAE77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6DA5FDE52DF3D4000003AF13 /* CoreData */,
 				3D2C9F112DE74AEC009DAE77 /* Fonts */,
 				3D2C9F102DE74AD5009DAE77 /* Assets */,
 				3DF325F52DE891A900F9F3F9 /* Config.swift */,
-				0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */,
+				0F2E83012DF13AAC0082B256 /* CircleWaveOrange.json */,
+				0F2E83062DF1740E0082B256 /* CircleWaveBlue.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -471,12 +490,12 @@
 		3D2C9ECA2DE5F62F009DAE77 /* AddFriend */ = {
 			isa = PBXGroup;
 			children = (
+				0937958E2DF948A90041A3E1 /* KeyboardObserver.swift */,
+				0937958F2DF948A90041A3E1 /* ScannerViewController.swift */,
 				3D2C9ED32DE5F6A6009DAE77 /* AddFriendView.swift */,
 				3D2C9F002DE5FA6D009DAE77 /* Model */,
 				3D2C9EFF2DE5FA67009DAE77 /* SubViews */,
 				3D2C9EFE2DE5FA61009DAE77 /* ViewModel */,
-				098C979A2DF3C1AC004388D6 /* ScannerViewController.swift */,
-				093F3BC72DF4C32900D1CB44 /* KeyboardObserver.swift */,
 			);
 			path = AddFriend;
 			sourceTree = "<group>";
@@ -632,7 +651,6 @@
 			children = (
 				3D2C9E242DE5E0A0009DAE77 /* Assets.xcassets */,
 				3D2C9E332DE5E388009DAE77 /* Colors.xcassets */,
-				3D2C9E352DE5E39A009DAE77 /* Localizable.xcstrings */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -795,6 +813,7 @@
 		3DF326162DE9867C00F9F3F9 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				0937955B2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift */,
 				098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */,
 				098C976C2DEFD933004388D6 /* PostRegisterResponseDTO.swift */,
 				098C976E2DEFD93B004388D6 /* FetchFriendsProfileResponseDTO.swift */,
@@ -807,6 +826,7 @@
 		3DF326172DE9867F00F9F3F9 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				093795592DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift */,
 				098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */,
 				098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */,
 			);
@@ -848,6 +868,15 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		6DCF64BA2DF03215006E8B67 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6DCF64AA2DEEEE2E006E8B67 /* Config.xcconfig */,
+				6DCF64AC2DEFCA5E006E8B67 /* StringLiterals.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -866,6 +895,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				0F49DC812DE741DC007C15C7 /* Utils */,
+				6DA5FDE52DF3D4000003AF13 /* CoreData */,
 			);
 			name = "EKO-iOS";
 			packageProductDependencies = (
@@ -873,6 +903,7 @@
 				3DF325572DE7FC1000F9F3F9 /* Moya */,
 				3DF325592DE7FC1000F9F3F9 /* ReactiveMoya */,
 				3DF3255B2DE7FC1000F9F3F9 /* RxMoya */,
+				0F2E82FF2DF136820082B256 /* Lottie */,
 			);
 			productName = "EKO-iOS";
 			productReference = 3D2C9E102DE5E031009DAE77 /* EKO-iOS.app */;
@@ -905,6 +936,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				3DF325542DE7FC1000F9F3F9 /* XCRemoteSwiftPackageReference "Moya" */,
+				0F2E82FE2DF136820082B256 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3D2C9E112DE5E031009DAE77 /* Products */;
@@ -925,10 +957,10 @@
 				3DF3254F2DE74BA100F9F3F9 /* Pretendard-Bold.otf in Resources */,
 				3DF325502DE74BA100F9F3F9 /* Pretendard-SemiBold.otf in Resources */,
 				3DF325512DE74BA100F9F3F9 /* Pretendard-Medium.otf in Resources */,
-				0FBD487D2DEC2C690042CFE1 /* Config.xcconfig in Resources */,
+				0F2E83072DF1740E0082B256 /* CircleWaveBlue.json in Resources */,
 				3D2C9E342DE5E388009DAE77 /* Colors.xcassets in Resources */,
 				3D2C9E292DE5E0A0009DAE77 /* Preview Assets.xcassets in Resources */,
-				3D2C9E362DE5E39A009DAE77 /* Localizable.xcstrings in Resources */,
+				0F2E83022DF13AAC0082B256 /* CircleWaveOrange.json in Resources */,
 				3D2C9E2A2DE5E0A0009DAE77 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -963,7 +995,6 @@
 			files = (
 				3D2C9EE32DE5F916009DAE77 /* RecordingRequestModel.swift in Sources */,
 				3D2C9EDE2DE5F74E009DAE77 /* AddFriendViewModel.swift in Sources */,
-				093F3BC82DF4C32900D1CB44 /* KeyboardObserver.swift in Sources */,
 				3D2C9ED82DE5F6F7009DAE77 /* RecordingResponseViewModel.swift in Sources */,
 				3D2C9ED62DE5F6E7009DAE77 /* RecordingRequestViewModel.swift in Sources */,
 				09F425192DEBC2BA00850CDB /* FetchSendFeedbackResponseDTO.swift in Sources */,
@@ -996,13 +1027,15 @@
 				3D2C9EF62DE5FA13009DAE77 /* LearningNoteSubViews.swift in Sources */,
 				3DF327372DE9A9EE00F9F3F9 /* NotificationAPIService.swift in Sources */,
 				3D2796252DEDE815005D5A1B /* Text+.swift in Sources */,
+				0937955C2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift in Sources */,
 				3D2C9F0A2DE60F75009DAE77 /* AppRoute.swift in Sources */,
 				099AD8662DEBD24500CC9717 /* AppDelegate.swift in Sources */,
 				3D2C9F042DE5FA85009DAE77 /* AddFriendModel.swift in Sources */,
-				098C979B2DF3C1AC004388D6 /* ScannerViewController.swift in Sources */,
 				3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */,
 				098C976D2DEFD933004388D6 /* PostRegisterResponseDTO.swift in Sources */,
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
+				093795902DF948A90041A3E1 /* KeyboardObserver.swift in Sources */,
+				093795912DF948A90041A3E1 /* ScannerViewController.swift in Sources */,
 				3D2C9EE52DE5F926009DAE77 /* RecordingRequestSubView.swift in Sources */,
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
 				3D27961D2DEDA71B005D5A1B /* EKOButton.swift in Sources */,
@@ -1022,6 +1055,7 @@
 				3DF325642DE7FDFC00F9F3F9 /* NetworkService.swift in Sources */,
 				3D2C9EDA2DE5F739009DAE77 /* LearningNoteViewModel.swift in Sources */,
 				098C97692DEFD806004388D6 /* PostNewFriendsRequestDTO.swift in Sources */,
+				0937955A2DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift in Sources */,
 				3DF326032DE8953500F9F3F9 /* FeedbackAPIService.swift in Sources */,
 				3DF326052DE8956300F9F3F9 /* NoteTargetType.swift in Sources */,
 				09F4252C2DEBC2D500850CDB /* PostDeviceTokenResponseDTO.swift in Sources */,
@@ -1043,6 +1077,7 @@
 				3D2C9F0E2DE61072009DAE77 /* RootNavigationView.swift in Sources */,
 				3DF325602DE7FDE300F9F3F9 /* BaseAPIService.swift in Sources */,
 				3DF3260B2DE895AA00F9F3F9 /* SessionAPIService.swift in Sources */,
+				3D96D9152DF6743500C8F2F2 /* EKONoticeText.swift in Sources */,
 				3D2C9E2C2DE5E0A0009DAE77 /* EKO_iOSApp.swift in Sources */,
 				09F4252A2DEBC2D000850CDB /* PostDeviceTokenRequestDTO.swift in Sources */,
 				099AD8722DEBEEDC00CC9717 /* RegisterViewModel.swift in Sources */,
@@ -1054,7 +1089,6 @@
 /* Begin XCBuildConfiguration section */
 		3D2C9E1D2DE5E032009DAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1117,7 +1151,6 @@
 		};
 		3D2C9E1E2DE5E032009DAE77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1172,7 +1205,6 @@
 		};
 		3D2C9E202DE5E032009DAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1186,7 +1218,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "EKO-iOS/Core/Supporting Files/Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "<key>NSMicrophoneUsageDescription</key>\n<string>이 앱은 음성 녹음을 위해 마이크 접근이 필요합니다.</string>";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1198,6 +1229,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -1207,17 +1239,17 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Debug;
 		};
 		3D2C9E212DE5E032009DAE77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FBD487C2DEC2C690042CFE1 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1231,7 +1263,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "EKO-iOS/Core/Supporting Files/Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "<key>NSMicrophoneUsageDescription</key>\n<string>이 앱은 음성 녹음을 위해 마이크 접근이 필요합니다.</string>";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1243,6 +1274,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -1252,10 +1284,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
@@ -1284,6 +1317,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0F2E82FE2DF136820082B256 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 		3DF325542DE7FC1000F9F3F9 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -1295,6 +1336,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0F2E82FF2DF136820082B256 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F2E82FE2DF136820082B256 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		3DF325552DE7FC1000F9F3F9 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3DF325542DE7FC1000F9F3F9 /* XCRemoteSwiftPackageReference "Moya" */;

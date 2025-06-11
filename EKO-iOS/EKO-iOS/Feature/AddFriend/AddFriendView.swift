@@ -104,7 +104,7 @@ struct AddFriendView: View {
                 message: Text("친구를 추가하시겠습니까?"),
                 primaryButton: .default(Text("추가")) {
                     Task {
-                        await viewModel.submitCodeAndAddFriend(myUserId: "userA123", myNickname: "테스트 유저 1")
+                        await viewModel.submitCodeAndAddFriend(myUserId: UserDefaults.standard.string(forKey: "userId") ?? "", myNickname: UserDefaults.standard.string(forKey: "nickname") ?? "")
                     }
                 },
                 secondaryButton: .cancel(Text("취소")) {

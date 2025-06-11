@@ -93,7 +93,7 @@ struct ProfileView: View {
         }
         .onAppear {
             Task {
-                await viewModel.fetchProfile(userId: "userA123")
+                await viewModel.fetchProfile(userId: UserDefaults.standard.string(forKey: "userId") ?? "")
             }
         }
         .navigationBarBackButtonHidden(true)
