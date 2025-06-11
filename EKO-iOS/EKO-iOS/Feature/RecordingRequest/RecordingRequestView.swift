@@ -19,6 +19,9 @@ struct RecordingRequestView: View {
     @State private var showToast: Bool = false
     @Binding var isPressing: Bool
     
+    @GestureState private var isDetectingLongPress = false
+    @State private var didLongPress = false
+    
     @State private var timerBottomPadding: CGFloat = 550
     @State private var showTimerView: Bool = false
 
@@ -66,7 +69,7 @@ struct RecordingRequestView: View {
                     friends: $viewModel.friends,
                     selectedReceiverUserId: $viewModel.selectedReceiverUserId
                 )
-                .padding(.top, 40)
+                .padding(.top, 16)
                 .onAppear {
                     Task {
                         await viewModel.fetchMyFriendsList()
@@ -74,6 +77,7 @@ struct RecordingRequestView: View {
                 }
 
                 Spacer()
+                
                 ZStack {
                     recordingAnimation
 
@@ -105,6 +109,7 @@ struct RecordingRequestView: View {
                             .padding(.horizontal, 20)
                     }
                 }
+                .padding(.top)
 
                 Spacer()
 
@@ -198,6 +203,8 @@ struct RecordingRequestView: View {
                                     await viewModel.sendQuestion(from: url)
                                     lastRecordedURL = nil
                                     showToast = true
+                                    
+                                    await viewModel.fetchMyFriendsList()
                                 }
                             }
                             withAnimation {
@@ -206,17 +213,17 @@ struct RecordingRequestView: View {
                         }
                 )
                 .simultaneousGesture(
-                    TapGesture()
-                        .onEnded {
-                            if let url = lastRecordedURL, !recorder.isRecording {
-                                audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
-                            }
-                            viewModel.startTimer()
+                    LongPressGesture(minimumDuration: 1)
+                            .onEnded { _ in
+                                if let url = lastRecordedURL, !recorder.isRecording {
+                                    audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
+                                }
+                                viewModel.startTimer()
 
-                            audioPlayer.onFinishPlaying = {
-                                viewModel.stopTimer()
+                                audioPlayer.onFinishPlaying = {
+                                    viewModel.stopTimer()
+                                }
                             }
-                        }
                 )
         }
         .showToast(
@@ -228,6 +235,13 @@ struct RecordingRequestView: View {
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
                 viewModel.stopTimer()
+            }
+
+            // ✅ 푸시 수신 시 친구 목록 다시 불러오기
+            NotificationCenter.default.addObserver(forName: .feedbackFinalizedReceived, object: nil, queue: .main) { _ in
+                Task {
+                    await viewModel.fetchMyFriendsList()
+                }
             }
         }
         .onChange(of: recorder.isRecording) { isRecording in
@@ -248,8 +262,4 @@ struct RecordingRequestView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-}
-
-#Preview {
-    RecordingRequestView(isPressing: .constant(false))
 }

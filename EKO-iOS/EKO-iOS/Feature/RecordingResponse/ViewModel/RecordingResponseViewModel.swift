@@ -13,10 +13,14 @@ final class RecordingResponseViewModel: ObservableObject {
     @Published var playbackURL: URL?
     @Published var feedbackS3Key: String?
     @Published var feedbackSessionId: String?
-
     @Published var friends: [EKORequestFriend] = []
     @Published var selectedRequestUserId: String?
     @Published var elapsedSeconds: Int = 0
+
+    var hasSession: Bool {
+        return !friends.isEmpty && selectedRequestUserId != nil
+    }
+
     private var timer: AnyCancellable?
 
     struct EKORequestFriend: Identifiable, Equatable {
@@ -24,7 +28,7 @@ final class RecordingResponseViewModel: ObservableObject {
         let senderUserId: String
         let senderNickname: String
     }
-
+    
     func fetchMyRequestList() async {
         do {
             let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
@@ -63,7 +67,15 @@ final class RecordingResponseViewModel: ObservableObject {
         do {
             let result = try await NetworkService.shared.feedbackService.postStartFeedback(model: model)
             print("✅ 피드백 전송 성공: \(result)")
+
             await fetchMyRequestList()
+
+            if friends.isEmpty {
+                selectedRequestUserId = nil
+            } else {
+                selectedRequestUserId = friends.first?.senderUserId
+            }
+
         } catch {
             print("❌ 피드백 전송 실패: \(error)")
         }
