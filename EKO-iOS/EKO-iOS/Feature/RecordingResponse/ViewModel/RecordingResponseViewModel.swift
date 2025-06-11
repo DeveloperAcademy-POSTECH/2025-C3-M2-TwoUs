@@ -27,7 +27,7 @@ final class RecordingResponseViewModel: ObservableObject {
 
     func fetchMyRequestList() async {
         do {
-            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "userB456")
+            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
             let fetched = response.sessions.map {
                 EKORequestFriend(
                     senderUserId: $0.senderUserId,
@@ -53,7 +53,7 @@ final class RecordingResponseViewModel: ObservableObject {
         }
 
         let model = PostStartFeedbackRequsetDTO(
-            senderUserId: "userB456",
+            senderUserId: UserDefaults.standard.string(forKey: "userId") ?? "",
             receiverUserId: receiverId,
             sessionId: sessionId,
             status: status,
@@ -71,7 +71,7 @@ final class RecordingResponseViewModel: ObservableObject {
 
     func fetchFeedbackS3Key() async -> String? {
         do {
-            let result = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "userB456")
+            let result = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
             if let session = result.sessions.first {
                 self.feedbackS3Key = session.s3Key
                 self.feedbackSessionId = session.sessionId

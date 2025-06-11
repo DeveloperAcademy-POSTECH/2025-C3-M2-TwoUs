@@ -24,7 +24,7 @@ final class RecordingRequestViewModel: ObservableObject {
 
     func fetchMyFriendsList() async {
         do {
-            let response = try await NetworkService.shared.userService.fetchMyFriendsList(userId: "userA123")
+            let response = try await NetworkService.shared.userService.fetchMyFriendsList(userId: UserDefaults.standard.string(forKey: "userId") ?? "")
             let fetched = response.friends.map {
                 EKOFriend(
                     friendUserId: $0.friendUserId,
@@ -46,7 +46,7 @@ final class RecordingRequestViewModel: ObservableObject {
         }
 
         let model = PostStartQuestionRequestDTO(
-            senderUserId: "userA123",
+            senderUserId: UserDefaults.standard.string(forKey: "userId") ?? "",
             receiverUserId: receiverId,
             audioFileURL: url
         )
