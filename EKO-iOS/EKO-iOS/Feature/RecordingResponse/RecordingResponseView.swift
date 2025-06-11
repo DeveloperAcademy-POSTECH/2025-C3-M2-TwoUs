@@ -12,10 +12,10 @@ import Lottie
 struct RecordingResponseView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingResponseViewModel()
-
+    
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
-
+    
     @State private var lastRecordedURL: URL?
     @State private var dragOffset: CGFloat = .zero
     @State private var feedbackPlayed = false
@@ -23,11 +23,11 @@ struct RecordingResponseView: View {
     @State private var showRecordingUI = false
     @State private var showToast: Bool = false
     @Binding var isPressing: Bool
-
+    
     private var shouldShowTimer: Bool {
         (recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil) && !feedbackSubmitted
     }
-
+    
     var body: some View {
         ZStack {
             VStack {
@@ -42,20 +42,20 @@ struct RecordingResponseView: View {
                 )
                 .padding(.leading, 20)
                 .padding(.bottom, 155)
-
+                
                 RecordingTimerView(
                     time: viewModel.elapsedSeconds,
                     color: Color("mainBlue")
                 )
                 .opacity(shouldShowTimer ? 1 : 0)
                 .animation(.easeInOut(duration: 0.3), value: shouldShowTimer)
-
+                
                 Spacer()
             }
-
+            
             VStack {
                 Spacer()
-
+                
                 if !viewModel.hasSession {
                     EKOEmptyView(title: "아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if feedbackSubmitted {
@@ -97,7 +97,7 @@ struct RecordingResponseView: View {
                             }
                         }
                         .padding()
-
+                        
                         HStack(spacing: 20) {
                             Button(action: {
                                 Task {
@@ -122,7 +122,7 @@ struct RecordingResponseView: View {
                                             )
                                     )
                             }
-
+                            
                             PronunciationFeedbackButton {
                                 showRecordingUI = true
                             }
@@ -131,10 +131,10 @@ struct RecordingResponseView: View {
                         .animation(.easeInOut, value: feedbackPlayed)
                     }
                 }
-
+                
                 Spacer()
             }
-
+            
             VStack {
                 Spacer()
                 if !feedbackSubmitted {
@@ -151,7 +151,7 @@ struct RecordingResponseView: View {
                             .padding(.bottom, 75)
                     }
                 }
-
+                
                 if showToast {
                     EKOToastMessage(toastType: .completeAnswer)
                         .transition(.move(edge: .top).combined(with: .opacity))
@@ -164,12 +164,12 @@ struct RecordingResponseView: View {
             Task {
                 await viewModel.fetchMyRequestList()
             }
-
+            
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
                 viewModel.stopTimer()
             }
-
+            
             NotificationCenter.default.addObserver(forName: .feedbackSendedReceived, object: nil, queue: .main) { _ in
                 Task {
                     await viewModel.fetchMyRequestList()
@@ -186,7 +186,7 @@ struct RecordingResponseView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-
+    
     @ViewBuilder
     private func CircleActionButton(symbolName: String, color: Color, action: @escaping () -> Void) -> some View {
         Circle()
@@ -200,10 +200,6 @@ struct RecordingResponseView: View {
                     .scaledToFit()
                     .frame(width: 60, height: 50)
                     .offset(x: 5)
-            )
-            .shadow(
-                color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
-                radius: 20, x: 0, y: 15
             )
             .onTapGesture {
                 action()
