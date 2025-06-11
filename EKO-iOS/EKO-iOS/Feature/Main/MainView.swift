@@ -82,8 +82,10 @@ struct MainView: View {
                             }
                         }
                     )
+                    .zIndex(2)
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
