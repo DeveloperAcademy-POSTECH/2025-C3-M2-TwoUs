@@ -54,7 +54,7 @@ struct LearningNoteSubView: View {
             // 왼쪽: 프로필, 이름
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(note.receiverId ?? "")
+                    Text(note.friendNickname ?? "")
                         .font(.textRegular03)
                         .foregroundStyle(.secondary)
                     Button(action: {
