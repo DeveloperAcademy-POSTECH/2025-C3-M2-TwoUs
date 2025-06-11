@@ -18,7 +18,7 @@ struct FetchMyFriendsSubView: View {
     var body: some View {
         HStack(spacing: 12) {
             Button {
-                coordinator.path.append(AppRoute.addFriend)
+                coordinator.path.append(AppRoute.profile)
             } label: {
                 Image(systemName: "plus")
                     .frame(width: 31, height: 31)
