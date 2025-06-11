@@ -42,16 +42,22 @@ struct AddFriendView: View {
 
                 // MARK: - 커스텀 시트 배경 딤(Dim) 효과
                 if showCustomSheet {
-                    Color.black.opacity(0.4) // 배경을 어둡게 만듭니다.
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            // 배경 탭 시 시트 닫기
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showCustomSheet = false
-                            }
-                        }
-                        .transition(.opacity) // 딤 배경이 나타나고 사라질 때 페이드 효과를 줍니다.
-                }
+                                    Color.black.opacity(0.4)
+                                        .ignoresSafeArea()
+                                        .onTapGesture {
+                                            if keyboard.isKeyboardVisible {
+                                                // 1. 키보드가 보이면 키보드만 내리기
+                                                hideKeyboard()
+                                            } else {
+                                                // 2. 키보드가 안 보이면 시트 닫기
+                                                withAnimation(.easeInOut(duration: 0.3)) {
+                                                    showCustomSheet = false
+                                                }
+                                            }
+                                        }
+                                }
+                
+                
 
                 // MARK: - 커스텀 시트 뷰 (CodeInputSheetView)
                 if showCustomSheet {
@@ -108,4 +114,9 @@ struct AddFriendView: View {
         let usableHeight = fullHeight - sheetHeight - keyboardHeight
         return max(usableHeight / 2 - 125, 0) // 125는 QRScanOverlayView 높이의 절반 (250/2)
     }
+    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
+
