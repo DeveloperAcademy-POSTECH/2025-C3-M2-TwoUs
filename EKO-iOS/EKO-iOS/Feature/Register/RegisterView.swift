@@ -9,6 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 struct RegisterView: View {
+    @EnvironmentObject private var coordinator: AppCoordinator
     // Apple 로그인 결과에 따라 닉네임 입력 필드 노출 여부
     @State private var showNicknameField = false
     @State private var nickname: String = ""
@@ -89,7 +90,9 @@ struct RegisterView: View {
                             HStack(spacing: 16) {
                                 Button(action: {
                                     // 가입완료 처리
-                                    registerAppleUser()
+                                    Task {
+                                        await registerAppleUser()
+                                    }
                                 }) {
                                     Text("가입완료")
                                         .fontWeight(.semibold)
@@ -139,14 +142,31 @@ struct RegisterView: View {
     
     
     // 실제 가입 처리 함수 (네트워크 등)
-    func registerAppleUser() {
-        guard let idToken = appleIdentityToken, !nickname.isEmpty else { return }
-        isLoading = true
-        // 네트워크 요청 로직 삽입 (비동기)
-        // 완료 시 isLoading = false, 화면 전환 등
-    }
-}
+    func registerAppleUser() async {
+            guard let idToken = appleIdentityToken,
+                  let deviceToken = UserDefaults.standard.string(forKey: "deviceToken") else {
+                print("❌ 토큰 누락")
+                return
+            }
 
-#Preview {
-    RegisterView()
-}
+            let dto = PostAppleSignupRequestDTO(idToken: idToken, nickname: nickname, deviceToken: deviceToken)
+
+            isLoading = true
+            do {
+                let result = try await NetworkService.shared.userService.postAppleSignup(model: dto)
+                UserDefaults.standard.set(result.userId, forKey: "userId")
+
+                await MainActor.run {
+                    coordinator.path = NavigationPath()
+                    coordinator.path.append(AppRoute.main)
+                }
+            } catch {
+                print("❌ 회원가입 실패: \(error)")
+            }
+            isLoading = false
+        }
+    }
+
+    #Preview {
+        RegisterView()
+    }
