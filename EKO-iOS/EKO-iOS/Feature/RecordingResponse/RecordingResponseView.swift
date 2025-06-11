@@ -1,3 +1,4 @@
+
 //
 //  RecordingResponseView.swift
 //  EKO-iOS
@@ -11,16 +12,16 @@ import Lottie
 struct RecordingResponseView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingResponseViewModel()
-
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
 
     @State private var lastRecordedURL: URL?
     @State private var dragOffset: CGFloat = .zero
-    @State private var feedbackPlayed = false
     @State private var feedbackSubmitted = false
     @State private var showRecordingUI = false
     @State private var showToast: Bool = false
+    @State private var playbackStarted = false
+
     @Binding var isPressing: Bool
 
     struct LottieView: UIViewRepresentable {
@@ -45,12 +46,8 @@ struct RecordingResponseView: View {
                 FetchMyRequsetSubView(
                     friends: $viewModel.friends,
                     selectedRequestUserId: $viewModel.selectedRequestUserId,
-                    onFriendSelected: { friend in
-                        feedbackPlayed = false
-                        feedbackSubmitted = false
-                        showRecordingUI = false
-                        lastRecordedURL = nil
-
+                    onFriendSelected: { _ in
+                        resetPlaybackState()
                         Task {
                             await viewModel.fetchFeedbackS3Key()
                         }
@@ -58,25 +55,23 @@ struct RecordingResponseView: View {
                 )
                 .padding(.leading, 20)
                 .padding(.bottom, 155)
-                .opacity(recorder.isRecording ? 0 : 1)
-                .animation(.easeInOut(duration: 0.01), value: recorder.isRecording)
 
                 if !viewModel.hasSession {
-                    EKOEmptyView(
-                        title:"아직 받은 질문이 없습니다.",
-                        description: "친구가 발음을 보내면 피드벡을 해줄 수 있어요."
-                    )
+                    EKOEmptyView(title:"아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if feedbackSubmitted {
                     EKOEmptyView(title:"요청 완료", description: "다른 요청을 확인해보세요.")
-                } else if showRecordingUI {
-                    RecordingUI
-                } else if feedbackPlayed {
-                    FeedbackButtons
                 } else {
-                    PlayButton
+                    VStack(spacing: 20) {
+                        PlayButton
+                        FeedbackButtons
+                            .opacity(playbackStarted ? 1 : 0)
+                            .animation(.easeInOut(duration: 0.3), value: playbackStarted)
+                    }
                 }
+
                 Spacer()
             }
+
             if showToast {
                 VStack {
                     Spacer()
@@ -114,10 +109,11 @@ struct RecordingResponseView: View {
             Task {
                 viewModel.elapsedSeconds = 0
                 await viewModel.playFeedback(using: audioPlayer)
-                feedbackPlayed = true
+                playbackStarted = true
                 viewModel.startTimer()
                 audioPlayer.onFinishPlaying = {
                     viewModel.stopTimer()
+                    // Keep playbackStarted = true to maintain button
                 }
             }
         }
@@ -130,7 +126,7 @@ struct RecordingResponseView: View {
                 Task {
                     await viewModel.sendFeedback(status: "Good", fileURL: nil)
                     feedbackSubmitted = true
-                    feedbackPlayed = false
+                    playbackStarted = false
                 }
             }) {
                 Image(systemName: "hand.thumbsup.fill")
@@ -156,76 +152,11 @@ struct RecordingResponseView: View {
         .padding()
     }
 
-    private var RecordingUI: some View {
-        VStack {
-            if recorder.isRecording {
-                LottieView(animationName: "CircleWaveBlue", loopMode: .loop)
-                    .frame(width: 300, height: 300)
-            }
-            CircleActionButton(symbolName: symbolName, color: buttonColor) {
-                // Gesture 기반으로 변경
-            }
-            .gesture(RecordingGesture)
-            Spacer()
-        }
-    }
-
-    private var RecordingGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .onChanged { value in
-                if abs(value.translation.width) < 10 {
-                    if !isPressing && !recorder.isRecording && lastRecordedURL == nil {
-                        isPressing = true
-                        recorder.startRecording()
-                        viewModel.startTimer()
-                    }
-                } else {
-                    guard lastRecordedURL != nil else { return }
-                    dragOffset = value.translation.width
-                }
-            }
-            .onEnded { value in
-                if recorder.isRecording {
-                    recorder.stopRecording()
-                }
-                isPressing = false
-
-                guard let url = lastRecordedURL else { return }
-
-                let threshold: CGFloat = 100
-                if value.translation.width < -threshold {
-                    lastRecordedURL = nil
-                } else if value.translation.width > threshold {
-                    Task {
-                        await viewModel.sendFeedback(status: "Bad", fileURL: url)
-                        lastRecordedURL = nil
-                        feedbackSubmitted = true
-                        showRecordingUI = false
-                        showToast = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            showToast = false
-                        }
-                    }
-                }
-
-                withAnimation {
-                    dragOffset = .zero
-                }
-            }
-    }
-
-    private var symbolName: String {
-        if recorder.isRecording {
-            return "stop.fill"
-        } else if lastRecordedURL != nil {
-            return "restart"
-        } else {
-            return "mic.fill"
-        }
-    }
-
-    private var buttonColor: Color {
-        symbolName == "mic.fill" ? .white : Color("mainBlue")
+    private func resetPlaybackState() {
+        playbackStarted = false
+        feedbackSubmitted = false
+        showRecordingUI = false
+        lastRecordedURL = nil
     }
 
     @ViewBuilder
@@ -234,28 +165,18 @@ struct RecordingResponseView: View {
             .fill(color)
             .frame(width: 185, height: 185)
             .overlay(
-                Group {
-                    if symbolName == "restart" {
-                        Image("play")
-                            .resizable()
-                            .renderingMode(.original)
-                            .scaledToFit()
-                            .frame(width: 60, height: 50)
-                            .offset(x: 5)
-                    } else {
-                        Image(systemName: symbolName)
-                            .foregroundColor(.black)
-                            .font(.system(size: 40))
-                    }
-                }
+                Image("play")
+                    .resizable()
+                    .renderingMode(.original)
+                    .scaledToFit()
+                    .frame(width: 60, height: 50)
+                    .offset(x: 5)
             )
             .shadow(
-                color: symbolName == "mic.fill"
-                    ? Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0)
-                    : .clear,
-                radius: symbolName == "mic.fill" ? 20 : 0,
+                color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
+                radius: 20,
                 x: 0,
-                y: symbolName == "mic.fill" ? 15 : 0
+                y: 15
             )
             .onTapGesture {
                 action()
@@ -265,8 +186,4 @@ struct RecordingResponseView: View {
 
 extension Notification.Name {
     static let feedbackSendedReceived = Notification.Name("feedbackSendedReceived")
-}
-
-#Preview {
-    RecordingResponseView(isPressing: .constant(false))
 }
