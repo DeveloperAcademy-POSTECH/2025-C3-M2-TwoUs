@@ -24,7 +24,7 @@ final class LearningNoteViewModel: ObservableObject {
     
     func fetchLearningNotes() async {
         do {
-            let result = try await NetworkService.shared.noteService.fetchFeedbackNotes(senderId: "userA123")
+            let result = try await NetworkService.shared.noteService.fetchFeedbackNotes(senderId: UserDefaults.standard.string(forKey: "userId") ?? "")
             
             self.notes = result.notes.map { note in
                 LearningNote(
