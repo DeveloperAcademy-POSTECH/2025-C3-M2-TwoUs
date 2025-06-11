@@ -12,9 +12,10 @@ struct FetchMyRequsetSubView: View {
 
     @Binding var friends: [RecordingResponseViewModel.EKORequestFriend]
     @Binding var selectedRequestUserId: String?
-
-    let type: EKOFriendsViewType = .response
     
+    let type: EKOFriendsViewType = .response
+    var onFriendSelected: (RecordingResponseViewModel.EKORequestFriend) -> Void
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
@@ -27,10 +28,14 @@ struct FetchMyRequsetSubView: View {
                     .padding(.vertical, 10)
                     .padding(.horizontal, 2)
                     .onTapGesture {
-                        selectedRequestUserId = friend.senderUserId
+                        if selectedRequestUserId != friend.senderUserId {
+                            selectedRequestUserId = friend.senderUserId
+                            onFriendSelected(friend)
+                        }
                     }
                 }
             }
         }
     }
 }
+
