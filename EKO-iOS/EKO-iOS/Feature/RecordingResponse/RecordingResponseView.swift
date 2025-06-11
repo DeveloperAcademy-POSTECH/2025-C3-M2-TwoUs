@@ -12,32 +12,20 @@ import Lottie
 struct RecordingResponseView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var viewModel = RecordingResponseViewModel()
+
     @StateObject private var recorder = AudioRecorder()
     @StateObject private var audioPlayer = AudioPlayer()
 
     @State private var lastRecordedURL: URL?
     @State private var dragOffset: CGFloat = .zero
+    @State private var feedbackPlayed = false
     @State private var feedbackSubmitted = false
     @State private var showRecordingUI = false
     @State private var showToast: Bool = false
-    @State private var playbackStarted = false
-
     @Binding var isPressing: Bool
 
-    struct LottieView: UIViewRepresentable {
-        let animationName: String
-        let loopMode: LottieLoopMode
-
-        func makeUIView(context: Context) -> some UIView {
-            let animationView = LottieAnimationView(name: animationName)
-            animationView.loopMode = loopMode
-            animationView.play()
-            animationView.animationSpeed = 0.7
-            animationView.backgroundBehavior = .pauseAndRestore
-            return animationView
-        }
-
-        func updateUIView(_ uiView: UIViewType, context: Context) {}
+    private var shouldShowTimer: Bool {
+        (recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil) && !feedbackSubmitted
     }
 
     var body: some View {
@@ -47,7 +35,6 @@ struct RecordingResponseView: View {
                     friends: $viewModel.friends,
                     selectedRequestUserId: $viewModel.selectedRequestUserId,
                     onFriendSelected: { _ in
-                        resetPlaybackState()
                         Task {
                             await viewModel.fetchFeedbackS3Key()
                         }
@@ -56,25 +43,116 @@ struct RecordingResponseView: View {
                 .padding(.leading, 20)
                 .padding(.bottom, 155)
 
+                RecordingTimerView(
+                    time: viewModel.elapsedSeconds,
+                    color: Color("mainBlue")
+                )
+                .opacity(shouldShowTimer ? 1 : 0)
+                .animation(.easeInOut(duration: 0.3), value: shouldShowTimer)
+
+                Spacer()
+            }
+
+            VStack {
+                Spacer()
+
                 if !viewModel.hasSession {
-                    EKOEmptyView(title:"아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
+                    EKOEmptyView(title: "아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if feedbackSubmitted {
-                    EKOEmptyView(title:"요청 완료", description: "다른 요청을 확인해보세요.")
+                    EKOEmptyView(title: "요청 완료", description: "다른 요청을 확인해보세요.")
+                } else if showRecordingUI {
+                    RecordingPanelView(
+                        isPressing: $isPressing,
+                        lastRecordedURL: $lastRecordedURL,
+                        dragOffset: $dragOffset,
+                        feedbackSubmitted: $feedbackSubmitted,
+                        showToast: $showToast,
+                        showRecordingUI: $showRecordingUI,
+                        recorder: recorder,
+                        audioPlayer: audioPlayer,
+                        onSendFeedback: { url in
+                            await viewModel.sendFeedback(status: "Bad", fileURL: url)
+                        },
+                        onStopRecording: {
+                            viewModel.stopTimer()
+                        },
+                        onStartTimer: {
+                            viewModel.startTimer()
+                        },
+                        onStopTimer: {
+                            viewModel.stopTimer()
+                        }
+                    )
                 } else {
-                    VStack(spacing: 20) {
-                        PlayButton
-                        FeedbackButtons
-                            .opacity(playbackStarted ? 1 : 0)
-                            .animation(.easeInOut(duration: 0.3), value: playbackStarted)
+                    VStack {
+                        CircleActionButton(symbolName: "restart", color: Color("mainBlue")) {
+                            Task {
+                                viewModel.elapsedSeconds = 0
+                                await viewModel.playFeedback(using: audioPlayer)
+                                feedbackPlayed = true
+                                viewModel.startTimer()
+                                audioPlayer.onFinishPlaying = {
+                                    viewModel.stopTimer()
+                                }
+                            }
+                        }
+                        .padding()
+
+                        HStack(spacing: 20) {
+                            Button(action: {
+                                Task {
+                                    await viewModel.sendFeedback(status: "Good", fileURL: nil)
+                                    feedbackSubmitted = true
+                                    feedbackPlayed = false
+                                }
+                            }) {
+                                Image(systemName: "hand.thumbsup.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(Color("mainBlue"))
+                                    .padding(24)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.white)
+                                            .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 2)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.white.opacity(0.6), lineWidth: 1)
+                                            )
+                                    )
+                            }
+
+                            PronunciationFeedbackButton {
+                                showRecordingUI = true
+                            }
+                        }
+                        .opacity(feedbackPlayed ? 1 : 0)
+                        .animation(.easeInOut, value: feedbackPlayed)
                     }
                 }
 
                 Spacer()
             }
 
-            if showToast {
-                VStack {
-                    Spacer()
+            VStack {
+                Spacer()
+                if !feedbackSubmitted {
+                    if showRecordingUI {
+                        if lastRecordedURL != nil {
+                            EKONoticeText(title: "음성을 확인한 뒤 좌우로 스와이프 해주세요.")
+                                .padding(.bottom, 120)
+                        } else {
+                            EKONoticeText(title: "길게 눌러 들은 문장을 그대로 따라 읽기")
+                                .padding(.bottom, 120)
+                        }
+                    } else if !feedbackPlayed {
+                        EKONoticeText(title: "발음 듣고 피드백 보내기")
+                            .padding(.bottom, 120)
+                    }
+                }
+
+                if showToast {
                     EKOToastMessage(toastType: .completeAnswer)
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .animation(.easeInOut(duration: 0.3), value: showToast)
@@ -83,6 +161,10 @@ struct RecordingResponseView: View {
             }
         }
         .onAppear {
+            Task {
+                await viewModel.fetchMyRequestList()
+            }
+
             recorder.onRecordingFinished = { url in
                 lastRecordedURL = url
                 viewModel.stopTimer()
@@ -94,69 +176,15 @@ struct RecordingResponseView: View {
                 }
             }
         }
-        .onChange(of: feedbackSubmitted) { newValue in
-            if newValue {
-                Task {
-                    await viewModel.fetchMyRequestList()
-                    feedbackSubmitted = false
-                }
+        .onDisappear {
+            NotificationCenter.default.removeObserver(self, name: .feedbackSendedReceived, object: nil)
+        }
+        .onChange(of: isPressing) { isNowPressing in
+            if isNowPressing && !recorder.isRecording && lastRecordedURL == nil {
+                recorder.startRecording()
             }
         }
-    }
-
-    private var PlayButton: some View {
-        CircleActionButton(symbolName: "restart", color: Color("mainBlue")) {
-            Task {
-                viewModel.elapsedSeconds = 0
-                await viewModel.playFeedback(using: audioPlayer)
-                playbackStarted = true
-                viewModel.startTimer()
-                audioPlayer.onFinishPlaying = {
-                    viewModel.stopTimer()
-                    // Keep playbackStarted = true to maintain button
-                }
-            }
-        }
-        .padding()
-    }
-
-    private var FeedbackButtons: some View {
-        HStack(spacing: 20) {
-            Button(action: {
-                Task {
-                    await viewModel.sendFeedback(status: "Good", fileURL: nil)
-                    feedbackSubmitted = true
-                    playbackStarted = false
-                }
-            }) {
-                Image(systemName: "hand.thumbsup.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(Color("mainBlue"))
-                    .padding(24)
-                    .background(Circle().fill(Color.white).shadow(radius: 6))
-            }
-
-            Button(action: {
-                showRecordingUI = true
-            }) {
-                Text("내 발음 들려주기")
-                    .font(.system(size: 17, weight: .semibold))
-                    .foregroundColor(Color("mainBlue"))
-                    .padding(.horizontal, 28)
-                    .padding(.vertical, 18)
-                    .background(RoundedRectangle(cornerRadius: 40).fill(Color.white).shadow(radius: 6))
-            }
-        }
-        .padding()
-    }
-
-    private func resetPlaybackState() {
-        playbackStarted = false
-        feedbackSubmitted = false
-        showRecordingUI = false
-        lastRecordedURL = nil
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     @ViewBuilder
@@ -167,16 +195,15 @@ struct RecordingResponseView: View {
             .overlay(
                 Image("play")
                     .resizable()
-                    .renderingMode(.original)
+                    .renderingMode(.template)
+                    .foregroundColor(.white)
                     .scaledToFit()
                     .frame(width: 60, height: 50)
                     .offset(x: 5)
             )
             .shadow(
                 color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
-                radius: 20,
-                x: 0,
-                y: 15
+                radius: 20, x: 0, y: 15
             )
             .onTapGesture {
                 action()
