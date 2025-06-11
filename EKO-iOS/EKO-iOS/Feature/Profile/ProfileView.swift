@@ -12,9 +12,13 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
 
     var body: some View {
-        ZStack {
-            LinearGradient(colors: [Color.supOrange2, Color.supBlue3], startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
+                ZStack {
+            LinearGradient(
+                colors: [Color.supOrange3, Color.supBlue4],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
 
             VStack {
                 HStack {
