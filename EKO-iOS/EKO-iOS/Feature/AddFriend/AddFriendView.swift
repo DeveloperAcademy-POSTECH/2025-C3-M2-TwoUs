@@ -39,23 +39,18 @@ struct AddFriendView: View {
                 // 오버레이 및 배경 애니메이션은 여기서 처리 가능
                 .animation(.easeInOut(duration: 0.3), value: sheetHeight) // 시트 높이 변화에 따른 오버레이 위치 조정 애니메이션
                 .animation(.easeInOut(duration: 0.3), value: keyboard.isKeyboardVisible) // 키보드 상태 변화에 따른 애니메이션
-
+                
                 // MARK: - 커스텀 시트 배경 딤(Dim) 효과
                 if showCustomSheet {
-                                    Color.black.opacity(0.4)
-                                        .ignoresSafeArea()
-                                        .onTapGesture {
-                                            if keyboard.isKeyboardVisible {
-                                                // 1. 키보드가 보이면 키보드만 내리기
-                                                hideKeyboard()
-                                            } else {
-                                                // 2. 키보드가 안 보이면 시트 닫기
-                                                withAnimation(.easeInOut(duration: 0.3)) {
-                                                    showCustomSheet = false
-                                                }
-                                            }
-                                        }
-                                }
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            if keyboard.isKeyboardVisible {
+                                // 1. 키보드가 보이면 키보드만 내리기
+                                hideKeyboard()
+                            } 
+                        }
+                }
                 
                 
 
@@ -66,11 +61,11 @@ struct AddFriendView: View {
                         self.sheetHeight = newHeight
                     }
                     .environmentObject(viewModel)
-
-
-
+                    .offset(y: -keyboard.keyboardHeight)
+                    .animation(.easeInOut(duration: 0.3), value: keyboard.keyboardHeight)
                 }
             }
+            .ignoresSafeArea(.all, edges: .bottom)
         }
         // 이 alert은 viewModel.showSuccessAlert에 반응
         .alert("친구가 추가되었습니다!", isPresented: $viewModel.showSuccessAlert) {

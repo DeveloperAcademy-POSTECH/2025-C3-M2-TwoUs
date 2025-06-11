@@ -136,8 +136,8 @@ struct CodeInputSheetView: View {
                 .padding(.top, 10)
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 10) // 하단 패딩
+        .padding(.horizontal, 30)
+        .padding(.bottom, 20) // 하단 패딩
         // 시트 자체의 배경과 코너 라운딩
         .background(Color.white)
         .cornerRadius(20, corners: [.topLeft, .topRight]) // 상단 모서리만 둥글게
