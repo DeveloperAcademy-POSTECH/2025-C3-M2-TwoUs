@@ -109,30 +109,35 @@ struct RecordingResponseView: View {
                               await viewModel.fetchMyRequestList()
                           }
                       }
-                if viewModel.elapsedSeconds > 0 && !feedbackSubmitted {
-                        RecordingTimerView(
-                            time: viewModel.elapsedSeconds,
-                            color: Color("mainBlue")
-                        )
-                    }
-                
-                if recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil {
+                if !feedbackPlayed && viewModel.elapsedSeconds > 0 && !feedbackSubmitted {
+                    RecordingTimerView(
+                        time: viewModel.elapsedSeconds,
+                        color: Color("mainBlue")
+                    )
+                } else if (recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil) && !feedbackSubmitted {
                     RecordingTimerView(
                         time: viewModel.elapsedSeconds,
                         color: Color("mainBlue")
                     )
                 }
+//                if viewModel.elapsedSeconds > 0 && !feedbackSubmitted {
+//                        RecordingTimerView(
+//                            time: viewModel.elapsedSeconds,
+//                            color: Color("mainBlue")
+//                        )
+//                    }
+//                
+//                if recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil {
+//                    RecordingTimerView(
+//                        time: viewModel.elapsedSeconds,
+//                        color: Color("mainBlue")
+//                    )
+//                }
                 
                 if feedbackSubmitted {
                     EKOEmptyView(title:"아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if showRecordingUI {
                     VStack {
-                        FetchMyRequsetSubView(
-                            friends: $viewModel.friends,
-                            selectedRequestUserId: $viewModel.selectedRequestUserId
-                        )
-                        .padding(.top)
-                        
                         ZStack {
                             recordingAnimation
 
@@ -258,8 +263,7 @@ struct RecordingResponseView: View {
                                         }
                                 )
                         }
-                        .padding()
-                        
+                        Spacer()
                     }
                 } else {
                     CircleActionButton(symbolName: "restart", color: Color("mainBlue")) {
@@ -323,6 +327,7 @@ struct RecordingResponseView: View {
                         .padding()
                     }
                 }
+                Spacer()
             }
 
             VStack {
