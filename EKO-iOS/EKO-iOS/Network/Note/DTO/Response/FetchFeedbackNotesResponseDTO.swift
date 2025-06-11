@@ -17,6 +17,7 @@ struct Note: Codable {
     let senderId: String
     let feedbackTimestamp: Int
     let status: String
+    let friendNickname: String
     let feedbackS3Key: String?
     let createdAt: Int
     let isFavorite: Bool

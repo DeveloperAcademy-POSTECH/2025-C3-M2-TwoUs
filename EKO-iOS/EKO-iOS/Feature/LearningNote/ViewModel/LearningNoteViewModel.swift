@@ -32,6 +32,7 @@ final class LearningNoteViewModel: ObservableObject {
                     receiverId: note.receiverId,
                     senderId: note.senderId,
                     status: note.status,
+                    friendNickname: note.friendNickname,
                     feedbackS3Key: note.feedbackS3Key,
                     createdAt: note.createdAt,
                     isFavorite: note.isFavorite,
@@ -84,7 +85,6 @@ final class LearningNoteViewModel: ObservableObject {
         }
     }
     
-    
     func saveLearningNotes(notes: [LearningNote]) {
         let context = CoreDataManager.shared.context
         
@@ -110,6 +110,7 @@ final class LearningNoteViewModel: ObservableObject {
                 cachedNote.receiverId = note.receiverId
                 cachedNote.senderId = note.senderId
                 cachedNote.status = note.status
+                cachedNote.friendNickname = note.friendNickname
                 cachedNote.feedbackS3Key = note.feedbackS3Key
                 cachedNote.createdAt = Int64(note.createdAt ?? 0)
                 cachedNote.isFavorite = note.isFavorite
@@ -145,6 +146,7 @@ final class LearningNoteViewModel: ObservableObject {
                     receiverId: cachedNote.receiverId,
                     senderId: cachedNote.senderId,
                     status: cachedNote.status,
+                    friendNickname: cachedNote.friendNickname ?? "",
                     feedbackS3Key: cachedNote.feedbackS3Key,
                     createdAt: Int(cachedNote.createdAt),
                     isFavorite: cachedNote.isFavorite,
