@@ -44,32 +44,32 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
         let userInfo = notification.request.content.userInfo
         print("🔔 실시간 푸시 수신 (포그라운드) - userInfo:", userInfo)
 
-        // 타입 확인
-        if let data = userInfo["data"] as? [String: Any],
-           let type = data["type"] as? String,
-           type == "feedback_finalized" {
-            NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
+        if let type = userInfo["type"] as? String {
+            if type == "feedback_sended" {
+                NotificationCenter.default.post(name: .feedbackSendedReceived, object: nil)
+            } else if type == "feedback_finalized" {
+                NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
+            }
         }
 
         completionHandler([.banner, .sound, .badge])
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        
         let userInfo = response.notification.request.content.userInfo
         print("🔔 푸시 탭됨 - userInfo:", userInfo)
 
-        // 피드백 로그 푸시인 경우 LearningNoteViewModel에게 알려주기
-        if let data = userInfo["data"] as? [String: Any],
-           let type = data["type"] as? String,
-           type == "feedback_finalized" {
-            NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
+        if let type = userInfo["type"] as? String {
+            if type == "feedback_sended" {
+                NotificationCenter.default.post(name: .feedbackSendedReceived, object: nil)
+            } else if type == "feedback_finalized" {
+                NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
+            }
         }
 
         completionHandler()
