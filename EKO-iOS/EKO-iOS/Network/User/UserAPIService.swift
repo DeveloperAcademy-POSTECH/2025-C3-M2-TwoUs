@@ -14,6 +14,7 @@ protocol UserAPIServiceProtocol {
     func fetchFriendsProfile(userAddCode: String) async throws -> FetchFriendsProfileResponseDTO
     func postNewfriendsRequest(model: PostNewFriendsRequestDTO) async throws -> PostNewFriendsResponseDTO
     func fetchMyFriendsList(userId: String) async throws -> FetchMyFriendsListResponseDTO
+    func postAppleSignup(model: PostAppleSignupRequestDTO) async throws -> PostAppleSignupResponseDTO
 }
 
 final class UserAPIService: BaseAPIService<UserTargetType>, UserAPIServiceProtocol {
@@ -73,6 +74,18 @@ final class UserAPIService: BaseAPIService<UserTargetType>, UserAPIServiceProtoc
         let result: NetworkResult<FetchMyFriendsListResponseDTO> = fetchNetworkResult(statusCode: response.statusCode, data: response.data)
         switch result {
             case .success(let data):
+            guard let data else { throw NetworkResult<Error>.decodeErr }
+            return data
+        default:
+            throw NetworkResult<Error>.networkFail
+        }
+    }
+    
+    func postAppleSignup(model: PostAppleSignupRequestDTO) async throws -> PostAppleSignupResponseDTO {
+        let response = try await provider.request(.postAppleSignup(model: model))
+        let result: NetworkResult<PostAppleSignupResponseDTO> = fetchNetworkResult(statusCode: response.statusCode, data: response.data)
+        switch result {
+        case .success(let data):
             guard let data else { throw NetworkResult<Error>.decodeErr }
             return data
         default:

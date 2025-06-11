@@ -22,6 +22,9 @@ struct LearningNoteView: View {
     @State private var newTitle: String = ""
     @StateObject private var viewModel = LearningNoteViewModel()
     @StateObject private var audioPlayer = AudioPlayer()
+    @State private var didLoad = false
+    @State private var showNote = false
+    @State private var lastShowNote = false
     
     // MARK: - 필터링된 노트 리스트 반환
     var filteredNotes: [LearningNote] {
@@ -128,13 +131,21 @@ struct LearningNoteView: View {
                         .padding(.horizontal)
                     }
                 }
-                .navigationTitle("")
-            }
-            .onAppear {
-                viewModel.loadLearningNotes()
-                Task {
-                    await viewModel.fetchLearningNotes()
+                .task {
+                    if !didLoad {
+                        await viewModel.fetchLearningNotes()
+                        didLoad = true
+                    }
                 }
+                .onChange(of: showNote) { newValue in
+                    if newValue == true && lastShowNote == false {
+                        Task {
+                            await viewModel.fetchLearningNotes()
+                        }
+                    }
+                    lastShowNote = newValue
+                }
+                .navigationTitle("")
             }
         }
     }
