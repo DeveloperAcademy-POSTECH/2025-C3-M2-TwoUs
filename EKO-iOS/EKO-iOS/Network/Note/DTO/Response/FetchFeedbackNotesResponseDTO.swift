@@ -13,8 +13,8 @@ struct FetchFeedbackNotesResponseDTO: Decodable {
 
 struct Note: Codable {
     let sessionId: String
-    let receiverID: String
-    let senderID: String
+    let receiverId: String
+    let senderId: String
     let feedbackTimestamp: Int
     let status: String
     let feedbackS3Key: String?

@@ -34,9 +34,9 @@ public enum EKOToastType {
     /// 토스트 아이콘 색상
     var iconColor: Color {
         switch self {
-        case .completeAnswer:
-            return .mainOrange
         case .completeQuestion:
+            return .mainOrange
+        case .completeAnswer:
             return .mainBlue
         case .invalidQRCode:
             return .mainWhite

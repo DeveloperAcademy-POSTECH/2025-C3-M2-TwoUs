@@ -9,21 +9,22 @@ import SwiftUI
 
 struct RootNavigationView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
+    @State private var isPressing: Bool = false
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             Group {
                 if UserDefaults.standard.string(forKey: "userId") != nil {
-                        MainView()
-                    } else {
-                        RegisterView()
-                    }
+                    MainView()
+                } else {
+                    RegisterView()
+                }
             }
             .navigationDestination(for: AppRoute.self) { route in
                 switch route {
                 case .main: MainView()
-                case .recordingRequest: RecordingRequestView()
-                case .recordingResponse: RecordingResponseView()
+                case .recordingRequest: RecordingRequestView(isPressing: $isPressing)
+                case .recordingResponse: RecordingResponseView(isPressing: $isPressing)
                 case .learningNote: LearningNoteView()
                 case .profile: ProfileView()
                 case .addFriend: AddFriendView()
@@ -31,8 +32,7 @@ struct RootNavigationView: View {
                 }
             }
         }
-    }
-}
+    }}
 
 #Preview {
     RootNavigationView()

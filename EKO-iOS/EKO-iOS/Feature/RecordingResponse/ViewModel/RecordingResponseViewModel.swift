@@ -6,25 +6,28 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 final class RecordingResponseViewModel: ObservableObject {
     @Published var playbackURL: URL?
     @Published var feedbackS3Key: String?
     @Published var feedbackSessionId: String?
-    
+
     @Published var friends: [EKORequestFriend] = []
     @Published var selectedRequestUserId: String?
-    
+    @Published var elapsedSeconds: Int = 0
+    private var timer: AnyCancellable?
+
     struct EKORequestFriend: Identifiable, Equatable {
         let id = UUID()
         let senderUserId: String
         let senderNickname: String
     }
-    
+
     func fetchMyRequestList() async {
         do {
-            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "userB456")
+            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
             let fetched = response.sessions.map {
                 EKORequestFriend(
                     senderUserId: $0.senderUserId,
@@ -40,16 +43,17 @@ final class RecordingResponseViewModel: ObservableObject {
 
     func sendFeedback(status: String, fileURL: URL?) async {
         guard let sessionId = feedbackSessionId else {
+            print("❌ sessionId 없음")
             return
         }
-        
+
         guard let receiverId = selectedRequestUserId else {
-            print("선택된 친구가 없습니다.")
+            print("❌ 선택된 친구 없음")
             return
         }
 
         let model = PostStartFeedbackRequsetDTO(
-            senderUserId: "userB456",
+            senderUserId: UserDefaults.standard.string(forKey: "userId") ?? "",
             receiverUserId: receiverId,
             sessionId: sessionId,
             status: status,
@@ -58,48 +62,50 @@ final class RecordingResponseViewModel: ObservableObject {
 
         do {
             let result = try await NetworkService.shared.feedbackService.postStartFeedback(model: model)
-            print("\(result)")
+            print("✅ 피드백 전송 성공: \(result)")
             await fetchMyRequestList()
         } catch {
-            print("\(error)")
+            print("❌ 피드백 전송 실패: \(error)")
         }
     }
 
     func fetchFeedbackS3Key() async -> String? {
         do {
-            let result = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: "userB456")
+            let result = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
             if let session = result.sessions.first {
                 self.feedbackS3Key = session.s3Key
                 self.feedbackSessionId = session.sessionId
                 return session.s3Key
             } else {
+                print("❌ 세션 없음")
                 return nil
             }
         } catch {
+            print("❌ S3 키 가져오기 실패: \(error)")
             return nil
         }
     }
 
     func downloadAudio() async {
         guard let s3Key = feedbackS3Key else {
+            print("❌ s3Key 없음")
             return
         }
-        
+
         do {
             let result = try await NetworkService.shared.s3Service.fetchS3DownloadURL(s3Key: s3Key)
-            
-            print(result)
+            print("✅ S3 URL 획득: \(result.url)")
 
             if let url = URL(string: result.url) {
                 self.playbackURL = url
             } else {
-                print("URL 파싱 실패")
+                print("❌ URL 파싱 실패")
             }
         } catch {
-            print("S3 URL error: \(error)")
+            print("❌ S3 다운로드 실패: \(error)")
         }
     }
-    
+
     func playFeedback(using player: AudioPlayer) async {
         guard let _ = await fetchFeedbackS3Key() else {
             print("❌ s3Key를 가져오지 못해 재생 중단")
@@ -110,9 +116,23 @@ final class RecordingResponseViewModel: ObservableObject {
 
         if let url = playbackURL {
             print("🎧 피드백 오디오 재생: \(url)")
-            player.downloadAndPlayWithHaptics(from: url)
+            player.downloadAndPlayWithHaptics(from: url, noteId: nil, voiceType: .none)
         } else {
             print("❌ 다운로드된 URL이 없어 재생 불가")
         }
+    }
+    
+    func startTimer() {
+        elapsedSeconds = 0
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.elapsedSeconds += 1
+            }
+    }
+    
+    func stopTimer() {
+        timer?.cancel()
+        timer = nil
     }
 }

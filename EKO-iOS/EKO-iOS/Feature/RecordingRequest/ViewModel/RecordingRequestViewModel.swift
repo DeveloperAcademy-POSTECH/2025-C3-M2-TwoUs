@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 final class RecordingRequestViewModel: ObservableObject {
     @Published var friends: [EKOFriend] = []
     @Published var selectedReceiverUserId: String?
+    @Published var elapsedSeconds: Int = 0
+    private var timer: AnyCancellable?
 
     struct EKOFriend: Identifiable, Equatable {
         let id = UUID()
@@ -21,7 +24,7 @@ final class RecordingRequestViewModel: ObservableObject {
 
     func fetchMyFriendsList() async {
         do {
-            let response = try await NetworkService.shared.userService.fetchMyFriendsList(userId: "userA123")
+            let response = try await NetworkService.shared.userService.fetchMyFriendsList(userId: UserDefaults.standard.string(forKey: "userId") ?? "")
             let fetched = response.friends.map {
                 EKOFriend(
                     friendUserId: $0.friendUserId,
@@ -43,7 +46,7 @@ final class RecordingRequestViewModel: ObservableObject {
         }
 
         let model = PostStartQuestionRequestDTO(
-            senderUserId: "userA123",
+            senderUserId: UserDefaults.standard.string(forKey: "userId") ?? "",
             receiverUserId: receiverId,
             audioFileURL: url
         )
@@ -54,6 +57,20 @@ final class RecordingRequestViewModel: ObservableObject {
         } catch {
             print("postStartFeedback error: \(error)")
         }
+    }
+
+    func startTimer() {
+        elapsedSeconds = 0
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.elapsedSeconds += 1
+            }
+    }
+
+    func stopTimer() {
+        timer?.cancel()
+        timer = nil
     }
 }
 

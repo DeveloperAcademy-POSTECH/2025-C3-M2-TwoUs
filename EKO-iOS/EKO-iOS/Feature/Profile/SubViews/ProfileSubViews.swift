@@ -14,5 +14,5 @@ struct ProfileSubViews: View {
 }
 
 #Preview {
-    RegisterSubViews()
+    ProfileSubViews()
 }
