@@ -359,6 +359,18 @@ struct RecordingResponseView: View {
                 lastRecordedURL = url
                 viewModel.stopTimer()
             }
+
+            // ✅ feedback_sended 수신 시 요청 목록 자동 새로고침
+            NotificationCenter.default.addObserver(forName: .feedbackSendedReceived, object: nil, queue: .main) { _ in
+                Task {
+                    print("📬 feedback_sended 수신 → 요청 목록 새로고침")
+                    await viewModel.fetchMyRequestList()
+                }
+            }
+        }
+        .onDisappear {
+            // 메모리 누수 방지
+            NotificationCenter.default.removeObserver(self, name: .feedbackSendedReceived, object: nil)
         }
         .onChange(of: isPressing) { isNowPressing in
             if isNowPressing && !recorder.isRecording && lastRecordedURL == nil {
@@ -368,6 +380,10 @@ struct RecordingResponseView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+extension Notification.Name {
+    static let feedbackSendedReceived = Notification.Name("feedbackSendedReceived")
+}
+
 
 #Preview {
     RecordingResponseView(isPressing: .constant(false))
