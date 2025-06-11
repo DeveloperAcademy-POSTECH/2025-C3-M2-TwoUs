@@ -9,9 +9,13 @@ import Foundation
 
 struct PostNewFriendsResponseDTO: Decodable {
     let message: String
-    let userId: String
-    let friendId: String
-    let friendNickname: String
-    let hasPendingQuestion: Bool
-    let createdAt: Int
+    let myFriendItem: FriendItem
+
+    struct FriendItem: Decodable {
+        let userId: String
+        let friendUserId: String
+        let friendNickname: String
+        let hasPendingQuestion: Bool
+        let createdAt: Int
+    }
 }

@@ -8,10 +8,6 @@
 import Foundation
 
 struct FetchFriendsProfileResponseDTO: Decodable {
-    let friendProfile: [FetchFriendProfile]
-}
-
-struct FetchFriendProfile: Decodable {
     let userId: String
     let nickname: String
 }

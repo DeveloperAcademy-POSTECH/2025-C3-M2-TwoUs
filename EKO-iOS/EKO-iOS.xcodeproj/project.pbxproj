@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0937955A2DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093795592DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift */; };
 		0937955C2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937955B2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift */; };
+		093795902DF948A90041A3E1 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937958E2DF948A90041A3E1 /* KeyboardObserver.swift */; };
+		093795912DF948A90041A3E1 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937958F2DF948A90041A3E1 /* ScannerViewController.swift */; };
 		098C97672DEFD7FC004388D6 /* PostRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */; };
 		098C97692DEFD806004388D6 /* PostNewFriendsRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */; };
 		098C976B2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */; };
@@ -112,6 +114,8 @@
 /* Begin PBXFileReference section */
 		093795592DF91D0C0041A3E1 /* PostAppleSignupRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAppleSignupRequestDTO.swift; sourceTree = "<group>"; };
 		0937955B2DF91D110041A3E1 /* PostAppleSignupResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAppleSignupResponseDTO.swift; sourceTree = "<group>"; };
+		0937958E2DF948A90041A3E1 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		0937958F2DF948A90041A3E1 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		098C97662DEFD7FC004388D6 /* PostRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRegisterRequestDTO.swift; sourceTree = "<group>"; };
 		098C97682DEFD806004388D6 /* PostNewFriendsRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNewFriendsRequestDTO.swift; sourceTree = "<group>"; };
 		098C976A2DEFD926004388D6 /* FetchMyprofileResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMyprofileResponseDTO.swift; sourceTree = "<group>"; };
@@ -486,6 +490,8 @@
 		3D2C9ECA2DE5F62F009DAE77 /* AddFriend */ = {
 			isa = PBXGroup;
 			children = (
+				0937958E2DF948A90041A3E1 /* KeyboardObserver.swift */,
+				0937958F2DF948A90041A3E1 /* ScannerViewController.swift */,
 				3D2C9ED32DE5F6A6009DAE77 /* AddFriendView.swift */,
 				3D2C9F002DE5FA6D009DAE77 /* Model */,
 				3D2C9EFF2DE5FA67009DAE77 /* SubViews */,
@@ -1028,6 +1034,8 @@
 				3DF3260F2DE8965600F9F3F9 /* UserAPIService.swift in Sources */,
 				098C976D2DEFD933004388D6 /* PostRegisterResponseDTO.swift in Sources */,
 				3D2C9F022DE5FA7F009DAE77 /* AddFriendSubViews.swift in Sources */,
+				093795902DF948A90041A3E1 /* KeyboardObserver.swift in Sources */,
+				093795912DF948A90041A3E1 /* ScannerViewController.swift in Sources */,
 				3D2C9EE52DE5F926009DAE77 /* RecordingRequestSubView.swift in Sources */,
 				3D2C9EEC2DE5F988009DAE77 /* RecordingResponseSubView.swift in Sources */,
 				3D27961D2DEDA71B005D5A1B /* EKOButton.swift in Sources */,
@@ -1231,11 +1239,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Debug;
@@ -1276,11 +1284,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
