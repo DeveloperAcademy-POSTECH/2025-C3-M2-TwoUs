@@ -18,16 +18,17 @@ struct RecordingRequestView: View {
     @State private var dragOffset: CGFloat = .zero
     @State private var showToast: Bool = false
     @Binding var isPressing: Bool
-    
+
     @GestureState private var isDetectingLongPress = false
     @State private var didLongPress = false
-    
+
     @State private var timerBottomPadding: CGFloat = 550
     @State private var showTimerView: Bool = false
 
     struct LottieView: UIViewRepresentable {
         let animationName: String
         let loopMode: LottieLoopMode
+
         func makeUIView(context: Context) -> some UIView {
             let animationView = LottieAnimationView(name: animationName)
             animationView.loopMode = loopMode
@@ -37,6 +38,7 @@ struct RecordingRequestView: View {
             animationView.backgroundBehavior = .pauseAndRestore
             return animationView
         }
+
         func updateUIView(_ uiView: UIViewType, context: Context) {}
     }
 
@@ -70,6 +72,8 @@ struct RecordingRequestView: View {
                     selectedReceiverUserId: $viewModel.selectedReceiverUserId
                 )
                 .padding(.top, 16)
+                .opacity(isPressing ? 0 : 1)
+                .animation(.easeInOut(duration: 0.01), value: isPressing)
                 .onAppear {
                     Task {
                         await viewModel.fetchMyFriendsList()
@@ -77,7 +81,7 @@ struct RecordingRequestView: View {
                 }
 
                 Spacer()
-                
+
                 ZStack {
                     recordingAnimation
 
@@ -127,7 +131,7 @@ struct RecordingRequestView: View {
                 EKOToggleIndicator(type: .downDirection)
                     .opacity(isPressing ? 0 : 1)
             }
-            
+
             if showTimerView {
                 VStack {
                     Spacer()
@@ -140,7 +144,7 @@ struct RecordingRequestView: View {
                     .animation(.easeInOut(duration: 0.4), value: timerBottomPadding)
                 }
             }
-            
+
             Circle()
                 .fill(buttonColor)
                 .frame(width: 185, height: 185)
@@ -203,7 +207,6 @@ struct RecordingRequestView: View {
                                     await viewModel.sendQuestion(from: url)
                                     lastRecordedURL = nil
                                     showToast = true
-                                    
                                     await viewModel.fetchMyFriendsList()
                                 }
                             }
@@ -214,16 +217,15 @@ struct RecordingRequestView: View {
                 )
                 .simultaneousGesture(
                     LongPressGesture(minimumDuration: 1)
-                            .onEnded { _ in
-                                if let url = lastRecordedURL, !recorder.isRecording {
-                                    audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
-                                }
-                                viewModel.startTimer()
-
-                                audioPlayer.onFinishPlaying = {
-                                    viewModel.stopTimer()
-                                }
+                        .onEnded { _ in
+                            if let url = lastRecordedURL, !recorder.isRecording {
+                                audioPlayer.playAudioWithHaptic(from: url, noteId: nil, voiceType: .none)
                             }
+                            viewModel.startTimer()
+                            audioPlayer.onFinishPlaying = {
+                                viewModel.stopTimer()
+                            }
+                        }
                 )
         }
         .showToast(
@@ -237,7 +239,6 @@ struct RecordingRequestView: View {
                 viewModel.stopTimer()
             }
 
-            // ✅ 푸시 수신 시 친구 목록 다시 불러오기
             NotificationCenter.default.addObserver(forName: .feedbackFinalizedReceived, object: nil, queue: .main) { _ in
                 Task {
                     await viewModel.fetchMyFriendsList()

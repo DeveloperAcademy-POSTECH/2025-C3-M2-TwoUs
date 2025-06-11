@@ -58,6 +58,8 @@ struct RecordingResponseView: View {
                 )
                 .padding(.leading, 20)
                 .padding(.bottom, 155)
+                .opacity(recorder.isRecording ? 0 : 1)
+                .animation(.easeInOut(duration: 0.01), value: recorder.isRecording)
 
                 if !viewModel.hasSession {
                     EKOEmptyView(
