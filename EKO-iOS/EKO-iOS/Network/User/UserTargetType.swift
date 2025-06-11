@@ -14,6 +14,7 @@ enum UserTargetType {
     case fetchFriendsProfile(userAddCode: String)
     case postNewFriends(model: PostNewFriendsRequestDTO)
     case fetchMyFriendsList(userId: String)
+    case postAppleSignup(model: PostAppleSignupRequestDTO)
 }
 
 extension UserTargetType: BaseTargetType {
@@ -22,16 +23,13 @@ extension UserTargetType: BaseTargetType {
     
     var headerType: [String: String?]{
         switch self {
-        case .fetchMyProfile:
-            return ["Content-Type" : "application/json"]
-        case .postRegister:
-            return ["Content-Type" : "application/json"]
-        case .fetchFriendsProfile:
-            return ["Content-Type" : "application/json"]
-        case .postNewFriends:
-            return ["Content-Type" : "application/json"]
-        case .fetchMyFriendsList:
-            return ["Content-Type" : "application/json"]
+        case .fetchMyProfile,
+             .postRegister,
+             .fetchFriendsProfile,
+             .postNewFriends,
+             .fetchMyFriendsList,
+             .postAppleSignup:
+            return ["Content-Type": "application/json"]
         }
     }
     
@@ -64,6 +62,7 @@ extension UserTargetType: BaseTargetType {
         case .fetchFriendsProfile: return utilPath.rawValue + "/friends"
         case .postNewFriends: return utilPath.rawValue + "/friends/list"
         case .fetchMyFriendsList: return utilPath.rawValue + "/friends/list"
+        case .postAppleSignup: return utilPath.rawValue + "/apple-signup"
         }
     }
     
@@ -74,6 +73,7 @@ extension UserTargetType: BaseTargetType {
         case .fetchFriendsProfile: return .get
         case .postNewFriends: return .post
         case .fetchMyFriendsList: return .get
+        case .postAppleSignup: return .post
         }
     }
     
@@ -89,6 +89,8 @@ extension UserTargetType: BaseTargetType {
             return .requestJSONEncodable(model)
         case let .fetchMyFriendsList(userId):
             return .requestParameters(parameters: ["userId":userId], encoding: URLEncoding.default)
+        case let .postAppleSignup(model):
+                return .requestJSONEncodable(model)
         }
     }
 }

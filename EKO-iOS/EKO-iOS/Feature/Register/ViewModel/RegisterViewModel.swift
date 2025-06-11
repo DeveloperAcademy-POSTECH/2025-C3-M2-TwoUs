@@ -1,8 +1,8 @@
 //
-//  ProfileViewModel.swift
+//  RegisterViewModel.swift
 //  EKO-iOS
 //
-//  Created by mini on 5/27/25.
+//  Created by 성현 on 6/10/25.
 //
 
 import Foundation
