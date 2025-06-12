@@ -47,6 +47,7 @@ struct RecordingResponseView: View {
                     time: viewModel.elapsedSeconds,
                     color: Color("mainBlue")
                 )
+                .frame(height: 40)
                 .opacity(shouldShowTimer ? 1 : 0)
                 .animation(.easeInOut(duration: 0.3), value: shouldShowTimer)
                 
