@@ -43,13 +43,14 @@ struct RecordingResponseView: View {
                 .padding(.leading, 20)
                 .padding(.bottom, 155)
                 
-                RecordingTimerView(
-                    time: viewModel.elapsedSeconds,
-                    color: Color("mainBlue")
-                )
-                .frame(height: 40)
-                .opacity(shouldShowTimer ? 1 : 0)
-                .animation(.easeInOut(duration: 0.3), value: shouldShowTimer)
+//                RecordingTimerView(
+//                    time: viewModel.elapsedSeconds,
+//                    color: Color("mainBlue")
+//                )
+//                .frame(height: 40)
+//                .opacity(shouldShowTimer ? 1 : 0)
+//                .animation(.easeInOut(duration: 0.3), value: shouldShowTimer)
+//                .offset(y: -110)
                 
                 Spacer()
             }
