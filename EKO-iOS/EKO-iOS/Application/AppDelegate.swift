@@ -1,5 +1,5 @@
 //
-//  APPDelegate.swift
+//  AppDelegate.swift
 //  EKO-iOS
 //
 //  Created by 성현 on 5/29/25.
@@ -40,20 +40,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("디바이스 푸시 등록 실패: \(error.localizedDescription)")
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         print("🔔 실시간 푸시 수신 (포그라운드) - userInfo:", userInfo)
 
-        if let type = userInfo["type"] as? String {
-            if type == "feedback_sended" {
-                NotificationCenter.default.post(name: .feedbackSendedReceived, object: nil)
-            } else if type == "feedback_finalized" {
-                NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
-            }
-        }
+        handleNotification(userInfo: userInfo)
 
         completionHandler([.banner, .sound, .badge])
     }
@@ -64,14 +58,31 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let userInfo = response.notification.request.content.userInfo
         print("🔔 푸시 탭됨 - userInfo:", userInfo)
 
-        if let type = userInfo["type"] as? String {
-            if type == "feedback_sended" {
-                NotificationCenter.default.post(name: .feedbackSendedReceived, object: nil)
-            } else if type == "feedback_finalized" {
-                NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
-            }
-        }
+        handleNotification(userInfo: userInfo)
 
         completionHandler()
+    }
+
+    // MARK: - 공통 처리 함수
+    private func handleNotification(userInfo: [AnyHashable: Any]) {
+        if let type = userInfo["type"] as? String {
+            // feedback_sended 형식
+            postNotification(for: type)
+        } else if let data = userInfo["data"] as? [String: Any],
+                  let type = data["type"] as? String {
+            // feedback_finalized 형식
+            postNotification(for: type)
+        }
+    }
+
+    private func postNotification(for type: String) {
+        switch type {
+        case "feedback_sended":
+            NotificationCenter.default.post(name: .feedbackSendedReceived, object: nil)
+        case "feedback_finalized":
+            NotificationCenter.default.post(name: .feedbackFinalizedReceived, object: nil)
+        default:
+            break
+        }
     }
 }

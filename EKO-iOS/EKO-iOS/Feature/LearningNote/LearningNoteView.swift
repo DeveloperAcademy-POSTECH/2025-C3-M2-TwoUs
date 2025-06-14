@@ -147,6 +147,7 @@ struct LearningNoteView: View {
                 }
                 .navigationTitle("")
                 .onReceive(NotificationCenter.default.publisher(for: .feedbackFinalizedReceived)) { _ in
+                    print("🔁 feedbackFinalizedReceived 수신")
                     Task {
                         await viewModel.fetchLearningNotes()
                     }

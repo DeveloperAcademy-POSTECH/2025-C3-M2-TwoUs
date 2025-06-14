@@ -13,10 +13,14 @@ final class RecordingResponseViewModel: ObservableObject {
     @Published var playbackURL: URL?
     @Published var feedbackS3Key: String?
     @Published var feedbackSessionId: String?
-
     @Published var friends: [EKORequestFriend] = []
     @Published var selectedRequestUserId: String?
     @Published var elapsedSeconds: Int = 0
+
+    var hasSession: Bool {
+        return !friends.isEmpty && selectedRequestUserId != nil
+    }
+
     private var timer: AnyCancellable?
 
     struct EKORequestFriend: Identifiable, Equatable {
@@ -24,22 +28,35 @@ final class RecordingResponseViewModel: ObservableObject {
         let senderUserId: String
         let senderNickname: String
     }
-
+    
     func fetchMyRequestList() async {
         do {
-            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
+            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(
+                receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? ""
+            )
+
             let fetched = response.sessions.map {
                 EKORequestFriend(
                     senderUserId: $0.senderUserId,
                     senderNickname: $0.senderNickname
                 )
             }
+
             self.friends = fetched
-            self.selectedRequestUserId = fetched.first?.senderUserId
+
+            // ✅ 세션이 없으면 선택된 사용자 초기화
+            if fetched.isEmpty {
+                self.selectedRequestUserId = nil
+            } else {
+                self.selectedRequestUserId = fetched.first?.senderUserId
+            }
         } catch {
             print("요청 목록 불러오기 실패: \(error.localizedDescription)")
+            self.friends = []
+            self.selectedRequestUserId = nil // 실패 시에도 정리
         }
     }
+
 
     func sendFeedback(status: String, fileURL: URL?) async {
         guard let sessionId = feedbackSessionId else {
@@ -63,7 +80,15 @@ final class RecordingResponseViewModel: ObservableObject {
         do {
             let result = try await NetworkService.shared.feedbackService.postStartFeedback(model: model)
             print("✅ 피드백 전송 성공: \(result)")
+
             await fetchMyRequestList()
+
+            if friends.isEmpty {
+                selectedRequestUserId = nil
+            } else {
+                selectedRequestUserId = friends.first?.senderUserId
+            }
+
         } catch {
             print("❌ 피드백 전송 실패: \(error)")
         }
