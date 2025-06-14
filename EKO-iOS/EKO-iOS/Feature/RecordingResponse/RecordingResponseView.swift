@@ -24,6 +24,10 @@ struct RecordingResponseView: View {
     @State private var showToast: Bool = false
     @Binding var isPressing: Bool
     
+    @State private var timerBottomPadding: CGFloat = 550
+    @State private var showTimerView: Bool = false
+
+    
     private var shouldShowTimer: Bool {
         (recorder.isRecording || audioPlayer.isPlaying || lastRecordedURL != nil) && !feedbackSubmitted
     }
@@ -42,16 +46,19 @@ struct RecordingResponseView: View {
                 )
                 .padding(.leading, 20)
                 .padding(.bottom, 155)
+                .opacity(isPressing ? 0 : 1)
+                .animation(.easeInOut(duration: 0.2), value: isPressing)
+                
                 
 //                RecordingTimerView(
 //                    time: viewModel.elapsedSeconds,
 //                    color: Color("mainBlue")
 //                )
-//                .frame(height: 40)
 //                .opacity(shouldShowTimer ? 1 : 0)
 //                .animation(.easeInOut(duration: 0.3), value: shouldShowTimer)
-//                .offset(y: -110)
                 
+
+
                 Spacer()
             }
             
@@ -61,7 +68,10 @@ struct RecordingResponseView: View {
                 if !viewModel.hasSession {
                     EKOEmptyView(title: "아직 받은 질문이 없습니다.", description: "친구가 발음을 보내면 피드백을 해줄 수 있어요.")
                 } else if feedbackSubmitted {
-                    EKOEmptyView(title: "요청 완료", description: "다른 요청을 확인해보세요.")
+                    EKOEmptyView(
+                        title: "아직 받은 질문이 없습니다.",
+                        description: "친구가 발음을 보내면 피드백을 해줄 수 있어요."
+                    )
                 } else if showRecordingUI {
                     RecordingPanelView(
                         isPressing: $isPressing,
@@ -74,6 +84,8 @@ struct RecordingResponseView: View {
                         audioPlayer: audioPlayer,
                         onSendFeedback: { url in
                             await viewModel.sendFeedback(status: "Bad", fileURL: url)
+                            try? await Task.sleep(nanoseconds: 500_000_000)
+                            await viewModel.fetchMyRequestList()
                         },
                         onStopRecording: {
                             viewModel.stopTimer()
@@ -106,6 +118,7 @@ struct RecordingResponseView: View {
                                     await viewModel.sendFeedback(status: "Good", fileURL: nil)
                                     feedbackSubmitted = true
                                     feedbackPlayed = false
+                                    await viewModel.fetchMyRequestList()
                                 }
                             }) {
                                 Image(systemName: "hand.thumbsup.fill")
@@ -161,6 +174,18 @@ struct RecordingResponseView: View {
                         .padding(.bottom, 60)
                 }
             }
+            if showTimerView {
+                VStack {
+                    Spacer()
+                    RecordingTimerView(
+                        time: viewModel.elapsedSeconds,
+                        color: Color("mainBlue")
+                    )
+                    .padding(.bottom, timerBottomPadding)
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.4), value: timerBottomPadding)
+                }
+            }
         }
         .onAppear {
             Task {
@@ -184,6 +209,27 @@ struct RecordingResponseView: View {
         .onChange(of: isPressing) { isNowPressing in
             if isNowPressing && !recorder.isRecording && lastRecordedURL == nil {
                 recorder.startRecording()
+            }
+        }
+        .onChange(of: viewModel.selectedRequestUserId) { _ in
+            Task {
+                await viewModel.fetchFeedbackS3Key()
+            }
+        }
+        .onChange(of: recorder.isRecording) { isRecording in
+            withAnimation(.easeInOut(duration: 0.4)) {
+                timerBottomPadding = isRecording ? 550 : 500
+                showTimerView = isRecording
+            }
+        }
+        .onChange(of: lastRecordedURL) { url in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showTimerView = (url != nil)
+            }
+        }
+        .onChange(of: audioPlayer.isPlaying) { isPlaying in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                if isPlaying { showTimerView = true }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

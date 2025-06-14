@@ -31,19 +31,32 @@ final class RecordingResponseViewModel: ObservableObject {
     
     func fetchMyRequestList() async {
         do {
-            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? "")
+            let response = try await NetworkService.shared.feedbackService.fetchSendFeedback(
+                receiverUserId: UserDefaults.standard.string(forKey: "userId") ?? ""
+            )
+
             let fetched = response.sessions.map {
                 EKORequestFriend(
                     senderUserId: $0.senderUserId,
                     senderNickname: $0.senderNickname
                 )
             }
+
             self.friends = fetched
-            self.selectedRequestUserId = fetched.first?.senderUserId
+
+            // ✅ 세션이 없으면 선택된 사용자 초기화
+            if fetched.isEmpty {
+                self.selectedRequestUserId = nil
+            } else {
+                self.selectedRequestUserId = fetched.first?.senderUserId
+            }
         } catch {
             print("요청 목록 불러오기 실패: \(error.localizedDescription)")
+            self.friends = []
+            self.selectedRequestUserId = nil // 실패 시에도 정리
         }
     }
+
 
     func sendFeedback(status: String, fileURL: URL?) async {
         guard let sessionId = feedbackSessionId else {

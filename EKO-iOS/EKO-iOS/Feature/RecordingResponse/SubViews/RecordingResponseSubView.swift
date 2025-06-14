@@ -108,7 +108,7 @@ struct RecordingPanelView: View {
                 }
 
                 Circle()
-                    .fill(recorder.isRecording ? Color("mainBlue") : .white)
+                    .fill(recorder.isRecording || lastRecordedURL != nil ? Color("mainBlue") : .white)
                     .frame(width: 185, height: 185)
                     .overlay(
                         Group {
@@ -133,10 +133,6 @@ struct RecordingPanelView: View {
                                     .frame(width: 120, height: 120)
                             }
                         }
-                    )
-                    .shadow(
-                        color: Color(red: 230 / 255, green: 237 / 255, blue: 241 / 255).opacity(1.0),
-                        radius: 20, x: 0, y: 15
                     )
                     .offset(x: dragOffset)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
